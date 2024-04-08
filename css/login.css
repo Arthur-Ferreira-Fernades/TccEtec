@@ -1,0 +1,81 @@
+* {
+    padding: 0;
+    border: 0;
+}
+
+body {
+    background-color: #C4C4C4;
+}
+
+.conteudo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding: 50px;
+    border-radius: 20px;
+    height: 450px;
+    background-color: #002a62;
+}
+
+.inputTexto {
+    background-color: #002a62;
+    border: 1px solid #c46a57;
+    border-radius: 20px;
+    color: #c46a57;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.imagem {
+    margin: 0 15px 15px 0;
+}
+
+.campo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+label {
+    color: #c46a57;
+    margin: 0 9px 0 5px;
+    font-size: 18px;
+}
+
+.botoes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn {
+    background-color: #002a62;
+    border: 1px solid #c46a57;
+    padding: 15px;
+    width: 100px;
+    border-radius: 15px;
+    color: #c46a57;
+}
+
+.btnLink {
+    display: flex;
+    justify-content: center;
+    background-color: #002a62;
+    border: 1px solid #c46a57;
+    padding: 15px;
+    width: 80px;
+    border-radius: 15px;
+    color: #c46a57;
+    text-decoration: none;
+}
