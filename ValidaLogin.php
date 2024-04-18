@@ -3,11 +3,11 @@
 $usuario_validado = false;
 
 $usuarios_autenticados = array(
-    array('id' => 1, 'login' => '123', 'senha' => '123', 'EmpresaLocador' => 'Locador')
+    array('id' => 1, 'login' => '123@123', 'senha' => '123', 'Opcao' => 'Locatario')
 );
 
 foreach ($usuarios_autenticados as $usuario) {
-    if ($usuario['login'] == $_POST['login'] && $usuario ['senha'] == $_POST['senha'] && $usuario['EmpresaLocador'] == $_POST['EmpresaLocador']) {
+    if ($usuario['login'] == $_POST['login'] && $usuario ['senha'] == $_POST['senha'] && $usuario['Opcao'] == $_POST['Opcao']) {
         $usuario_validado = true;
     }
 }
@@ -15,7 +15,7 @@ foreach ($usuarios_autenticados as $usuario) {
 if ($usuario_validado == true) {
     header('location: home.php');
 } else {
-    header('location:index.php?login=erro');
+    header('location:login.php?login=erro');
 }
 
 ?>
