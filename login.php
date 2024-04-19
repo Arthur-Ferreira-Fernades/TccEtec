@@ -23,8 +23,8 @@
                     }
                 ?>
                 <button type="submit" class = "botao">Entrar</button>
-                <button type="button" class = "botao btn1"><a href="cadastrar.php">Cadastrar</a></button>
-                <input type="radio" name="Opcao" value = "Proprietario" class = "radio_oculto" checked>
+                <button type="button" class = "botao btn1"><a href="Cadastro.html">Cadastrar</a></button>
+                <input type="radio" name="ProprietarioLocador" value = "Proprietario" class = "radio_oculto" checked>
             </form>
         </div>
         <div class="form-container sign-in">
@@ -42,8 +42,8 @@
                     }
                 ?>
                 <button type="submit" class = "botao">Entrar</button>
-                <button type="button" class = "botao btn1"><a href="cadastrar.php">Cadastrar</a></button>
-                <input type="radio" name="Opcao" value = "Locatario" class = "radio_oculto" checked>
+                <button type="button" class = "botao btn1"><a href="Cadastro.html">Cadastrar</a></button>
+                <input type="radio" name="ProprietarioLocador" value = "Locatario" class = "radio_oculto" checked>
             </form>
         </div>
         <div class="toggle-container">
