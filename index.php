@@ -8,14 +8,14 @@
     <title>Home</title>
 </head>
 <body>
-    <header>
+<header>
         <div class="logo">
             <img src="img/WorkWave-removebg-preview (1).png" alt="" width="100px" height="100px">
             <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
         </div>
-            <a href="index.php">HOME</a>
-            <a href="#">SOBRE NÓS</a>
-            <a href="#">ANUNCIE JÁ</a>
+            <a href="index.php" class="underline">HOME</a>
+            <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
+            <a href="#" class="underline">ANUNCIE JÁ</a>
             <a href="#"><img src="img/user-logo.png" alt=""></a>
     </header>
     <div class="conteudo">
