@@ -1,6 +1,7 @@
 <?php
+session_start();
 
-$usuario_validado = false;
+$_SESSION['usuario_validado'] = false;
 //tratamento de erro para conexao com banco//
 
 try {
@@ -38,7 +39,7 @@ if ($senha != "" && $Login!= "" && $ProprietarioLocador != "" && $ProprietarioLo
     {
     //comando para chamar outra tela//
     header("location: index.php");
-    $usuario_validado = true;
+    $_SESSION['usuario_validado'] = true;
     } else {
         header('location:login.php?login=erro');
     }
@@ -63,7 +64,7 @@ if ($senha != "" && $Login!= "" && $ProprietarioLocador != "" && $ProprietarioLo
     {
     //comando para chamar outra tela//
     header("location: index.php");
-    $usuario_validado = true;
+    $_SESSION['usuario_validado'] = true;
     } else {
         header('location:login.php?login=erro');
     }

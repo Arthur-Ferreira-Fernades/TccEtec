@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +19,32 @@
             <a href="index.php" class="underline">HOME</a>
             <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
             <a href="#" class="underline">ANUNCIE JÁ</a>
-            <a href="#"><img src="img/user-logo.png" alt=""></a>
+            <?php
+                if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
+            ?>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="img/user-logo.png" alt="">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
+                        </ul>
+                    </div>
+            <?php
+                } else {
+            ?>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="img/user-logo.png" alt="">
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Sua Area</a></li>
+                            <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+                        </ul>
+                    </div>
+            <?php
+                };
+            ?>
     </header>
     <div class="conteudo">
         <div class="barra-de-pesquisa">

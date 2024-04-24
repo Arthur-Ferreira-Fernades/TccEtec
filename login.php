@@ -14,6 +14,8 @@
                 <input type="email" name="login" placeholder = "Email">
                 <input type="password" name="senha" placeholder = "Senha">
                 <?php
+                    session_start();
+                    $usuario_validado = false;
                     if(isset($_GET['login']) && $_GET['login'] == "erro"){        
                 ?>
                         <div class = "error">
