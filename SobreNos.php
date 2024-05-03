@@ -7,50 +7,7 @@
     <link rel="stylesheet" href="css/SobreNos.css">
     <title>Home</title>
 
-    <style>
-        
-        .conteudo {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
-
-        .conteudo .col-md-6 {
-            width: 100%; 
-            max-width: 500px;
-            height: 400px; 
-            overflow: hidden; 
-            border: 1px solid #ccc; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-        }
-
-        .conteudo .col-md-6 .d-flex {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .conteudo .col-md-6 img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px; 
-            border-radius: 10px;
-            overflow: hidden; 
-        }
-
-        @media (min-width: 992px) {
-            .conteudo .col-md-6 {
-                width: 50%; 
-            }
-        }
-    </style>
-
+    
 </head>
 <body>
     <header>
@@ -91,43 +48,32 @@
 
     </header>
     <div class="conteudo">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="d-flex">
-                    <img src="img/SobreN1.png" alt="Mapa de alguns dos nossos espaços" width="200px" height="200px">
-                    <p>
-                        O principal propósito do WorkWave é criar uma plataforma intuitiva que permita uma busca por
-                        espaços de coworking facilitando a interação entre empresas que oferecem esses espaços e potenciais locatários.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex">
-                    <img src="img/SobreN2.jpg" alt="Imagem 2" width="200px" height="200px">
-                    <p>
-                        Priorizamos a facilidade de acesso para os clientes possibilitando a eficiência na identificação do espaço
-                        ideal alinhados com as necessidades individuais de cada usuário levando em conta sua especificidade e orçamento.
-                    </p>
-                </div>
-            </div>
+        <h1>Sobre Nós   </h1>
+        <div class="sessao">
+            <img src="img/SobreN1.png" alt="Mapa de alguns dos nossos espaços" width="250px" height="250px" class = "Imagem">
+            <p>O principal propósito do WorkWave é criar uma plataforma intuitiva que permita uma busca por espaços de coworking facilitando a interação entre empresas que oferecem esses espaços e potenciais locatários.</p>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="d-flex">
-                    <img src="img/SobreN3.jpg" alt="Imagem 3" width="200px" height="200px">
-                    <p>
-                        Consideramos não apenas o custo mas também a localização, estrutura disponível
-                        e outros critérios relevantes para ambas as partes visando uma experiência otimizada.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex">
-                    <img src="img/SobreN4.jpg" alt="Imagem 4" width="200px" height="200px">
-                    <p>
-                        Junto de nossa equipe faremos o que for preciso para atender suas expectativas. Equipe:
-                    </p>
-                </div>
+        <div class="sessao">
+            <p>
+                Priorizamos a facilidade de acesso para os clientes possibilitando a eficiência na identificação do espaço
+                ideal alinhados com as necessidades individuais de cada usuário levando em conta sua especificidade e orçamento.
+            </p>
+            <img src="img/SobreN2.jpg" alt="Imagem 2" width="250px" height="250px" class = "Imagem">
+        </div>
+        <div class="sessao">
+            <img src="img/SobreN3.jpg" alt="Imagem 3" width="250px" height="250px" class = "Imagem">
+            <p>
+                Consideramos não apenas o custo mas também a localização, estrutura disponível
+                e outros critérios relevantes para ambas as partes visando uma experiência otimizada.
+            </p>
+        </div>
+        <div class="sessao2">
+            <p>
+                Junto de nossa equipe faremos o que for preciso para atender suas expectativas. Equipe:
+            </p>
+            <div class="imagens">
+                <img src="img/SobreN4.jpg" alt="Imagem 4" width="200px" height="200px" class = "imagem-redonda">
+                <img src="img/SobreNosArthur.jpeg" alt="" width="200px" height="200px" class = "imagem-redonda">
             </div>
         </div>
     </div>
