@@ -70,6 +70,11 @@ a {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 100%;
+}
+
+.conteudo h1 {
+    margin: 20px 0 30px 0;
 }
 
 .postagens{
@@ -112,3 +117,71 @@ a {
 .underline:hover::after {
     transform: scaleX(1); 
 }
+
+.sessao {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin: 40px 0 30px 0;
+    font-size: 20px;
+}
+
+.sessao p{
+    width: 600px;
+}
+
+.sessao2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin: 40px 0 30px 0;
+    font-size: 20px;
+
+}
+
+.sessao2 p{
+    width: 600px;
+}
+
+.imagem-redonda {
+    border-radius: 50%; 
+    overflow: hidden; 
+    margin: 0 50px 30px 0 ;
+}
+
+.Imagem {
+    border-radius: 10%; 
+    overflow: hidden; 
+}
+
+.rodape{
+    background-color: #133b6e;
+    color: white;
+    height: auto;
+    width: 100%;
+    font-size: 14px;
+    font-family: helvetica;
+}
+
+.rodape-div{
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
+    margin: auto;
+    align-items: stretch;
+    padding: 40px 10px 40px 10px;
+}
+
+justify-content: space-around;
+justify-content: space-between;
+
+.Social {
+    display: flex;
+    width: calc(100% / 4 - 20px);
+    padding: 10px;
+}
+
+
