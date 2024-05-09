@@ -158,30 +158,33 @@ a {
 }
 
 .rodape{
+    display: flex;
     background-color: #133b6e;
     color: white;
     height: auto;
     width: 100%;
     font-size: 14px;
     font-family: helvetica;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }
 
-.rodape-div{
+.rodape-div {
     display: flex;
-    flex-wrap: wrap;
-    width:100%;
-    margin: auto;
-    align-items: stretch;
-    padding: 40px 10px 40px 10px;
+    align-items: center;
+    justify-content: space-around; /* Centralizar horizontalmente */
+    width: 100%;
+    padding: 20px;
+    margin-right: 200px;
 }
-
-justify-content: space-around;
-justify-content: space-between;
 
 .Social {
-    display: flex;
-    width: calc(100% / 4 - 20px);
-    padding: 10px;
+    width: calc(33.33% - 234px); /* Largura de aproximadamente um terço menos a margem direita */
+    margin-right: 100px; /* Adicione a margem direita */
 }
 
-
+.Media {
+    display: flex;
+    flex-direction: column;
+}
