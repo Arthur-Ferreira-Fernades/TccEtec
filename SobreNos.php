@@ -81,24 +81,53 @@
     <footer class="rodape" id="contato">
         <div class="rodape-div">
 
-            <div class="logo">
+            <div class="logo-2">
                 <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
                 <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
             </div>
 
             <div class="Social">
-                <div class="rodape-div-3-coluna">
+                <div class="Media">
                 <a class="btn" href="#">
-                    <img src="img/instagram.png" alt="" width="40" height="40">
+                    <img src="img/instagram.png" alt="" width="30" height="30">
                 </a>
                 <a class="btn" href="#">
-                    <img src="img/linkedin.png" alt="" width="40" height="40">
+                    <img src="img/linkedin.png" alt="" width="30" height="30">
                 </a>
                 <a class="btn" href="#" >
-                    <img src="img/github.png" alt="" width="40" height="40">
+                    <img src="img/github.png" alt="" width="30" height="30">
                 </a>
                 </div>
             </div>
+
+            <div class="Social">
+                <div class="Media">
+                <a class="btn" href="#">
+                    <img src="img/instagram.png" alt="" width="30" height="30">
+                </a>
+                <a class="btn" href="#">
+                    <img src="img/linkedin.png" alt="" width="30" height="30">
+                </a>
+                <a class="btn" href="#" >
+                    <img src="img/github.png" alt="" width="30" height="30">
+                </a>
+                </div>
+            </div>
+
+            <div class="Social">
+                <div class="Media">
+                <a class="btn" href="#">
+                    <img src="img/instagram.png" alt="" width="30" height="30">
+                </a>
+                <a class="btn" href="#">
+                    <img src="img/linkedin.png" alt="" width="30" height="30">
+                </a>
+                <a class="btn" href="#" >
+                    <img src="img/github.png" alt="" width="30" height="30">
+                </a>
+                </div>
+            </div>
+
         </div>
     </footer>
 
