@@ -71,64 +71,95 @@
             <p>
                 Junto de nossa equipe faremos o que for preciso para atender suas expectativas. Equipe:
             </p>
-            <div class="imagens">
-                <img src="img/SobreN4.jpg" alt="Imagem 4" width="200px" height="200px" class = "imagem-redonda">
-                <img src="img/SobreNosArthur.jpeg" alt="" width="200px" height="200px" class = "imagem-redonda">
+        
+            <div class="imagem">    
+                <div class="Gui">
+                    <img src="img/SobreN4.jpg" alt="Imagem 4" width="200px" height="200px" class = "imagem-redonda">
+                    <p>Guilherme</p>
+                </div>
+                <div class="Art">
+                    <img src="img/SobreNosArthur.jpeg" alt="" width="200px" height="200px" class = "imagem-redonda">
+                    <p>Arthur</p>
+                </div>
             </div>
+        
         </div>
     </div>
 
     <footer class="rodape" id="contato">
-        <div class="rodape-div">
+        
+        <div class="contato">
+            Contatos
+        </div>
+        
+        <div class="Borda">
 
-            <div class="logo-2">
-                <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
-                <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
-            </div>
+            <div class="rodape-div">
 
-            <div class="Social">
-                <div class="Media">
-                <a class="btn" href="#">
-                    <img src="img/instagram.png" alt="" width="30" height="30">
-                </a>
-                <a class="btn" href="#">
-                    <img src="img/linkedin.png" alt="" width="30" height="30">
-                </a>
-                <a class="btn" href="#" >
-                    <img src="img/github.png" alt="" width="30" height="30">
-                </a>
+                <div class="logo-2">
+                    <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
+                    <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
                 </div>
-            </div>
 
-            <div class="Social">
-                <div class="Media">
-                <a class="btn" href="#">
-                    <img src="img/instagram.png" alt="" width="30" height="30">
-                </a>
-                <a class="btn" href="#">
-                    <img src="img/linkedin.png" alt="" width="30" height="30">
-                </a>
-                <a class="btn" href="#" >
-                    <img src="img/github.png" alt="" width="30" height="30">
-                </a>
+                <div class="Social">
+                    <div class="Media">
+                    <a class="btn" href="#">
+                        <img src="img/instagram.png" alt="" width="20" height="20">
+                        <p>instagram</p>
+                    </a>
+                    <a class="btn" href="#">
+                        <img src="img/linkedin.png" alt="" width="20" height="20">
+                        <p>linkedin</p>
+                    </a>
+                    <a class="btn" href="#" >
+                        <img src="img/github.png" alt="" width="20" height="20">
+                        <p>github</p>
+                    </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="Social">
-                <div class="Media">
-                <a class="btn" href="#">
-                    <img src="img/instagram.png" alt="" width="30" height="30">
-                </a>
-                <a class="btn" href="#">
-                    <img src="img/linkedin.png" alt="" width="30" height="30">
-                </a>
-                <a class="btn" href="#" >
-                    <img src="img/github.png" alt="" width="30" height="30">
-                </a>
+                <div class="Social">
+                    <div class="Media">
+                    <a class="btn" href="#">
+                        <img src="img/instagram.png" alt="" width="20" height="20">
+                        <p>instagram</p>
+                    </a>
+                    <a class="btn" href="#">
+                        <img src="img/linkedin.png" alt="" width="20" height="20">
+                        <p>linkedin</p>
+                    </a>
+                    <a class="btn" href="#" >
+                        <img src="img/github.png" alt="" width="20" height="20">
+                        <p>github</p>
+                    </a>
+                    </div>
                 </div>
+
+                <div class="Social">
+                    <div class="Media">
+                    <a class="btn" href="#">
+                        <img src="img/instagram.png" alt="" width="20" height="20">
+                        <p>instagram</p>
+                    </a>
+                    <a class="btn" href="#">
+                        <img src="img/linkedin.png" alt="" width="20" height="20">
+                        <p>linkedin</p>
+                    </a>
+                    <a class="btn" href="#" >
+                        <img src="img/github.png" alt="" width="20" height="20">
+                        <p>github</p>
+                    </a>
+                    </div>
+                </div>
+
             </div>
 
         </div>
+
+        <div class="data">
+            Criado em 09/05/2024
+        </div>
+
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
