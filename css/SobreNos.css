@@ -142,7 +142,14 @@ a {
 
 }
 
+.Nomes {
+    text-align: center;
+    border: 5px solid black;
+}
+
+
 .sessao2 p{
+    display: flex;
     width: 600px;
 }
 
@@ -152,14 +159,39 @@ a {
     margin: 0 50px 30px 0 ;
 }
 
-.Imagem {
-    border-radius: 10%; 
-    overflow: hidden; 
+.imagem {
+    display: flex;
+    flex-direction: row;
+}
+
+.Gui, .Art {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
+    margin-left: 40px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+.Art p {
+    text-align: center;
+    width: 200px;
+    margin-left: 120px;
+    margin-right: 10px;
+}
+
+.Gui p {
+    text-align: center;
+    width: 200px;
+    margin-left: 60px;
+    margin-right: 10px;
 }
 
 .rodape{
-    display: flex;
-    background-color: #133b6e;
+    text-align: center;
+    background-color: #133b6e;  
     color: white;
     height: auto;
     width: 100%;
@@ -170,21 +202,47 @@ a {
     flex-direction: row;
 }
 
+.Borda {
+    border: 1px solid #c46a57;
+    border-right-color: #133b6e;
+    border-left-color: #133b6e;
+}
+
 .rodape-div {
     display: flex;
     align-items: center;
     justify-content: space-around; /* Centralizar horizontalmente */
-    width: 100%;
+    width: 90%;
     padding: 20px;
     margin-right: 200px;
 }
 
 .Social {
+    display: flex;
     width: calc(33.33% - 234px); /* Largura de aproximadamente um terço menos a margem direita */
     margin-right: 100px; /* Adicione a margem direita */
+    border: 1px solid #c46a57;
+    border-bottom-color: #133b6e;
+    border-top-color: #133b6e;
+    flex-direction: row;
 }
+
+.Social p {
+    color: white;
+}
+
 
 .Media {
     display: flex;
     flex-direction: column;
 }
+
+.contato {
+    background-color: #133b6e;
+}
+
+.data {
+    margin-top: 8px;
+    background-color: #133b6e;
+}
+
