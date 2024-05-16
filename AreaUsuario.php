@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/Style.css">
     <link rel="stylesheet" href="css/AreaUsuario.css">
     <title>Document</title>
 </head>
@@ -59,5 +60,82 @@
             </a>
         </div>
     </div>
+
+    <footer class="rodape" id="contato">
+        
+        <div class="contato">
+            <p>Contatos</p>
+        </div>
+        
+        <div class="Borda">
+
+            <div class="rodape-div">
+
+                <div class="logo-2">
+                    <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
+                    <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+                </div>
+
+                <div class="Social">
+                    <div class="Media">
+                    <a class="btn" href="#">
+                        <img src="img/instagram.png" alt="" width="20" height="20">
+                        <p>instagram</p>
+                    </a>
+                    <a class="btn" href="#">
+                        <img src="img/linkedin.png" alt="" width="20" height="20">
+                        <p>linkedin</p>
+                    </a>
+                    <a class="btn" href="#" >
+                        <img src="img/github.png" alt="" width="20" height="20">
+                        <p>github</p>
+                    </a>
+                    </div>
+                </div>
+
+                <div class="Social">
+                    <div class="Media">
+                    <a class="btn" href="#">
+                        <img src="img/instagram.png" alt="" width="20" height="20">
+                        <p>instagram</p>
+                    </a>
+                    <a class="btn" href="#">
+                        <img src="img/linkedin.png" alt="" width="20" height="20">
+                        <p>linkedin</p>
+                    </a>
+                    <a class="btn" href="#" >
+                        <img src="img/github.png" alt="" width="20" height="20">
+                        <p>github</p>
+                    </a>
+                    </div>
+                </div>
+
+                <div class="Social">
+                    <div class="Media">
+                    <a class="btn" href="#">
+                        <img src="img/instagram.png" alt="" width="20" height="20">
+                        <p>instagram</p>
+                    </a>
+                    <a class="btn" href="#">
+                        <img src="img/linkedin.png" alt="" width="20" height="20">
+                        <p>linkedin</p>
+                    </a>
+                    <a class="btn" href="#" >
+                        <img src="img/github.png" alt="" width="20" height="20">
+                        <p>github</p>
+                    </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="data">
+            <p>Criado em 09/05/2024</p>
+        </div>
+
+    </footer>
+
 </body>
 </html>
