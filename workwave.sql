@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24-Abr-2024 às 01:37
+-- Tempo de geração: 22-Maio-2024 às 03:16
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -52,8 +52,41 @@ CREATE TABLE `espaco` (
   `EspDataCadastro` date NOT NULL,
   `ProId` int(11) NOT NULL,
   `SerId` int(11) NOT NULL,
-  `PlaId` int(11) NOT NULL
+  `PlaId` int(11) NOT NULL,
+  `EspImg` varchar(255) DEFAULT NULL,
+  `EspPreco` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `espacodados`
+--
+
+CREATE TABLE `espacodados` (
+  `EspId` int(11) NOT NULL,
+  `EspNome` varchar(255) NOT NULL,
+  `EspEndereco` varchar(255) NOT NULL,
+  `EspDescricao` text NOT NULL,
+  `EspCapacidade` int(11) NOT NULL,
+  `EspDisponibilidade` tinyint(1) DEFAULT NULL,
+  `EspDataCadastro` date NOT NULL,
+  `ProId` int(11) NOT NULL,
+  `EspImg` varchar(255) DEFAULT NULL,
+  `EspPreco` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Extraindo dados da tabela `espacodados`
+--
+
+INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`) VALUES
+(1, 'Teste ', 'Rua teste', 'Descricao teste', 0, NULL, '0000-00-00', 1, 'Espaco2.jpg', '150.00'),
+(2, 'Teste ', 'Rua teste', 'Descricao teste', 0, NULL, '2024-05-22', 1, 'Espaco2.jpg', '150.00'),
+(3, 'Teste ', 'Rua teste', 'Descricao teste', 10, NULL, '2024-05-22', 1, 'Espaco2.jpg', '150.00'),
+(4, 'Teste ', 'Rua teste', 'Descricao teste', 10, NULL, '2024-05-22', 1, 'Espaco2.jpg', '150.00'),
+(5, 'Teste 2', 'Rua Teste 2', 'Descricao Teste 2', 10, NULL, '2024-05-22', 1, 'Espaco3.jpg', '150.00'),
+(6, 'Teste 3', 'Rua Teste 3', 'Descricao ', 3, NULL, '2024-05-22', 1, 'Espaco3.jpg', '100.00');
 
 -- --------------------------------------------------------
 
@@ -68,6 +101,13 @@ CREATE TABLE `ocupante` (
   `OcuEmail` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `OcuTelefone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Extraindo dados da tabela `ocupante`
+--
+
+INSERT INTO `ocupante` (`OcuId`, `OcuNome`, `OcuSenha`, `OcuEmail`, `OcuTelefone`) VALUES
+(1, 'arthur', '123', 'arthur@123.com', '123456789');
 
 -- --------------------------------------------------------
 
@@ -141,6 +181,13 @@ ALTER TABLE `espaco`
   ADD KEY `SerId` (`SerId`);
 
 --
+-- Índices para tabela `espacodados`
+--
+ALTER TABLE `espacodados`
+  ADD PRIMARY KEY (`EspId`),
+  ADD KEY `ProId` (`ProId`);
+
+--
 -- Índices para tabela `ocupante`
 --
 ALTER TABLE `ocupante`
@@ -178,13 +225,19 @@ ALTER TABLE `alugar`
 -- AUTO_INCREMENT de tabela `espaco`
 --
 ALTER TABLE `espaco`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `espacodados`
+--
+ALTER TABLE `espacodados`
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `ocupante`
 --
 ALTER TABLE `ocupante`
-  MODIFY `OcuId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `OcuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `planosprecos`
@@ -217,12 +270,10 @@ ALTER TABLE `alugar`
   ADD CONSTRAINT `alugar_ibfk_3` FOREIGN KEY (`EspId`) REFERENCES `espaco` (`EspId`);
 
 --
--- Limitadores para a tabela `espaco`
+-- Limitadores para a tabela `espacodados`
 --
-ALTER TABLE `espaco`
-  ADD CONSTRAINT `espaco_ibfk_1` FOREIGN KEY (`PlaId`) REFERENCES `planosprecos` (`PlaId`),
-  ADD CONSTRAINT `espaco_ibfk_2` FOREIGN KEY (`ProId`) REFERENCES `proprietario` (`ProId`),
-  ADD CONSTRAINT `espaco_ibfk_3` FOREIGN KEY (`SerId`) REFERENCES `servamenidades` (`SerId`);
+ALTER TABLE `espacodados`
+  ADD CONSTRAINT `espacodados_ibfk_1` FOREIGN KEY (`ProId`) REFERENCES `proprietario` (`ProId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
