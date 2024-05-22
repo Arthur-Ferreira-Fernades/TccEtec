@@ -1,0 +1,132 @@
+header{
+    background-color: #002a62;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  
+}
+a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.underline {
+    position: relative; 
+    text-decoration: none; 
+    color: #EAEAEA; 
+    transition: color 0.3s ease;
+}
+.underline::after {
+    content: ''; 
+    position: absolute;
+    bottom: -12px; 
+    left: -25%; 
+    width: 150%;
+    height: 2px; 
+    background-color: #EAEAEA; 
+    transform: scaleX(0); 
+    transition: transform 0.3s ease; 
+}
+.underline:focus,
+.underline:hover {
+    color: white;
+}
+.underline:focus::after,
+.underline:hover::after {
+    transform: scaleX(1); 
+}
+.sessao {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin: 40px 0 30px 0;
+    font-size: 20px;
+}
+.sessao p{
+    width: 600px;
+}
+.sessao2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin: 40px 0 30px 0;
+    font-size: 20px;
+
+}
+
+.rodape{
+    text-align: center;
+    background-color: #133b6e;  
+    color: white;
+    height: auto;
+    width: 100%;
+    font-size: 14px;
+    font-family: helvetica;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.rodape p, .pesquisa p {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.Borda {
+    border: 1px solid #c46a57;
+    border-right-color: #133b6e;
+    border-left-color: #133b6e;
+}
+
+.rodape-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-around; /* Centralizar horizontalmente */
+    width: 90%;
+    padding: 20px;
+    margin-right: 200px;
+}
+
+.Social {
+    display: flex;
+    width: calc(33.33% - 234px); /* Largura de aproximadamente um terço menos a margem direita */
+    margin-right: 100px; /* Adicione a margem direita */
+    border: 1px solid #c46a57;
+    border-bottom-color: #133b6e;
+    border-top-color: #133b6e;
+    flex-direction: row;
+}
+
+.Media {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ajuste para alinhar textos à esquerda das imagens */
+.Media .btn {
+    display: flex;
+    align-items: center;
+}
+
+.Media img {
+    margin-right: 8px; /* Espaçamento entre imagem e texto */
+}
+
+.Media p {
+    color: white;
+    margin: 0; /* Remover margem padrão do parágrafo */
+}
+
+.contato p {
+    margin: 0; /* Remover margem padrão do parágrafo */
+    background-color: #133b6e;
+}
+
+.data {
+    margin-top: 8px;
+    background-color: #133b6e;
+}

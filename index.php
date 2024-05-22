@@ -19,7 +19,7 @@
         </div>
             <a href="index.php" class="underline">HOME</a>
             <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
-            <a href="#" class="underline">ANUNCIE JÁ</a>
+            <a href="AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
             <?php
                 if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
             ?>
@@ -38,10 +38,23 @@
                         <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="img/user-logo.png" alt="">
                         </a>
+                        <?php
+                            if($_SESSION['ProprietarioLocador'] == 'Proprietario') {
+                        ?>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
+                            <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+                        </ul>
+                        <?php
+                            } else {
+                        ?>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
                             <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
                         </ul>
+                        <?php
+                            };
+                        ?>
                     </div>
             <?php
                 };
@@ -49,7 +62,6 @@
     </header>
     <div class="conteudo">
         <div class="barra-de-pesquisa">
-
             <div class="pesquisa">
                 <img src="img/lupa.png" alt="lupa" width="40px" height="40px" class = "lupa-pesquisa">
                 <input type="text" name="busca" placeholder = "Pesquisar">
@@ -87,83 +99,41 @@
 
         <div class="postagens">
 
-            <div class="card" style="width: 18rem;">
-                <img src="img/Espaco1.webp" class="card-img-top" alt="..." height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">Rua limoreiro 150</h5>
-                    <p class="card-text">R$100.00 Diária</p>
-                    <p class="card-text text-success">Disponivel</p>
-                    <a href="#" class="btn btn-primary">Reserve já</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/Espaco2.jpg" class="card-img-top" alt="..." height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">Rua macieira 300</h5>
-                    <p class="card-text">R$50.00 Diária</p>
-                    <p class="card-text text-success">Disponivel</p>
-                    <a href="#" class="btn btn-primary">Reserve já</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/Espaco3.jpg" class="card-img-top" alt="..." height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">Rua laranjeira 600</h5>
-                    <p class="card-text">R$296.00 Diária</p>
-                    <p class="card-text text-danger">Não disponivel</p>
-                    <a href="#" class="btn btn-primary">Reserve já</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/Espaco4.webp" class="card-img-top" alt="..." height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">Rua mangueira 1200</h5>
-                    <p class="card-text">R$157.00 Diária</p>
-                    <p class="card-text text-success">Disponivel</p>
-                    <a href="#" class="btn btn-primary">Reserve já</a>
-                </div>
-            </div>
+        <?php
+            try {
+                $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
+                
+                $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $erro) {
+            
+                echo "Erro na conexão:" . $erro->getMessage();
+            }
 
-            <div class="card" style="width: 18rem;">
-                <img src="img/Espaco5.jpg" class="card-img-top" alt="..." height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">Rua limoreiro 150</h5>
-                    <p class="card-text">R$100.00 Diária</p>
-                    <p class="card-text text-success">Disponivel</p>
-                    <a href="#" class="btn btn-primary">Reserve já</a>
+            $query = "SELECT EspId, EspNome, EspCapacidade, EspDisponibilidade, EspImg, EspPreco FROM EspacoDados";
+            $stmt = $conexao->query($query);
+            $anuncios = $stmt->fetchAll();
+
+        ?>
+        <div class="row">
+            <?php foreach ($anuncios as $anuncio): ?>
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="img/<?php echo htmlspecialchars($anuncio['EspImg']); ?>" class="card-img-top" alt="Imagem de <?php echo htmlspecialchars($anuncio['EspNome']); ?>" height="200px">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo htmlspecialchars($anuncio['EspNome']); ?></h5>
+                            <p class="card-text">R$<?php echo number_format($anuncio['EspPreco'], 2, ',', '.'); ?> Diária</p>
+                            <p class="card-text text-<?php echo $anuncio['EspDisponibilidade'] ? 'success' : 'danger'; ?>">
+                                <?php echo $anuncio['EspDisponibilidade'] ? 'Disponível' : 'Indisponível'; ?>
+                            </p>
+                            <a href="#" class="btn btn-primary">Reserve já</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/Espaco6.jpg" class="card-img-top" alt="..." height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">Rua macieira 300</h5>
-                    <p class="card-text">R$50.00 Diária</p>
-                    <p class="card-text text-success">Disponivel</p>
-                    <a href="#" class="btn btn-primary">Reserve já</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/Espaco7.jpg" class="card-img-top" alt="..." height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">Rua laranjeira 600</h5>
-                    <p class="card-text">R$296.00 Diária</p>
-                    <p class="card-text text-success">Disponivel</p>
-                    <a href="#" class="btn btn-primary">Reserve já</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="img/Espaco8.jpg" class="card-img-top" alt="..." height="200px">
-                <div class="card-body">
-                    <h5 class="card-title">Rua mangueira 1200</h5>
-                    <p class="card-text">R$157.00 Diária</p>
-                    <p class="card-text text-success">Disponivel</p>
-                    <a href="#" class="btn btn-primary">Reserve já</a>
-                </div>
-            </div>
+            <?php endforeach; ?>
+        </div>
             
         </div>
     </div>
-
     <footer class="rodape" id="contato">
         
         <div class="contato">
