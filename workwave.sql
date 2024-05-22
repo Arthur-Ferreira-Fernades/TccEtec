@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22-Maio-2024 às 03:16
+-- Tempo de geração: 23-Maio-2024 às 01:19
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -81,12 +81,10 @@ CREATE TABLE `espacodados` (
 --
 
 INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`) VALUES
-(1, 'Teste ', 'Rua teste', 'Descricao teste', 0, NULL, '0000-00-00', 1, 'Espaco2.jpg', '150.00'),
-(2, 'Teste ', 'Rua teste', 'Descricao teste', 0, NULL, '2024-05-22', 1, 'Espaco2.jpg', '150.00'),
-(3, 'Teste ', 'Rua teste', 'Descricao teste', 10, NULL, '2024-05-22', 1, 'Espaco2.jpg', '150.00'),
-(4, 'Teste ', 'Rua teste', 'Descricao teste', 10, NULL, '2024-05-22', 1, 'Espaco2.jpg', '150.00'),
-(5, 'Teste 2', 'Rua Teste 2', 'Descricao Teste 2', 10, NULL, '2024-05-22', 1, 'Espaco3.jpg', '150.00'),
-(6, 'Teste 3', 'Rua Teste 3', 'Descricao ', 3, NULL, '2024-05-22', 1, 'Espaco3.jpg', '100.00');
+(11, 'Work', 'Rua Laranjeira 555', 'Um bom espaÃ§o de coworking', 1, NULL, '2024-05-23', 1, 'Espaco1.webp', '150.00'),
+(12, 'Teste 2 proprietario', 'Proprietario 2', 'EspaÃ§o de um segundo proprietario', 1, NULL, '2024-05-23', 2, 'Espaco2.jpg', '1.00'),
+(13, 'Teste proprietario 1', 'Proprietario 1', 'Teste', 2, NULL, '2024-05-23', 1, 'Espaco4.webp', '1.00'),
+(14, 'Teste proprietario 1.2', 'Proprietario 1', 'Teste', 3, NULL, '2024-05-23', 1, 'Espaco1.webp', '3.00');
 
 -- --------------------------------------------------------
 
@@ -141,7 +139,8 @@ CREATE TABLE `proprietario` (
 --
 
 INSERT INTO `proprietario` (`ProId`, `ProNome`, `ProSenha`, `ProEmail`, `ProTelefone`) VALUES
-(1, 'Arthur', '123', 'arthur@123.com', '11986599562');
+(1, 'Arthur', '123', 'arthur@123.com', '11986599562'),
+(2, 'Arthur2', '123', 'arthur2@123.com', '123456789');
 
 -- --------------------------------------------------------
 
@@ -231,7 +230,7 @@ ALTER TABLE `espaco`
 -- AUTO_INCREMENT de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `ocupante`
@@ -249,7 +248,7 @@ ALTER TABLE `planosprecos`
 -- AUTO_INCREMENT de tabela `proprietario`
 --
 ALTER TABLE `proprietario`
-  MODIFY `ProId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ProId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `servamenidades`
