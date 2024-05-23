@@ -6,6 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css/AnuncieJa.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Anuncie Já</title>
 </head>
@@ -58,35 +60,46 @@
                 };
             ?>
     </header>
-    <div class="conteudo">
-        <div class="formulario">
+    <div class="container" id="container">
+        <div class="form-container sign-in">
+            <img src="img/WorkWaveLogoSemFundo.png" alt="Logo da Empresa" width="200px" height="200px" class = "Logo">
             <form action="ValidaAnuncio.php" method="post" enctype="multipart/form-data">
-                <div class="campo">
-                    <label for="EspacoNome">Nome</label>
-                    <input type="text" name="EspacoNome" required>
-                </div>
-                <div class="campo">
-                <label for="EspacoEndereco">Endereço Espaço</label>
-                <input type="text" name="EspacoEndereco" required>
-                </div>
-                <div class="campo">
-                <label for="EspacoDescricao">Descrição do Espaço</label>
-                <textarea name="EspacoDescricao" rows="5" cols="33"></textarea>
-                </div>
-                <div class="campo">
-                <label for="EspacoPreco">Preço</label>
-                <input type="number" name="EspacoPreco" required min="0" value="0" step="any">
-                </div>
-                <div class="campo">
-                <label for="EspacoCapacidade">Capacidade</label>
-                <input type="number" name="EspacoCapacidade" required min="0" value="0" step="any">
-                </div>
-                <div class="campo">
-                <label for="Imagem">Imagem</label>
-                <input type="file" name="Imagem" required>
-                </div>
-                <button type="submit">Anunciar</button>
+                <div class="campos">
+                    <div class="campo">
+                        <label for="EspacoNome" id = "TituloNome">Nome</label>
+                        <input type="text" name="EspacoNome" id="Nome" placeholder="Nome do Espaço" class="inputTexto" required>
+                    </div>
+                    <div class="campo">
+                        <label for="EspacoEndereco">Endereço</label><br>
+                        <input type="Text" name="EspacoEndereco" id="EspacoEndereco" placeholder="Endereço" class="inputTexto" required >
+                    </div>
+                    <div class="campo">
+                        <label for="EspacoDescricao">Descrição</label><br>
+                        <textarea name="EspacoDescricao" rows="5" cols="33" placeholder="Faça uma breve descrição sobre seu espaço"></textarea>
+                    </div>
+                    <div class="campo">
+                        <label for="EspacoPreco" id = "TituloPreco">Preço</label><br>
+                        <input type="Number" name="EspacoPreco" id="Preco" placeholder="Preço" class="inputTexto" required min="0" value="0" step="any" >
+                    </div>
+                    <div class="campo">
+                        <label for="EspacoCapacidade" id = "TituloCapacidade">Capacidade</label><br>
+                        <input type="Number" name="EspacoCapacidade" id="Capacidade" placeholder="Capacidade" class="inputTexto" required min="0" value="0" step="any" >
+                    </div>
+                    <div class="campo">
+                        <label for="Imagem">Imagem</label><br>
+                        <input type="file" name="Imagem"  id="Imagem" required>
+                    </div>
+                </div>            
+                <button type="submit" class = "botao">Anunciar</button>
             </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-right">
+                    <h1>Anuncie seu Espaço</h1>
+                    <p>Preencha os campos com os dados do seu espaço</p>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

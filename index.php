@@ -98,40 +98,38 @@
         </div>
 
         <div class="postagens">
-
-        <?php
-            try {
-                $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
+            <?php
+                try {
+                    $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
+                    
+                    $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                } catch (PDOException $erro) {
                 
-                $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $erro) {
-            
-                echo "Erro na conexão:" . $erro->getMessage();
-            }
+                    echo "Erro na conexão:" . $erro->getMessage();
+                }
 
-            $query = "SELECT EspId, EspNome, EspCapacidade, EspDisponibilidade, EspImg, EspPreco FROM EspacoDados";
-            $stmt = $conexao->query($query);
-            $anuncios = $stmt->fetchAll();
+                $query = "SELECT EspId, EspNome, EspCapacidade, EspDisponibilidade, EspImg, EspPreco FROM EspacoDados";
+                $stmt = $conexao->query($query);
+                $anuncios = $stmt->fetchAll();
 
-        ?>
-        <div class="row">
-            <?php foreach ($anuncios as $anuncio): ?>
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="img/<?php echo htmlspecialchars($anuncio['EspImg']); ?>" class="card-img-top" alt="Imagem de <?php echo htmlspecialchars($anuncio['EspNome']); ?>" height="200px">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo htmlspecialchars($anuncio['EspNome']); ?></h5>
-                            <p class="card-text">R$<?php echo number_format($anuncio['EspPreco'], 2, ',', '.'); ?> Diária</p>
-                            <p class="card-text text-<?php echo $anuncio['EspDisponibilidade'] ? 'success' : 'danger'; ?>">
-                                <?php echo $anuncio['EspDisponibilidade'] ? 'Disponível' : 'Indisponível'; ?>
-                            </p>
-                            <a href="#" class="btn btn-primary">Reserve já</a>
+            ?>
+            <div class="row">
+                <?php foreach ($anuncios as $anuncio): ?>
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="img/<?php echo htmlspecialchars($anuncio['EspImg']); ?>" class="card-img-top" alt="Imagem de <?php echo htmlspecialchars($anuncio['EspNome']); ?>" height="200px">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($anuncio['EspNome']); ?></h5>
+                                <p class="card-text">R$<?php echo number_format($anuncio['EspPreco'], 2, ',', '.'); ?> Diária</p>
+                                <p class="card-text text-<?php echo $anuncio['EspDisponibilidade'] ? 'success' : 'danger'; ?>">
+                                    <?php echo $anuncio['EspDisponibilidade'] ? 'Disponível' : 'Indisponível'; ?>
+                                </p>
+                                <a href="#" class="btn btn-primary">Reserve já</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-            
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
     <footer class="rodape" id="contato">
