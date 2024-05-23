@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Maio-2024 às 01:19
+-- Tempo de geração: 23-Maio-2024 às 02:27
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -34,27 +34,6 @@ CREATE TABLE `alugar` (
   `OcuId` int(11) NOT NULL,
   `EspId` int(11) NOT NULL,
   `PlaId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `espaco`
---
-
-CREATE TABLE `espaco` (
-  `EspId` int(11) NOT NULL,
-  `EspNome` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `EspEndereco` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `EspDescricao` text NOT NULL,
-  `EspCapacidade` int(11) NOT NULL,
-  `EspDisponibilidade` tinyint(1) NOT NULL DEFAULT 1,
-  `EspDataCadastro` date NOT NULL,
-  `ProId` int(11) NOT NULL,
-  `SerId` int(11) NOT NULL,
-  `PlaId` int(11) NOT NULL,
-  `EspImg` varchar(255) DEFAULT NULL,
-  `EspPreco` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -171,15 +150,6 @@ ALTER TABLE `alugar`
   ADD KEY `EspId` (`EspId`);
 
 --
--- Índices para tabela `espaco`
---
-ALTER TABLE `espaco`
-  ADD PRIMARY KEY (`EspId`),
-  ADD KEY `PlaId` (`PlaId`),
-  ADD KEY `ProId` (`ProId`),
-  ADD KEY `SerId` (`SerId`);
-
---
 -- Índices para tabela `espacodados`
 --
 ALTER TABLE `espacodados`
@@ -219,12 +189,6 @@ ALTER TABLE `servamenidades`
 --
 ALTER TABLE `alugar`
   MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `espaco`
---
-ALTER TABLE `espaco`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `espacodados`
