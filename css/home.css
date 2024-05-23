@@ -1,12 +1,11 @@
 .pesquisa {
     display: flex;
-    width: 550px;
+    width: 25rem;
     margin: 20px auto;
     border: 1px solid black;
     border-radius: 90px;
     margin: 50px 30px 0 300px;
     font-family: 'Times New Roman', Times, serif;
-
 }
 
 .pesquisa input[type="text"]{
@@ -25,6 +24,7 @@
     cursor: pointer;
     border-radius: 90px;
     transition: background-color 0.3s ease;
+    margin-left: 4.09rem;
     
 }
 
@@ -52,6 +52,10 @@
     text-align: center;
 }
 
+.filtro p {
+    margin-top: 1rem;
+}
+
 .conteudo{
     display: flex;
     justify-content: center;
@@ -59,15 +63,12 @@
     flex-direction: column;
 }
 
-.postagens{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 1232px;
+.postagem {
+    margin: 0 0 0 13rem;
 }
 
 .card{
-    margin: 10px;
+    margin: 10px 0 10px 0;
 }
 
 h5, button {
