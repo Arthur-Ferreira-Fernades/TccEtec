@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/DadosUsuario.css">
     <link rel="stylesheet" href="css/Style.css">
     <title>Dados Usuario</title>
 </head>
@@ -87,7 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="index.php" class="underline">HOME</a>
     <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
     <a href="AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
-    <?php if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) : ?>
+    <?php
+    if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
+    ?>
         <div class="dropdown">
             <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="img/user-logo.png" alt="">
@@ -96,21 +99,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
             </ul>
         </div>
-    <?php else : ?>
+    <?php
+    } else {
+    ?>
         <div class="dropdown">
             <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="img/user-logo.png" alt="">
             </a>
+            <?php
+            if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
+            ?>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+            </ul>
+            <?php
+            } else {
+            ?>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
                 <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
             </ul>
+            <?php
+            };
+            ?>
         </div>
-    <?php endif; ?>
+    <?php
+    };
+    ?>
 </header>
 <div class="conteudo">
     <div class="dados">
-        <h1>Informações Pessoais</h1>
+        <h1 class = "text-center mb-5">Informações Pessoais</h1>
         <?php if (!empty($mensagem)) : ?>
             <div class="alert alert-success" role="alert">
                 <?= $mensagem ?>
@@ -145,7 +165,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <button class="btn btn-outline-secondary" type="button" onclick="enableField('senha')">Editar</button>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <div class="botao d-flex justify-content-center mt-5">
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div>
         </form>
     </div>
 </div>

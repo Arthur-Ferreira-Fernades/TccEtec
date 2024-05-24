@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Maio-2024 às 02:27
+-- Tempo de geração: 24-Maio-2024 às 03:11
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -52,18 +52,18 @@ CREATE TABLE `espacodados` (
   `EspDataCadastro` date NOT NULL,
   `ProId` int(11) NOT NULL,
   `EspImg` varchar(255) DEFAULT NULL,
-  `EspPreco` decimal(10,2) DEFAULT NULL
+  `EspPreco` decimal(10,2) DEFAULT NULL,
+  `SerId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `espacodados`
 --
 
-INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`) VALUES
-(11, 'Work', 'Rua Laranjeira 555', 'Um bom espaÃ§o de coworking', 1, NULL, '2024-05-23', 1, 'Espaco1.webp', '150.00'),
-(12, 'Teste 2 proprietario', 'Proprietario 2', 'EspaÃ§o de um segundo proprietario', 1, NULL, '2024-05-23', 2, 'Espaco2.jpg', '1.00'),
-(13, 'Teste proprietario 1', 'Proprietario 1', 'Teste', 2, NULL, '2024-05-23', 1, 'Espaco4.webp', '1.00'),
-(14, 'Teste proprietario 1.2', 'Proprietario 1', 'Teste', 3, NULL, '2024-05-23', 1, 'Espaco1.webp', '3.00');
+INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`, `SerId`) VALUES
+(11, 'Work', 'Rua Laranjeira 555', 'Um bom espaÃ§o de coworking', 5, 1, '2024-05-23', 1, 'Espaco1.webp', '50.00', NULL),
+(12, 'Teste 2 proprietario', 'Proprietario 2', 'EspaÃ§o de um segundo proprietario', 1, NULL, '2024-05-23', 2, 'Espaco2.jpg', '1.00', NULL),
+(15, 'Wave', 'Rua teste ', 'teste', 1, NULL, '2024-05-24', 1, 'Espaco8.jpg', '30.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,7 +84,7 @@ CREATE TABLE `ocupante` (
 --
 
 INSERT INTO `ocupante` (`OcuId`, `OcuNome`, `OcuSenha`, `OcuEmail`, `OcuTelefone`) VALUES
-(1, 'arthur', '123', 'arthur@123.com', '123456789');
+(1, 'Arthur', '123', 'arthur@123.com', '11986599562');
 
 -- --------------------------------------------------------
 
@@ -118,7 +118,7 @@ CREATE TABLE `proprietario` (
 --
 
 INSERT INTO `proprietario` (`ProId`, `ProNome`, `ProSenha`, `ProEmail`, `ProTelefone`) VALUES
-(1, 'Arthur', '123', 'arthur@123.com', '11986599562'),
+(1, 'Thiago', '123', 'arthur@123.com', '11986599562'),
 (2, 'Arthur2', '123', 'arthur2@123.com', '123456789');
 
 -- --------------------------------------------------------
@@ -154,7 +154,8 @@ ALTER TABLE `alugar`
 --
 ALTER TABLE `espacodados`
   ADD PRIMARY KEY (`EspId`),
-  ADD KEY `ProId` (`ProId`);
+  ADD KEY `ProId` (`ProId`),
+  ADD KEY `SerId` (`SerId`);
 
 --
 -- Índices para tabela `ocupante`
@@ -194,7 +195,7 @@ ALTER TABLE `alugar`
 -- AUTO_INCREMENT de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `ocupante`
@@ -225,18 +226,10 @@ ALTER TABLE `servamenidades`
 --
 
 --
--- Limitadores para a tabela `alugar`
---
-ALTER TABLE `alugar`
-  ADD CONSTRAINT `alugar_ibfk_1` FOREIGN KEY (`PlaId`) REFERENCES `planosprecos` (`PlaId`),
-  ADD CONSTRAINT `alugar_ibfk_2` FOREIGN KEY (`OcuId`) REFERENCES `ocupante` (`OcuId`),
-  ADD CONSTRAINT `alugar_ibfk_3` FOREIGN KEY (`EspId`) REFERENCES `espaco` (`EspId`);
-
---
 -- Limitadores para a tabela `espacodados`
 --
 ALTER TABLE `espacodados`
-  ADD CONSTRAINT `espacodados_ibfk_1` FOREIGN KEY (`ProId`) REFERENCES `proprietario` (`ProId`);
+  ADD CONSTRAINT `SerId` FOREIGN KEY (`SerId`) REFERENCES `servamenidades` (`SerId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

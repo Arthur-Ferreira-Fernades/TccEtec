@@ -1,0 +1,11 @@
+.conteudo {
+    padding: 3rem;
+}
+
+.dados {
+    padding: 1rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

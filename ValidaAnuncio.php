@@ -42,7 +42,7 @@
                                 $EspPreco = $_POST['EspacoPreco'];
                                 $EspCapacidade= $_POST['EspacoCapacidade'];
                                 $EspImg = basename($_FILES["Imagem"]["name"]);
-                                $ProId = $_SESSION['ProId'];
+                                $ProId = $_SESSION['UsuarioId'];
                                 $dataHoraAtual = date('Y-m-d H:i:s');
 
                                 if ($erro = error_get_last()) {
@@ -61,6 +61,24 @@
                                     $stmt = $conexao->prepare($sql);
                                     $stmt->execute([$EspNome, $EspEndereco, $EspDescricao, $EspImg, $EspPreco, $ProId, $dataHoraAtual,$EspCapacidade ]);
                         
+                                    $EspacoId = $conexao->lastInsertId();
+
+                                    // Insere os valores dos checkboxes na tabela servamenidades
+                                    if(isset($_POST['recursos']) && is_array($_POST['recursos'])) {
+                                        foreach($_POST['recursos'] as $recurso) {
+                                            // Insere o recurso na tabela servamenidades e recupera o ID gerado
+                                            $sql = "INSERT INTO servamenidades ($recurso) VALUES (1)"; // ou 0, dependendo se está marcado ou não
+                                            $stmt = $conexao->prepare($sql);
+                                            $stmt->execute();
+                                            $SerId = $conexao->lastInsertId();
+                                            
+                                            // Associa o SerId com o EspacoId na tabela espacodados
+                                            $sql = "UPDATE espacodados SET SerId = ? WHERE EspacoId = ?";
+                                            $stmt = $conexao->prepare($sql);
+                                            $stmt->execute([$SerId, $EspacoId]);
+                                        }
+                                    }
+                                    
                                     echo "Anuncio realizado enviado com sucesso.";
                                 }
                                 

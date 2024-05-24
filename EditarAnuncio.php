@@ -1,15 +1,15 @@
 <?php
     session_start();
 
-    if(isset($_SESSION['ProId'])) {
+    if(isset($_SESSION['UsuarioId'])) {
         try {
             $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
             $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             // Prepara a consulta SQL para selecionar apenas os nomes dos anúncios do proprietário atual
-            $query = "SELECT EspId, EspNome FROM EspacoDados WHERE ProId = :ProId";
+            $query = "SELECT EspId, EspNome FROM EspacoDados WHERE ProId = :UsuarioId";
             $stmt = $conexao->prepare($query);
-            $stmt->bindValue(':ProId', $_SESSION['ProId']);
+            $stmt->bindValue(':UsuarioId', $_SESSION['UsuarioId']);
             $stmt->execute();
             $anuncios = $stmt->fetchAll();
         } catch (PDOException $erro) {
@@ -32,55 +32,55 @@
 </head>
 <body>
 <header>
-        <div class="logo">
-            <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
-            <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+    <div class="logo">
+        <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
+        <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+    </div>
+    <a href="index.php" class="underline">HOME</a>
+    <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
+    <a href="AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
+    <?php
+    if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
+    ?>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="img/user-logo.png" alt="">
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
+            </ul>
         </div>
-            <a href="index.php" class="underline">HOME</a>
-            <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
-            <a href="AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
+    <?php
+    } else {
+    ?>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="img/user-logo.png" alt="">
+            </a>
             <?php
-                if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
+            if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
             ?>
-                    <div class="dropdown">
-                        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="img/user-logo.png" alt="">
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
-                        </ul>
-                    </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+            </ul>
             <?php
-                } else {
+            } else {
             ?>
-                    <div class="dropdown">
-                        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="img/user-logo.png" alt="">
-                        </a>
-                        <?php
-                            if($_SESSION['ProprietarioLocador'] == 'Proprietario') {
-                        ?>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
-                            <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
-                        </ul>
-                        <?php
-                            } else {
-                        ?>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
-                            <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
-                        </ul>
-                        <?php
-                            };
-                        ?>
-                    </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+            </ul>
             <?php
-                };
+            };
             ?>
-    </header>
-    <div class="container mt-5">
-        <h2 class="mb-4">Atualizar Anúncio</h2>
+        </div>
+    <?php
+    };
+    ?>
+</header>
+    <div class="container mt-5 d-flex flex-column">
+        <h2 class="mb-4 text-center">Atualizar Anúncio</h2>
         <form action="ValidaAtualizacao.php" method="POST">
             <div class="mb-3">
                 <label for="anuncio" class="form-label">Selecione o Anúncio:</label>
@@ -95,14 +95,14 @@
                 <input type="text" class="form-control" id="novo_nome" name="novo_nome">
             </div>
             <div class="mb-3">
-            <div class="mb-3">
-                <label for="novo_preco" class="form-label">Novo Preço:</label>
-                <input type="number" class="form-control" id="novo_preco" name="novo_preco">
-            </div>
-            <div class="mb-3">
-                <label for="nova_capacidade" class="form-label">Nova Capacidade:</label>
-                <input type="number" class="form-control" id="nova_capacidade" name="nova_capacidade">
-            </div>
+                <div class="mb-3">
+                    <label for="novo_preco" class="form-label">Novo Preço:</label>
+                    <input type="number" class="form-control" id="novo_preco" name="novo_preco">
+                </div>
+                <div class="mb-3">
+                    <label for="nova_capacidade" class="form-label">Nova Capacidade:</label>
+                    <input type="number" class="form-control" id="nova_capacidade" name="nova_capacidade">
+                </div>
                 <label class="form-label">Disponibilidade:</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="disponibilidade" id="disponivel" value="1">
@@ -111,6 +111,29 @@
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="disponibilidade" id="indisponivel" value="0">
                         <label class="form-check-label" for="indisponivel">Indisponível</label>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Recursos:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="recursos[]" id="wifi" value="Wifi">
+                            <label class="form-check-label" for="wifi">Wifi</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="recursos[]" id="ar_condicionado" value="Ar Condicionado">
+                            <label class="form-check-label" for="ar_condicionado">Ar Condicionado</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="recursos[]" id="bebedouro" value="Bebedouro">
+                            <label class="form-check-label" for="bebedouro">Bebedouro</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="recursos[]" id="computadores" value="Computadores">
+                            <label class="form-check-label" for="computadores">Computadores</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="recursos[]" id="cozinha" value="Cozinha">
+                            <label class="form-check-label" for="cozinha">Cozinha</label>
+                        </div>
                     </div>
             </div>
             <button type="submit" class="btn btn-primary">Atualizar Anúncio</button>

@@ -12,41 +12,54 @@
     <title>Area do Proprietario</title>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
-            <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+<header>
+    <div class="logo">
+        <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
+        <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+    </div>
+    <a href="index.php" class="underline">HOME</a>
+    <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
+    <a href="AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
+    <?php
+    if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
+    ?>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="img/user-logo.png" alt="">
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
+            </ul>
         </div>
-            <a href="index.php" class="underline">HOME</a>
-            <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
-            <a href="#" class="underline">ANUNCIE JÁ</a>
+    <?php
+    } else {
+    ?>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="img/user-logo.png" alt="">
+            </a>
             <?php
-                if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
+            if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
             ?>
-                    <div class="dropdown">
-                        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="img/user-logo.png" alt="">
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
-                        </ul>
-                    </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+            </ul>
             <?php
-                } else {
+            } else {
             ?>
-                    <div class="dropdown">
-                        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="img/user-logo.png" alt="">
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Sua Area</a></li>
-                            <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
-                        </ul>
-                    </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+            </ul>
             <?php
-                };
+            };
             ?>
-    </header>
+        </div>
+    <?php
+    };
+    ?>
+</header>
     <div class="conteudo">
         <div class="CardsLink">
             <a href="SeusAnuncios.php" class = "link">
@@ -58,7 +71,7 @@
             <a href="DadosUsuario.php" class = "link">
                 <div class="cardLogin">
                     <img src="img/login-de-usuario.png" alt="" width = "150px">
-                    <p>Aqui voce pode alterar e revisar suas informações de login e senha</p>
+                    <p>Aqui voce pode alterar e revisar suas informações pessoais</p>
                 </div>
             </a>
         </div>

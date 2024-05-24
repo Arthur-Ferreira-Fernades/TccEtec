@@ -114,19 +114,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bindParam(':nova_disponibilidade', $nova_disponibilidade);
                 $stmt->bindParam(':anuncio_id', $anuncio_id);
                 $stmt->execute();
-                $mensagem .= "<div class='alert alert-success' role='alert'>Disponibilidade atualizada com sucesso.</div>";
+                $mensagem = "<div class='alert alert-success' role='alert'>Disponibilidade atualizada com sucesso.</div>";
             }
 
         }  catch (PDOException $erro) {
-            $mensagem .= "<div class='alert alert-danger' role='alert'>Erro na conexão: " . $erro->getMessage() . "</div>";
+            $mensagem = "<div class='alert alert-danger' role='alert'>Erro na conexão: " . $erro->getMessage() . "</div>";
         }
     } else {
         // Se o campo de ID do anúncio estiver ausente, exiba uma mensagem de erro ou redirecione para uma página de erro
-        $mensagem .= "<div class='alert alert-danger' role='alert'>Erro: ID do anúncio ausente.</div>";
+        $mensagem = "<div class='alert alert-danger' role='alert'>Erro: ID do anúncio ausente.</div>";
     }
 } else {
     // Se a solicitação não for do tipo POST, exiba uma mensagem de erro ou redirecione para uma página de erro
-    $mensagem .= "<div class='alert alert-danger' role='alert'>Erro: A solicitação deve ser do tipo POST.</div>";
+    $mensagem = "<div class='alert alert-danger' role='alert'>Erro: A solicitação deve ser do tipo POST.</div>";
 }
 
 // Exibir a mensagem de atualização
