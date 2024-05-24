@@ -97,7 +97,7 @@
             <div class="mb-3">
                 <div class="mb-3">
                     <label for="novo_preco" class="form-label">Novo Preço:</label>
-                    <input type="number" class="form-control" id="novo_preco" name="novo_preco">
+                    <input type="number" class="form-control" id="novo_preco" name="novo_preco" step="any">
                 </div>
                 <div class="mb-3">
                     <label for="nova_capacidade" class="form-label">Nova Capacidade:</label>

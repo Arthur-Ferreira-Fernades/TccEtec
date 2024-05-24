@@ -65,13 +65,13 @@
             <a href="SeusAnuncios.php" class = "link">
                 <div class="cardInfo">
                     <img src="img/informacao-pessoal.png" alt="" width = "150px">
-                    <p>Aqui voce ver seus anuncios</p>
+                    <p>Aqui você ver seus anúncios.</p>
                 </div>
             </a>
             <a href="DadosUsuario.php" class = "link">
                 <div class="cardLogin">
                     <img src="img/login-de-usuario.png" alt="" width = "150px">
-                    <p>Aqui voce pode alterar e revisar suas informações pessoais</p>
+                    <p>Aqui você pode alterar e revisar suas informações pessoais.</p>
                 </div>
             </a>
         </div>

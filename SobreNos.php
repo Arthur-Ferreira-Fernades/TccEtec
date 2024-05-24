@@ -1,3 +1,6 @@
+<?php 
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,67 +9,79 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="css/Style.css">
     <link rel="stylesheet" href="css/SobreNos.css">
-    <title>Sobre os</title>
-
+    <title>Sobre Nós</title>
     
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
-            <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+<header>
+    <div class="logo">
+        <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
+        <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+    </div>
+    <a href="index.php" class="underline">HOME</a>
+    <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
+    <a href="AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
+    <?php
+    if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
+    ?>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="img/user-logo.png" alt="">
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
+            </ul>
         </div>
-        <a href="index.php" class="underline">HOME</a>
-        <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
-        <a href="#" class="underline">ANUNCIE JÁ</a>
-
-        <?php
-        if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
-            ?>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/user-logo.png" alt="">
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
-                </ul>
-            </div>
+    <?php
+    } else {
+    ?>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="img/user-logo.png" alt="">
+            </a>
             <?php
-        } else {
+            if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
             ?>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/user-logo.png" alt="">
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Sua Área</a></li>
-                    <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
-                </ul>
-            </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+            </ul>
             <?php
-        };
-        ?>
-
-    </header>
+            } else {
+            ?>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+            </ul>
+            <?php
+            };
+            ?>
+        </div>
+    <?php
+    };
+    ?>
+</header>
     <div class="conteudo">
         <h1>Sobre Nós   </h1>
         <div class="sessao">
+            <p>O principal propósito do WorkWave é criar uma plataforma intuitiva que permita uma busca por espaços de coworking, facilitando a interação entre empresas que oferecem esses espaços e potenciais locatários.</p>
             <img src="img/SobreN1.png" alt="Mapa de alguns dos nossos espaços" width="250px" height="250px" class = "Imagem">
-            <p>O principal propósito do WorkWave é criar uma plataforma intuitiva que permita uma busca por espaços de coworking facilitando a interação entre empresas que oferecem esses espaços e potenciais locatários.</p>
         </div>
         <div class="sessao">
-            <p>
-                Priorizamos a facilidade de acesso para os clientes possibilitando a eficiência na identificação do espaço
-                ideal alinhados com as necessidades individuais de cada usuário levando em conta sua especificidade e orçamento.
-            </p>
+            
             <img src="img/SobreN2.jpg" alt="Imagem 2" width="250px" height="250px" class = "Imagem">
+            <p>
+                Priorizamos a facilidade de acesso para os clientes, possibilitando a eficiência na identificação do espaço
+                ideal alinhado com as necessidades individuais de cada usuário, levando em conta sua especificidade e orçamento.
+            </p>
         </div>
         <div class="sessao">
-            <img src="img/SobreN3.jpg" alt="Imagem 3" width="250px" height="250px" class = "Imagem">
+            
             <p>
-                Consideramos não apenas o custo mas também a localização, estrutura disponível
+                Não consideramos apenas o custo mas também a localização, estrutura disponível
                 e outros critérios relevantes para ambas as partes visando uma experiência otimizada.
             </p>
+            <img src="img/SobreN3.jpg" alt="Imagem 3" width="250px" height="250px" class = "Imagem">
         </div>
         <div class="sessao2">
             <p>

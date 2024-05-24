@@ -65,7 +65,7 @@
             <a href="DadosUsuario.php" class = "link">
                 <div class="cardLogin">
                     <img src="img/login-de-usuario.png" alt="" width = "150px">
-                    <p>Aqui voce pode alterar e revisar suas informações pessoais</p>
+                    <p>Aqui você pode alterar e revisar suas informações pessoais.</p>
                 </div>
             </a>
         </div>
