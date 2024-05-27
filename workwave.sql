@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/05/2024 às 02:47
+-- Tempo de geração: 27/05/2024 às 20:34
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.0.28
 
@@ -32,9 +32,16 @@ CREATE TABLE `alugar` (
   `AluDataEntrada` date NOT NULL,
   `AluDataSaida` date NOT NULL,
   `OcuId` int(11) NOT NULL,
-  `EspId` int(11) NOT NULL,
-  `PlaId` int(11) NOT NULL
+  `EspId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Despejando dados para a tabela `alugar`
+--
+
+INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId`) VALUES
+(18, '2024-05-27', '2024-05-28', 1, 11),
+(19, '2024-05-29', '2024-05-30', 1, 11);
 
 -- --------------------------------------------------------
 
@@ -64,7 +71,7 @@ INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `E
 (11, 'Work', 'Rua Laranjeira 555', 'Um bom espaço de coworking', 5, 1, '2024-05-23', 1, 'Espaco1.webp', 50.00, NULL),
 (12, 'Teste 2 proprietario', 'Proprietario 2', 'Espaço de um segundo proprietario', 1, NULL, '2024-05-23', 2, 'Espaco2.jpg', 1.00, NULL),
 (15, 'Wave', 'Rua teste ', 'teste', 1, 1, '2024-05-24', 1, 'Espaco8.jpg', 30.00, NULL),
-(20, 'Utf-8', 'Rua utf-8', 'AÃ§Ã£o Ã©', 150, NULL, '2024-05-27', 1, 'Espaco2.jpg', 150.00, NULL);
+(20, 'Utf-8', 'Rua utf-8', 'AÃ§Ã£o Ã©', 150, 1, '2024-05-27', 1, 'Espaco2.jpg', 150.00, NULL);
 
 -- --------------------------------------------------------
 
@@ -146,7 +153,6 @@ CREATE TABLE `servamenidades` (
 --
 ALTER TABLE `alugar`
   ADD PRIMARY KEY (`AluId`),
-  ADD KEY `PlaId` (`PlaId`),
   ADD KEY `OcuId` (`OcuId`),
   ADD KEY `EspId` (`EspId`);
 
@@ -190,13 +196,13 @@ ALTER TABLE `servamenidades`
 -- AUTO_INCREMENT de tabela `alugar`
 --
 ALTER TABLE `alugar`
-  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `ocupante`
