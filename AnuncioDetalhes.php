@@ -37,7 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $data_entrada = new DateTime($_POST['dataEntrada']);
         $data_saida = new DateTime($_POST['dataSaida']);
 
-        // Consulta para verificar se o espaço está disponível durante o período escolhido
         $query = "SELECT * FROM alugar WHERE EspId = :id_anuncio AND ((AluDataEntrada <= :data_saida) AND (AluDataSaida >= :data_entrada))";
         $stmt = $conexao->prepare($query);
         $stmt->bindParam(':id_anuncio', $_SESSION['id_anuncio'], PDO::PARAM_INT);
@@ -45,25 +44,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':data_saida', $data_saida->format('Y-m-d'), PDO::PARAM_STR);
         $stmt->execute();
 
-        // Verifica se há algum resultado da consulta
         if ($stmt->rowCount() > 0) {
-            // Espaço não está disponível
             $reserva = $stmt->fetch(PDO::FETCH_ASSOC);
             $data_entrada_reserva = new DateTime($reserva['AluDataEntrada']);
             $data_saida_reserva = new DateTime($reserva['AluDataSaida']);
         } else {
-            // Espaço está disponível, continua com o processo de aluguel
             $intervalo = $data_entrada->diff($data_saida);
             $numero_dias = $intervalo->days;
 
-            // Calcula o valor total da estadia
             $valor_total = $preco_diaria * $numero_dias;
         }
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -241,22 +236,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Função para calcular o valor total com base nas datas selecionadas
             function calcularValorTotal() {
                 var dataEntrada = new Date(document.getElementById('dataEntrada').value);
                 var dataSaida = new Date(document.getElementById('dataSaida').value);
                 
-                // Verifica se ambas as datas foram selecionadas
                 if (!dataEntrada || !dataSaida || isNaN(dataEntrada) || isNaN(dataSaida)) {
-                    document.getElementById('valorTotal').textContent = 'Escolha a data de entrada e saída'; // Define a mensagem padrão se uma das datas estiver em falta
+                    document.getElementById('valorTotal').textContent = 'Escolha a data de entrada e saída';
                     return;
                 }
 
-                // Calcula o número de dias entre a entrada e a saída
-                var umDia = 24 * 60 * 60 * 1000; // horas*minutos*segundos*milisegundos
+                var umDia = 24 * 60 * 60 * 1000; 
                 var diferencaDias = Math.round(Math.abs((dataEntrada - dataSaida) / umDia));
 
-                // Obtém o valor da diária do espaço (substitua 100 pelo preço da diária obtido do banco de dados)
                 var precoDiaria = <?php echo $preco; ?>;
 
                 // Calcula o valor total da estadia

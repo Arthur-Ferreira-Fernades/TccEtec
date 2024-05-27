@@ -1,5 +1,6 @@
 <?php
 session_start();
+$id_ocupante = $_SESSION['UsuarioId'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,6 +124,15 @@ session_start();
             echo "Erro na conexão:" . $erro->getMessage();
         }
 
+        function estaFavoritado($conexao, $id_ocupante, $espaco_id) {
+            $query = "SELECT * FROM favoritar WHERE OcuId = :id_ocupante AND EspId = :espaco_id";
+            $stmt = $conexao->prepare($query);
+            $stmt->bindParam(':id_ocupante', $id_ocupante);
+            $stmt->bindParam(':espaco_id', $espaco_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
         $filtroName = isset($_GET['filtroName']) ? $_GET['filtroName'] : '';
         $filtroCapacidade = isset($_GET['filtroCapacidade']) ? $_GET['filtroCapacidade'] : '';
         $filtroDisponibilidade = isset($_GET['filtroDisponibilidade']) ? $_GET['filtroDisponibilidade'] : '';
@@ -165,19 +175,29 @@ session_start();
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
             <?php foreach ($anuncios as $anuncio): ?>
                 <div class="col">
-                    <div class="card" style="width: 18rem;">
-                        <img src="img/<?php echo htmlspecialchars($anuncio['EspImg']); ?>" class="card-img-top" alt="Imagem de <?php echo htmlspecialchars($anuncio['EspNome']); ?>" height="200px">
+                    <div class="card position-relative border-0" style="width: 18rem;">
+                        <img src="img/<?php echo htmlspecialchars($anuncio['EspImg']); ?>" class="card-img-top rounded-0" alt="Imagem de <?php echo htmlspecialchars($anuncio['EspNome']); ?>" height="200px">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo htmlspecialchars($anuncio['EspNome']); ?></h5>
                             <p class="card-text">R$<?php echo number_format($anuncio['EspPreco'], 2, ',', '.'); ?> Diária</p>
                             <p class="card-text <?php echo $anuncio['EspDisponibilidade'] == 0 ? 'text-danger' : 'text-success'; ?>">
                                 <?php echo $anuncio['EspDisponibilidade'] == 0 ? 'Indisponível' : 'Disponível'; ?>
                             </p>
+                            <div class="card-header position-absolute top-0 end-0">
+                                <?php
+                                $favoritado = estaFavoritado($conexao, $id_ocupante, $anuncio['EspId']);
+                                ?>
+                                <button type="button" class="btn btn-link favorite-btn" data-favorited="<?php echo $favoritado ? 'true' : 'false'; ?>" data-espaco-id="<?php echo $anuncio['EspId']; ?>">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" class="bi bi-heart <?php echo $favoritado ? 'favorite' : ''; ?>" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                         <div class="card-footer">
-                        <button type="submit" class="btn btn-primary me-5">
-                            <a href="AnuncioDetalhes.php?id=<?php echo $anuncio['EspId']; ?>" class="text-white">Alugar</a>
-                        </button>
+                            <button type="submit" class="btn btn-primary me-5">
+                                <a href="AnuncioDetalhes.php?id=<?php echo $anuncio['EspId']; ?>" class="text-white">Alugar</a>
+                            </button>
                         </div>
                     </div>
                 </div>

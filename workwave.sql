@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/05/2024 às 20:34
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.0.28
+-- Tempo de geração: 28-Maio-2024 às 01:09
+-- Versão do servidor: 10.4.27-MariaDB
+-- versão do PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `alugar`
+-- Estrutura da tabela `alugar`
 --
 
 CREATE TABLE `alugar` (
@@ -36,17 +36,18 @@ CREATE TABLE `alugar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Despejando dados para a tabela `alugar`
+-- Extraindo dados da tabela `alugar`
 --
 
 INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId`) VALUES
 (18, '2024-05-27', '2024-05-28', 1, 11),
-(19, '2024-05-29', '2024-05-30', 1, 11);
+(19, '2024-05-29', '2024-05-30', 1, 11),
+(20, '2024-05-31', '2024-06-07', 1, 11);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `espacodados`
+-- Estrutura da tabela `espacodados`
 --
 
 CREATE TABLE `espacodados` (
@@ -64,19 +65,31 @@ CREATE TABLE `espacodados` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Despejando dados para a tabela `espacodados`
+-- Extraindo dados da tabela `espacodados`
 --
 
 INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`, `SerId`) VALUES
-(11, 'Work', 'Rua Laranjeira 555', 'Um bom espaço de coworking', 5, 1, '2024-05-23', 1, 'Espaco1.webp', 50.00, NULL),
-(12, 'Teste 2 proprietario', 'Proprietario 2', 'Espaço de um segundo proprietario', 1, NULL, '2024-05-23', 2, 'Espaco2.jpg', 1.00, NULL),
-(15, 'Wave', 'Rua teste ', 'teste', 1, 1, '2024-05-24', 1, 'Espaco8.jpg', 30.00, NULL),
-(20, 'Utf-8', 'Rua utf-8', 'AÃ§Ã£o Ã©', 150, 1, '2024-05-27', 1, 'Espaco2.jpg', 150.00, NULL);
+(11, 'Work', 'Rua Laranjeira 555', 'Um bom espaço de coworking', 5, 1, '2024-05-23', 1, 'Espaco1.webp', '50.00', NULL),
+(12, 'Teste 2 proprietario', 'Proprietario 2', 'Espaço de um segundo proprietario', 1, NULL, '2024-05-23', 2, 'Espaco2.jpg', '1.00', NULL),
+(15, 'Wave', 'Rua teste ', 'teste', 1, 1, '2024-05-24', 1, 'Espaco8.jpg', '30.00', NULL),
+(20, 'Utf-8', 'Rua utf-8', 'AÃ§Ã£o Ã©', 150, 1, '2024-05-27', 1, 'Espaco2.jpg', '150.00', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `ocupante`
+-- Estrutura da tabela `favoritar`
+--
+
+CREATE TABLE `favoritar` (
+  `favId` int(11) NOT NULL,
+  `EspId` int(11) DEFAULT NULL,
+  `OcuId` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ocupante`
 --
 
 CREATE TABLE `ocupante` (
@@ -88,7 +101,7 @@ CREATE TABLE `ocupante` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Despejando dados para a tabela `ocupante`
+-- Extraindo dados da tabela `ocupante`
 --
 
 INSERT INTO `ocupante` (`OcuId`, `OcuNome`, `OcuSenha`, `OcuEmail`, `OcuTelefone`) VALUES
@@ -97,7 +110,7 @@ INSERT INTO `ocupante` (`OcuId`, `OcuNome`, `OcuSenha`, `OcuEmail`, `OcuTelefone
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `planosprecos`
+-- Estrutura da tabela `planosprecos`
 --
 
 CREATE TABLE `planosprecos` (
@@ -110,7 +123,7 @@ CREATE TABLE `planosprecos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `proprietario`
+-- Estrutura da tabela `proprietario`
 --
 
 CREATE TABLE `proprietario` (
@@ -122,7 +135,7 @@ CREATE TABLE `proprietario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Despejando dados para a tabela `proprietario`
+-- Extraindo dados da tabela `proprietario`
 --
 
 INSERT INTO `proprietario` (`ProId`, `ProNome`, `ProSenha`, `ProEmail`, `ProTelefone`) VALUES
@@ -132,7 +145,7 @@ INSERT INTO `proprietario` (`ProId`, `ProNome`, `ProSenha`, `ProEmail`, `ProTele
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `servamenidades`
+-- Estrutura da tabela `servamenidades`
 --
 
 CREATE TABLE `servamenidades` (
@@ -149,7 +162,7 @@ CREATE TABLE `servamenidades` (
 --
 
 --
--- Índices de tabela `alugar`
+-- Índices para tabela `alugar`
 --
 ALTER TABLE `alugar`
   ADD PRIMARY KEY (`AluId`),
@@ -157,7 +170,7 @@ ALTER TABLE `alugar`
   ADD KEY `EspId` (`EspId`);
 
 --
--- Índices de tabela `espacodados`
+-- Índices para tabela `espacodados`
 --
 ALTER TABLE `espacodados`
   ADD PRIMARY KEY (`EspId`),
@@ -165,44 +178,58 @@ ALTER TABLE `espacodados`
   ADD KEY `SerId` (`SerId`);
 
 --
--- Índices de tabela `ocupante`
+-- Índices para tabela `favoritar`
+--
+ALTER TABLE `favoritar`
+  ADD PRIMARY KEY (`favId`),
+  ADD KEY `EspId` (`EspId`),
+  ADD KEY `OcuId` (`OcuId`);
+
+--
+-- Índices para tabela `ocupante`
 --
 ALTER TABLE `ocupante`
   ADD PRIMARY KEY (`OcuId`);
 
 --
--- Índices de tabela `planosprecos`
+-- Índices para tabela `planosprecos`
 --
 ALTER TABLE `planosprecos`
   ADD PRIMARY KEY (`PlaId`);
 
 --
--- Índices de tabela `proprietario`
+-- Índices para tabela `proprietario`
 --
 ALTER TABLE `proprietario`
   ADD PRIMARY KEY (`ProId`);
 
 --
--- Índices de tabela `servamenidades`
+-- Índices para tabela `servamenidades`
 --
 ALTER TABLE `servamenidades`
   ADD PRIMARY KEY (`SerId`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `alugar`
 --
 ALTER TABLE `alugar`
-  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
   MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT de tabela `favoritar`
+--
+ALTER TABLE `favoritar`
+  MODIFY `favId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `ocupante`
@@ -229,14 +256,21 @@ ALTER TABLE `servamenidades`
   MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Restrições para tabelas despejadas
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `espacodados`
+-- Limitadores para a tabela `espacodados`
 --
 ALTER TABLE `espacodados`
   ADD CONSTRAINT `SerId` FOREIGN KEY (`SerId`) REFERENCES `servamenidades` (`SerId`);
+
+--
+-- Limitadores para a tabela `favoritar`
+--
+ALTER TABLE `favoritar`
+  ADD CONSTRAINT `favoritar_ibfk_1` FOREIGN KEY (`EspId`) REFERENCES `espacodados` (`EspId`),
+  ADD CONSTRAINT `favoritar_ibfk_2` FOREIGN KEY (`OcuId`) REFERENCES `ocupante` (`OcuId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
