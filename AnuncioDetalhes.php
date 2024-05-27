@@ -1,49 +1,66 @@
 <?php
-    session_start();
+session_start();
 
-    if (isset($_GET['id'])) {
-        $_SESSION['id_anuncio'] = $_GET['id'];
+if (isset($_GET['id'])) {
+    $_SESSION['id_anuncio'] = $_GET['id'];
+}
+
+try {
+    $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
+    
+    $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $query = "SELECT * FROM EspacoDados WHERE EspId = :id_anuncio";
+    $stmt = $conexao->prepare($query);
+    $stmt->bindParam(':id_anuncio', $_SESSION['id_anuncio'], PDO::PARAM_INT);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+        $espaco = $stmt->fetch(PDO::FETCH_ASSOC);
+        $nome = $espaco['EspNome'];
+        $capacidade = $espaco['EspCapacidade'];
+        $disponibilidade = $espaco['EspDisponibilidade'];
+        $preco = $espaco['EspPreco'];
+        $endereco = $espaco['EspEndereco'];
+        $caminho_imagem = $espaco['EspImg'];
+        $descricao = $espaco['EspDescricao'];
+    } else {
+        echo "Espaço não encontrado.";
     }
 
-    try {
-        $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
-        
-        $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $erro) {
+    echo "Erro na conexão:" . $erro->getMessage();
+}
 
-        $query = "SELECT * FROM EspacoDados WHERE EspId = :id_anuncio";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!empty($_POST['dataEntrada']) && !empty($_POST['dataSaida'])) {
+        $data_entrada = new DateTime($_POST['dataEntrada']);
+        $data_saida = new DateTime($_POST['dataSaida']);
+
+        // Consulta para verificar se o espaço está disponível durante o período escolhido
+        $query = "SELECT * FROM alugar WHERE EspId = :id_anuncio AND ((AluDataEntrada <= :data_saida) AND (AluDataSaida >= :data_entrada))";
         $stmt = $conexao->prepare($query);
         $stmt->bindParam(':id_anuncio', $_SESSION['id_anuncio'], PDO::PARAM_INT);
+        $stmt->bindParam(':data_entrada', $data_entrada->format('Y-m-d'), PDO::PARAM_STR);
+        $stmt->bindParam(':data_saida', $data_saida->format('Y-m-d'), PDO::PARAM_STR);
         $stmt->execute();
 
+        // Verifica se há algum resultado da consulta
         if ($stmt->rowCount() > 0) {
-            $espaco = $stmt->fetch(PDO::FETCH_ASSOC);
-            $nome = $espaco['EspNome'];
-            $capacidade = $espaco['EspCapacidade'];
-            $disponibilidade = $espaco['EspDisponibilidade'];
-            $preco = $espaco['EspPreco'];
-            $endereco = $espaco['EspEndereco'];
-            $caminho_imagem = $espaco['EspImg'];
-            $descricao = $espaco['EspDescricao'];
+            // Espaço não está disponível
+            $reserva = $stmt->fetch(PDO::FETCH_ASSOC);
+            $data_entrada_reserva = new DateTime($reserva['AluDataEntrada']);
+            $data_saida_reserva = new DateTime($reserva['AluDataSaida']);
         } else {
-            echo "Espaço não encontrado.";
-        }
-
-    } catch (PDOException $erro) {
-        echo "Erro na conexão:" . $erro->getMessage();
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (!empty($_POST['dataEntrada']) && !empty($_POST['dataSaida'])) {
-            $data_entrada = new DateTime($_POST['dataEntrada']);
-            $data_saida = new DateTime($_POST['dataSaida']);
+            // Espaço está disponível, continua com o processo de aluguel
             $intervalo = $data_entrada->diff($data_saida);
             $numero_dias = $intervalo->days;
-    
+
             // Calcula o valor total da estadia
             $valor_total = $preco_diaria * $numero_dias;
         }
     }
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,6 +124,21 @@
     <div class="container py-4">
         <div class="row">
             <div class="col-md-6">
+                <?php
+                    if (isset($_GET['aluguel'])) {
+                        if ($_GET['aluguel'] === 'sucesso') {
+                            echo "<div class='alert alert-success' role='alert'>Espaço alugado com sucesso!</div>";
+                        } elseif ($_GET['aluguel'] === 'falha') {
+                            echo "<div class='alert alert-danger' role='alert'>Erro ao alugar o espaço. Por favor, tente novamente.</div>";
+                        }
+                    }
+                    if (isset($_GET['error']) && $_GET['error'] == 3) {
+                        $data_ocupada_inicio = isset($_GET['data_ocupada_inicio']) ? DateTime::createFromFormat('Y-m-d', $_GET['data_ocupada_inicio'])->format('d/m/Y') : "N/A";
+                        $data_ocupada_fim = isset($_GET['data_ocupada_fim']) ? DateTime::createFromFormat('Y-m-d', $_GET['data_ocupada_fim'])->format('d/m/Y') : "N/A";
+                        echo "<div class='alert alert-danger' role='alert'>O espaço já está alugado para as datas de $data_ocupada_inicio até $data_ocupada_fim. Por favor, escolha outras datas.</div>";
+                    }
+                ?>
+                
                 <div class="anuncio">
                     <h1 class ="mb-4"><?php echo $nome; ?></h1>
                     <div class="detalhesAnuncio">
@@ -115,14 +147,14 @@
                             <p class = " mt-5">Endereço: <?php echo $endereco; ?></p>
                             <p>Preço: R$<?php echo number_format($preco, 2, ',', '.'); ?> Diária</p>
                             <p>Capacidade: <?php echo $capacidade; ?></p>
-                            <p>Descrição: <?php echo $descricao;?></p>
+                            <p><?php echo $descricao;?></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mt-4">
                 <div class="formularioAluguel d-flex mt-5 justify-content-center p-4">
-                    <form class="formCalculo">
+                    <form class="formCalculo" action="ValidaAluguel.php" method="post">
                             <p class="card-text mt-2 <?php echo $disponibilidade == 0 ? 'text-danger' : 'text-success'; ?>">
                                 <?php echo $disponibilidade == 0 ? 'Indisponível' : 'Disponível'; ?>
                             </p>
@@ -235,9 +267,34 @@
             }
 
             // Adiciona um ouvinte de evento de mudança aos campos de data
-            document.getElementById('dataEntrada').addEventListener('change', calcularValorTotal);
-            document.getElementById('dataSaida').addEventListener('change', calcularValorTotal);
+            document.getElementById('dataEntrada').addEventListener('change', function(){
+                calcularValorTotal();
+                validarDatas();
+            });
+            document.getElementById('dataSaida').addEventListener('change', function(){
+                calcularValorTotal();
+                validarDatas();
+            });
+
+            function validarDatas() {
+                var dataEntrada = document.getElementById('dataEntrada').value;
+                var dataSaida = document.getElementById('dataSaida').value;
+                var botaoAlugar = document.querySelector('.btn.btn-primary');
+
+                // Verifica se ambas as datas foram preenchidas
+                if (dataEntrada !== '' && dataSaida !== '') {
+                    botaoAlugar.removeAttribute('disabled'); // Habilita o botão "Alugar"
+                } else {
+                    botaoAlugar.setAttribute('disabled', 'disabled'); // Desabilita o botão "Alugar"
+                }
+            }
+
+            // Chama a função de validação inicialmente para desabilitar o botão "Alugar" se os campos de data estiverem vazios
+            validarDatas();
         });
+
+        
+        
     </script>
 </body>
 </html>
