@@ -175,9 +175,9 @@ session_start();
                             </p>
                         </div>
                         <div class="card-footer">
-                            <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary me-5"><a href="#" class="text-white">Alugar</a></button>
-                            </div>
+                        <button type="submit" class="btn btn-primary me-5">
+                            <a href="AnuncioDetalhes.php?id=<?php echo $anuncio['EspId']; ?>" class="text-white">Alugar</a>
+                        </button>
                         </div>
                     </div>
                 </div>

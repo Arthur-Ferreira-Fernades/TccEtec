@@ -15,7 +15,7 @@
         <div class="container">
             <?php
                 try {
-                        $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
+                        $conexao = new PDO("mysql:host=localhost; dbname=workwave;charset=utf8mb4", "root", "");
                         
                         $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     } catch (PDOException $erro) {
@@ -38,7 +38,7 @@
                                 // Dados do formulário
                                 $EspNome = $_POST['EspacoNome'];
                                 $EspEndereco = $_POST['EspacoEndereco'];
-                                $EspDescricao = $_POST['EspacoDescricao'];
+                                $EspDescricao = utf8_encode($_POST['EspacoDescricao']);
                                 $EspPreco = $_POST['EspacoPreco'];
                                 $EspCapacidade= $_POST['EspacoCapacidade'];
                                 $EspImg = basename($_FILES["Imagem"]["name"]);
