@@ -23,17 +23,19 @@
                     }
 
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        // Diretório onde as imagens serão armazenadas
                         $targetDir = "img/";
                         
+                        // Caminho do arquivo
                         $targetFile = $targetDir . basename($_FILES["Imagem"]["name"]);
                         
-
+                        // Verifica se o arquivo é uma imagem
                         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
                         $check = getimagesize($_FILES["Imagem"]["tmp_name"]);
                         
                         if ($check !== false) {
                             if (move_uploaded_file($_FILES["Imagem"]["tmp_name"], $targetFile)) {
-                                
+                                // Dados do formulário
                                 $EspNome = $_POST['EspacoNome'];
                                 $EspEndereco = $_POST['EspacoEndereco'];
                                 $EspDescricao = utf8_encode($_POST['EspacoDescricao']);
@@ -44,17 +46,20 @@
                                 $dataHoraAtual = date('Y-m-d H:i:s');
 
                                 if ($erro = error_get_last()) {
+                                    // Obtém a mensagem de erro
                                     $MensagemErro = $erro['message'];
-
+                                    
+                                    // Verifica se a mensagem de erro contém o texto desejado
                                     if (strpos($MensagemErro, 'Undefined array key') !== false || strpos($MensagemErro, 'Integrity constraint violation') !== false) {
+                                        // Redireciona o usuário para a página de login
                                         header("Location: login.php");
-                                        exit();
+                                        exit(); // Encerra o script para garantir que o redirecionamento funcione corretamente
                                     }
                                 } else {
                                     $sql = "INSERT INTO EspacoDados (EspNome, EspEndereco, EspDescricao, EspImg, EspPreco, ProId, EspDataCadastro, EspCapacidade) 
                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                                     $stmt = $conexao->prepare($sql);
-                                    $stmt->execute([$EspNome, $EspEndereco, $EspDescricao, $EspImg, $EspPreco, $ProId, $dataHoraAtual,$EspCapacidade]);
+                                    $stmt->execute([$EspNome, $EspEndereco, $EspDescricao, $EspImg, $EspPreco, $ProId, $dataHoraAtual,$EspCapacidade ]);
                         
                                     $EspacoId = $conexao->lastInsertId();
 
