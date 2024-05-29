@@ -117,6 +117,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mensagem = "<div class='alert alert-success' role='alert'>Disponibilidade atualizada com sucesso.</div>";
             }
 
+            if (isset($_POST['recursos']) && is_array($_POST['recursos']) && !empty($_POST['recursos'])) {
+                foreach ($_POST['recursos'] as $recurso) {
+
+                    $coluna = 'Ser' . ucfirst(strtolower($recurso));
+            
+                    $querySelect = "SELECT * FROM servamenidades WHERE EspId = :anuncio_id";
+                    $stmtSelect = $conexao->prepare($querySelect);
+                    $stmtSelect->bindParam(':anuncio_id', $anuncio_id);
+                    $stmtSelect->execute();
+                    $row = $stmtSelect->fetch(PDO::FETCH_ASSOC);
+            
+                    if (!$row) {
+                        $queryInsert = "INSERT INTO servamenidades (EspId) VALUES (:anuncio_id)";
+                        $stmtInsert = $conexao->prepare($queryInsert);
+                        $stmtInsert->bindParam(':anuncio_id', $anuncio_id);
+                        $stmtInsert->execute();
+                    }
+            
+                    // Atualize a coluna correspondente na tabela Servamenidades para true (1)
+                    $queryUpdate = "UPDATE Servamenidades SET $coluna = true WHERE SerNome = :recurso";
+                    $stmtUpdate = $conexao->prepare($queryUpdate);
+                    $stmtUpdate->bindParam(':recurso', $recurso);
+                    $stmtUpdate->execute();
+                }
+            }
         }  catch (PDOException $erro) {
             $mensagem = "<div class='alert alert-danger' role='alert'>Erro na conexão: " . $erro->getMessage() . "</div>";
         }
