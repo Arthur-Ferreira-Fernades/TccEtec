@@ -138,6 +138,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $data_ocupada_fim = isset($_GET['data_ocupada_fim']) ? DateTime::createFromFormat('Y-m-d', $_GET['data_ocupada_fim'])->format('d/m/Y') : "N/A";
                         echo "<div class='alert alert-danger' role='alert'>O espaço já está alugado para as datas de $data_ocupada_inicio até $data_ocupada_fim. Por favor, escolha outras datas.</div>";
                     }
+                    if (isset($_GET['error']) && $_GET['error'] == 6) {
+                        echo "<div class='alert alert-danger' role='alert'>Entre com a sua conta de locador, por favor.</div>";
+                    }
                 ?>
                 
                 <div class="anuncio">
@@ -171,6 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <p id="valorTotal">Escolha a data de entrada e saída</p>
                             <button type="submit" class="btn btn-primary">Alugar</button>
                         </form>
+                        
                 </div>
             </div>
         </div>
