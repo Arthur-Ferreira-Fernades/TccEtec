@@ -119,27 +119,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (isset($_POST['recursos']) && is_array($_POST['recursos']) && !empty($_POST['recursos'])) {
                 foreach ($_POST['recursos'] as $recurso) {
-
                     $coluna = 'Ser' . ucfirst(strtolower($recurso));
-            
+                
+                    // Verificar se já existe uma entrada para este anúncio na tabela Servamenidades
                     $querySelect = "SELECT * FROM servamenidades WHERE EspId = :anuncio_id";
                     $stmtSelect = $conexao->prepare($querySelect);
                     $stmtSelect->bindParam(':anuncio_id', $anuncio_id);
                     $stmtSelect->execute();
                     $row = $stmtSelect->fetch(PDO::FETCH_ASSOC);
-            
+                
+                    // Se não houver uma entrada, insira uma nova e obtenha o ID inserido
                     if (!$row) {
                         $queryInsert = "INSERT INTO servamenidades (EspId) VALUES (:anuncio_id)";
                         $stmtInsert = $conexao->prepare($queryInsert);
                         $stmtInsert->bindParam(':anuncio_id', $anuncio_id);
                         $stmtInsert->execute();
+                
+                        // Obter o ID inserido
+                        $id_servamenidades = $conexao->lastInsertId();
+                
+                        // Atualizar o ID de Servamenidades na tabela EspacoDados
+                        $queryUpdateEspaco = "UPDATE espacodados SET SerId = :id_servamenidades WHERE EspId = :anuncio_id";
+                        $stmtUpdateEspaco = $conexao->prepare($queryUpdateEspaco);
+                        $stmtUpdateEspaco->bindParam(':id_servamenidades', $id_servamenidades);
+                        $stmtUpdateEspaco->bindParam(':anuncio_id', $anuncio_id);
+                        $stmtUpdateEspaco->execute();
                     }
-            
-                    // Atualize a coluna correspondente na tabela Servamenidades para true (1)
-                    $queryUpdate = "UPDATE Servamenidades SET $coluna = true WHERE SerNome = :recurso";
+                
+                    // Atualizar a coluna correspondente na tabela Servamenidades para verdadeiro (1)
+                    $valor_servico = true; // Sempre será verdadeiro, pois o serviço está sendo selecionado
+                    $queryUpdate = "UPDATE Servamenidades SET `$coluna` = :valor_servico WHERE EspId = :anuncio_id";
                     $stmtUpdate = $conexao->prepare($queryUpdate);
-                    $stmtUpdate->bindParam(':recurso', $recurso);
+                    $stmtUpdate->bindParam(':valor_servico', $valor_servico, PDO::PARAM_BOOL); // Atribuir um valor booleano
+                    $stmtUpdate->bindParam(':anuncio_id', $anuncio_id);
                     $stmtUpdate->execute();
+                    $mensagem .= "<div class='alert alert-success' role='alert'>$coluna atualizado com sucesso.</div>";
+
                 }
             }
         }  catch (PDOException $erro) {
