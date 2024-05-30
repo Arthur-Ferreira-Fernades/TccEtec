@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30/05/2024 às 18:23
+-- Tempo de geração: 31/05/2024 às 00:56
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.0.28
 
@@ -69,9 +69,12 @@ CREATE TABLE `espacodados` (
 --
 
 INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`, `SerId`) VALUES
-(12, 'Teste 2 proprietario', 'Proprietario 2', 'Espaço de um segundo proprietario', 1, NULL, '2024-05-23', 2, 'Espaco2.jpg', 1.00, NULL),
 (23, 'Teste Amenidades', 'Rua teste ', 'Teste de descriÃ§Ã£o', 10, 1, '2024-05-30', 1, 'Espaco4.webp', 150.00, 3),
-(24, 'Teste Amenidades2', 'Rua teste ', 'Teste', 5, NULL, '2024-05-30', 1, 'Espaco6.jpg', 150.00, 4);
+(24, 'Teste Amenidades2', 'Rua teste ', 'Teste', 5, 1, '2024-05-30', 1, 'Espaco6.jpg', 150.00, 4),
+(28, 'Teste Amenidades3', 'Teste', 'Descrição', 9, 0, '2024-05-31', 2, 'Espaco3.jpg', 153.00, 6),
+(32, 'Teste Amenidades4', 'Teste', 'Descrição', 9, 0, '2024-05-31', 2, 'Espaco1.webp', 9.00, 9),
+(33, 'Teste tamanho', 'Teste', 'Descrição', 10, 0, '2024-05-31', 2, 'Espaco4.webp', 10.00, 10),
+(34, 'Teste Descrição', 'Teste', 'Essa é a descrição do lugar', 8, 0, '2024-05-31', 2, 'Espaco1.webp', 190.00, 11);
 
 -- --------------------------------------------------------
 
@@ -163,7 +166,13 @@ CREATE TABLE `servamenidades` (
 
 INSERT INTO `servamenidades` (`SerId`, `SerWifi`, `SerArcondicionado`, `SerBebedouro`, `SerComputadores`, `SerCozinha`, `EspId`) VALUES
 (3, 1, 1, 1, 1, 1, 23),
-(4, 1, 1, 1, NULL, NULL, 24);
+(4, 1, 1, 1, NULL, NULL, 24),
+(6, 1, NULL, 1, NULL, NULL, 28),
+(7, 0, 0, 0, 0, 0, NULL),
+(8, 0, 0, 0, 0, 0, NULL),
+(9, 0, 0, 0, 0, 0, 32),
+(10, 1, 1, 1, 1, 1, 33),
+(11, 0, 0, 0, 0, 0, 34);
 
 --
 -- Índices para tabelas despejadas
@@ -232,7 +241,7 @@ ALTER TABLE `alugar`
 -- AUTO_INCREMENT de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `favoritar`
@@ -262,7 +271,7 @@ ALTER TABLE `proprietario`
 -- AUTO_INCREMENT de tabela `servamenidades`
 --
 ALTER TABLE `servamenidades`
-  MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para tabelas despejadas
@@ -272,7 +281,7 @@ ALTER TABLE `servamenidades`
 -- Restrições para tabelas `espacodados`
 --
 ALTER TABLE `espacodados`
-  ADD CONSTRAINT `SerId` FOREIGN KEY (`SerId`) REFERENCES `servamenidades` (`SerId`);
+  ADD CONSTRAINT `SerId` FOREIGN KEY (`SerId`) REFERENCES `servamenidades` (`SerId`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `favoritar`

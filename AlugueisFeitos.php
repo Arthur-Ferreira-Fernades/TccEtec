@@ -119,7 +119,7 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
                                 <p class="card-text">Data de saída: <?php echo date('d/m/Y', strtotime($aluguel['AluDataSaida'])); ?></p>
                                 <?php
                                 // Verificar se a data de entrada é menor ou igual à data atual
-                                if ($aluguel['AluDataEntrada'] >= $dataAtual) {
+                                if ($aluguel['AluDataEntrada'] > $dataAtual) {
                                     ?>
                                     <form action="CancelarAluguel.php" method="POST" onsubmit="return confirm('Tem certeza de que deseja cancelar este aluguel?');">
                                         <input type="hidden" name="alu_id" value="<?php echo $aluguel['AluId']; ?>">

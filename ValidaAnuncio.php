@@ -38,12 +38,13 @@
                                 // Dados do formulário
                                 $EspNome = $_POST['EspacoNome'];
                                 $EspEndereco = $_POST['EspacoEndereco'];
-                                $EspDescricao = utf8_encode($_POST['EspacoDescricao']);
+                                $EspDescricao = $_POST['EspacoDescricao'];
                                 $EspPreco = $_POST['EspacoPreco'];
                                 $EspCapacidade= $_POST['EspacoCapacidade'];
                                 $EspImg = basename($_FILES["Imagem"]["name"]);
                                 $ProId = $_SESSION['UsuarioId'];
                                 $dataHoraAtual = date('Y-m-d H:i:s');
+                                $DisponibilidadePadrao = 0;
 
                                 if ($erro = error_get_last()) {
                                     // Obtém a mensagem de erro
@@ -56,28 +57,26 @@
                                         exit(); // Encerra o script para garantir que o redirecionamento funcione corretamente
                                     }
                                 } else {
-                                    $sql = "INSERT INTO EspacoDados (EspNome, EspEndereco, EspDescricao, EspImg, EspPreco, ProId, EspDataCadastro, EspCapacidade) 
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                                    $sql = "INSERT INTO EspacoDados (EspNome, EspEndereco, EspDescricao, EspImg, EspPreco, ProId, EspDataCadastro, EspCapacidade,EspDisponibilidade) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
                                     $stmt = $conexao->prepare($sql);
-                                    $stmt->execute([$EspNome, $EspEndereco, $EspDescricao, $EspImg, $EspPreco, $ProId, $dataHoraAtual,$EspCapacidade ]);
+                                    $stmt->execute([$EspNome, $EspEndereco, $EspDescricao, $EspImg, $EspPreco, $ProId, $dataHoraAtual,$EspCapacidade, $DisponibilidadePadrao]);
                         
+                                    // Após inserir o anúncio e recuperar o EspacoId
                                     $EspacoId = $conexao->lastInsertId();
 
-                                    // Insere os valores dos checkboxes na tabela servamenidades
-                                    if(isset($_POST['recursos']) && is_array($_POST['recursos'])) {
-                                        foreach($_POST['recursos'] as $recurso) {
-                                            // Insere o recurso na tabela servamenidades e recupera o ID gerado
-                                            $sql = "INSERT INTO servamenidades ($recurso) VALUES (1)"; // ou 0, dependendo se está marcado ou não
-                                            $stmt = $conexao->prepare($sql);
-                                            $stmt->execute();
-                                            $SerId = $conexao->lastInsertId();
-                                            
-                                            // Associa o SerId com o EspacoId na tabela espacodados
-                                            $sql = "UPDATE espacodados SET SerId = ? WHERE EspacoId = ?";
-                                            $stmt = $conexao->prepare($sql);
-                                            $stmt->execute([$SerId, $EspacoId]);
-                                        }
-                                    }
+                                    // Insere um registro na tabela servamenidades com todos os serviços como falsos
+                                    $sql = "INSERT INTO servamenidades (SerWifi, Serarcondicionado, Serbebedouro, Sercomputadores, Sercozinha, EspId) VALUES (0, 0, 0, 0, 0,$EspacoId)";
+                                    $stmt = $conexao->prepare($sql);
+                                    $stmt->execute();
+
+                                    // Recupera o SerId gerado
+                                    $SerId = $conexao->lastInsertId();
+
+                                    // Associa o SerId com o EspacoId na tabela espacodados
+                                    $sql = "UPDATE espacodados SET SerId = ? WHERE EspId = ?";
+                                    $stmt = $conexao->prepare($sql);
+                                    $stmt->execute([$SerId, $EspacoId]);
                                     
                                     echo "Anuncio realizado enviado com sucesso.";
                                 }

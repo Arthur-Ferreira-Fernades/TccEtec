@@ -1,15 +1,13 @@
-
 .pesquisa {
     display: flex;
     width: 25rem;
-    margin: 20px auto;
+    margin: 50px auto; /* Ajuste a margem aqui */
     border: 1px solid black;
     border-radius: 90px;
-    margin: 50px 30px 0 300px;
     font-family: 'Times New Roman', Times, serif;
 }
 
-.pesquisa input[type="text"]{
+.pesquisa input[type="text"] {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
@@ -17,39 +15,33 @@
     border: none;
 }
 
-.pesquisa button[type="submit"]{
+.pesquisa button[type="submit"] {
     padding: 10px 15px;
     border: none;
     background-color: #002a62;
     color: white;
     cursor: pointer;
-    border-radius: 90px;
+    border-radius: 0 90px 90px 0; /* Ajuste o raio da borda */
     transition: background-color 0.3s ease;
-    margin-left: 4.09rem;
-    
+    margin-left: -1px; /* Ajuste o alinhamento do botão */
 }
 
 .pesquisa button[type="submit"]:hover {
     background-color: #001c3f;
 }
 
-.pesquisa img.lupa-pesquisa {
-    padding: 10px;
-}
-
-.barra-de-pesquisa{
+.barra-de-pesquisa {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 0 50px 0;
 }
 
-.filtro{
+.filtro {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 50px 300px 0 0;
+    margin: 50px 0 0 0;
     text-align: center;
 }
 
@@ -57,23 +49,29 @@
     margin-top: 1rem;
 }
 
-.conteudo{
+.conteudo {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    min-height: 100vh;
 }
 
-.postagem {
-    width: 80%;
-    margin: 0 0 0 3%;
+.postagens {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.card{
-    margin: 10px 0 10px 0;
+
+.card {
+   
+    margin: 10px; /* Adicione uma margem entre os cartões */
 }
 
-h5, button {
+h5,
+button {
     font-family: 'Times New Roman', Times, serif;
     margin: 0; /* Remover margem padrão do parágrafo */
 }
@@ -82,3 +80,6 @@ h5, button {
     margin-top: 50px;
 }
 
+.card-ajustado {
+    flex: 1 1 45%; /* Defina a largura dos cartões para ocupar 45% da largura total */
+}

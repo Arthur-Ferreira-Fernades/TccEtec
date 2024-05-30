@@ -109,10 +109,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (isset($_POST['disponibilidade']) && ($_POST['disponibilidade'] == '0' || $_POST['disponibilidade'] == '1')) {
                 $nova_disponibilidade = $_POST['disponibilidade'];
-                $query = "UPDATE EspacoDados SET EspDisponibilidade = :nova_disponibilidade WHERE EspId = :anuncio_id";
+                $query_check = "SELECT * FROM EspacoDados WHERE EspId = :anuncio_id";
+                $stmt_check = $conexao->prepare($query_check);
+                $stmt_check->bindParam(':anuncio_id', $anuncio_id, PDO::PARAM_INT);
+                $stmt_check->execute();
+            
+                if ($stmt_check->rowCount() > 0) {
+                    $query = "UPDATE EspacoDados SET EspDisponibilidade = :nova_disponibilidade WHERE EspId = :anuncio_id";
+                } else {
+                    $query = "INSERT INTO EspacoDados (EspId, EspDisponibilidade) VALUES (:anuncio_id, :nova_disponibilidade) WHERE EspId = :anuncio_id";
+                }
+            
                 $stmt = $conexao->prepare($query);
-                $stmt->bindParam(':nova_disponibilidade', $nova_disponibilidade);
-                $stmt->bindParam(':anuncio_id', $anuncio_id);
+                $stmt->bindParam(':nova_disponibilidade', $nova_disponibilidade, PDO::PARAM_INT);
+                $stmt->bindParam(':anuncio_id', $anuncio_id, PDO::PARAM_INT);
                 $stmt->execute();
                 $mensagem = "<div class='alert alert-success' role='alert'>Disponibilidade atualizada com sucesso.</div>";
             }

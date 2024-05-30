@@ -20,6 +20,8 @@
         header("Location: login.php");
         exit();
     }
+
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,8 +121,8 @@
                             <label class="form-check-label" for="wifi">Wifi</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="recursos[]" id="ar_condicionado" value="Ar Condicionado">
-                            <label class="form-check-label" for="ar_condicionado">Ar Condicionado</label>
+                            <input class="form-check-input" type="checkbox" name="recursos[]" id="ArCondicionado" value="ArCondicionado">
+                            <label class="form-check-label" for="ArCondicionado">Ar Condicionado</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="recursos[]" id="bebedouro" value="Bebedouro">

@@ -101,6 +101,29 @@ session_start();
                                     <label for="filtroPrecoMax" class="form-label">Preço Máximo (Diária)</label>
                                     <input type="number" class="form-control" id="filtroPrecoMax" name="filtroPrecoMax">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="servicos" class="form-label">Serviços</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="wifi" name="servicos[]" value="SerWifi">
+                                        <label class="form-check-label" for="wifi">Wi-Fi</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="arcondicionado" name="servicos[]" value="Serarcondicionado">
+                                        <label class="form-check-label" for="arcondicionado">Ar Condicionado</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="bebedouro" name="servicos[]" value="Serbebedouro">
+                                        <label class="form-check-label" for="bebedouro">Bebedouro</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="computadores" name="servicos[]" value="Sercomputadores">
+                                        <label class="form-check-label" for="computadores">Computadores</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="cozinha" name="servicos[]" value="Sercozinha">
+                                        <label class="form-check-label" for="cozinha">Cozinha</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -114,7 +137,7 @@ session_start();
         </div>
     </div>
 
-    <div class="postagens">
+    <div class="postagens row">
         <?php
         try {
             $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
@@ -128,19 +151,29 @@ session_start();
         $filtroDisponibilidade = isset($_GET['filtroDisponibilidade']) ? $_GET['filtroDisponibilidade'] : '';
         $filtroPrecoMax = isset($_GET['filtroPrecoMax']) ? $_GET['filtroPrecoMax'] : '';
 
-        $query = "SELECT EspId, EspNome, EspCapacidade, EspDisponibilidade, EspImg, EspPreco FROM EspacoDados WHERE 1=1";
+        $query = "SELECT e.EspId, e.EspNome, e.EspCapacidade, e.EspDisponibilidade, e.EspImg, e.EspPreco 
+          FROM EspacoDados e 
+          INNER JOIN servamenidades s ON e.EspId = s.EspId 
+          WHERE 1=1";
 
         if ($filtroName != '') {
-            $query .= " AND EspNome LIKE :filtroName";
+            $query .= " AND e.EspNome LIKE :filtroName";
         }
         if ($filtroCapacidade != '') {
-            $query .= " AND EspCapacidade >= :filtroCapacidade";
+            $query .= " AND e.EspCapacidade >= :filtroCapacidade";
         }
         if ($filtroDisponibilidade != '') {
-            $query .= " AND EspDisponibilidade = :filtroDisponibilidade";
+            $query .= " AND e.EspDisponibilidade = :filtroDisponibilidade";
         }
         if ($filtroPrecoMax != '') {
-            $query .= " AND EspPreco <= :filtroPrecoMax";
+            $query .= " AND e.EspPreco <= :filtroPrecoMax";
+        }
+
+        if (!empty($_GET['servicos'])) {
+            $servicos = $_GET['servicos'];
+            foreach ($servicos as $servico) {
+                $query .= " AND s." . $servico . " = 1";
+            }
         }
 
         $stmt = $conexao->prepare($query);
@@ -160,10 +193,19 @@ session_start();
 
         $stmt->execute();
         $anuncios = $stmt->fetchAll();
+
+        $numeroDeAnuncios = count($anuncios);
+        $classePostagens = $numeroDeAnuncios < 4 ? "postagens flex-wrap" : "postagens";
         ?>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
-            <?php foreach ($anuncios as $anuncio): ?>
+        <div class="<?php echo $classePostagens; ?>">
+            <?php
+                $contador = 0; // Inicializa o contador
+                foreach ($anuncios as $anuncio):
+                    if ($contador % 4 == 0) { // Adiciona uma nova linha a cada 4 anúncios
+                        echo '<div class="row g-3">';
+                    }
+            ?>
                 <div class="col">
                     <div class="card" style="width: 18rem;">
                         <img src="img/<?php echo htmlspecialchars($anuncio['EspImg']); ?>" class="card-img-top" alt="Imagem de <?php echo htmlspecialchars($anuncio['EspNome']); ?>" height="200px">
@@ -175,13 +217,19 @@ session_start();
                             </p>
                         </div>
                         <div class="card-footer">
-                        <button type="submit" class="btn btn-primary me-5">
-                            <a href="AnuncioDetalhes.php?id=<?php echo $anuncio['EspId']; ?>" class="text-white">Alugar</a>
-                        </button>
+                            <button type="submit" class="btn btn-primary me-5">
+                                <a href="AnuncioDetalhes.php?id=<?php echo $anuncio['EspId']; ?>" class="text-white">Alugar</a>
+                            </button>
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+                <?php
+                    $contador++; // Incrementa o contador
+                    if ($contador % 4 == 0 || $contador == count($anuncios)) { // Fecha a linha a cada 4 anúncios ou no último anúncio
+                        echo '</div>';
+                    }
+                endforeach;
+                ?>
         </div>
     </div>
 </div>
