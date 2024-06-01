@@ -1,7 +1,7 @@
 .pesquisa {
     display: flex;
     width: 25rem;
-    margin: 50px auto; /* Ajuste a margem aqui */
+    margin: 0 0 0 90px; 
     border: 1px solid black;
     border-radius: 90px;
     font-family: 'Times New Roman', Times, serif;
@@ -13,6 +13,8 @@
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px;
     border: none;
+    width: 279px;
+    margin: 0 0 0 5px;
 }
 
 .pesquisa button[type="submit"] {
@@ -23,7 +25,6 @@
     cursor: pointer;
     border-radius: 0 90px 90px 0; /* Ajuste o raio da borda */
     transition: background-color 0.3s ease;
-    margin-left: -1px; /* Ajuste o alinhamento do botão */
 }
 
 .pesquisa button[type="submit"]:hover {
@@ -34,15 +35,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 0 50px 0;
+    margin: 50px 0 50px 0;
+}
+
+.lupa-pesquisa {
+    margin: 10px 0 0 10px;
 }
 
 .filtro {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px 0 0 0;
     text-align: center;
+    margin: 0 0 0 50px;
 }
 
 .filtro p {
@@ -54,7 +59,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 .postagens {

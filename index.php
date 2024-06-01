@@ -63,7 +63,7 @@ session_start();
 <div class="conteudo">
     <div class="barra-de-pesquisa">
         <div class="pesquisa">
-            <img src="img/lupa.png" alt="lupa" width="40px" height="40px" class="lupa-pesquisa">
+            <img src="img/lupa.png" alt="lupa" width="25px" height="25px" class="lupa-pesquisa">
             <form method="GET" action="">
                 <input type="text" name="filtroName" placeholder="Pesquisar">
                 <button type="submit">Buscar</button>
