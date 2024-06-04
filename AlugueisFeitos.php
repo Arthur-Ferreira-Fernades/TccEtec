@@ -109,7 +109,6 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
             // Iterar sobre os resultados e exibir cada aluguel na lista
             foreach ($resultado as $aluguel) {
                 $dataAtual = date('Y-m-d');
-                if ($aluguel['AluDataEntrada'] <= $dataAtual) {
                     ?>
                     <div class="col-md-6">
                         <div class="card mb-3">
@@ -117,6 +116,7 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
                                 <h5 class="card-title"><?php echo $aluguel['EspNome']; ?></h5>
                                 <p class="card-text">Data de entrada: <?php echo date('d/m/Y', strtotime($aluguel['AluDataEntrada'])); ?></p>
                                 <p class="card-text">Data de saída: <?php echo date('d/m/Y', strtotime($aluguel['AluDataSaida'])); ?></p>
+
                                 <?php
                                 // Verificar se a data de entrada é menor ou igual à data atual
                                 if ($aluguel['AluDataEntrada'] > $dataAtual) {
@@ -137,7 +137,6 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
                         </div>
                     </div>
             <?php
-                }
             }
             ?>
         </div>
