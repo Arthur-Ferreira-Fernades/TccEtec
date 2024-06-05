@@ -130,3 +130,7 @@ a {
     margin-top: 8px;
     background-color: #133b6e;
 }
+
+p {
+    margin: 0; /* Remover margem padrão do parágrafo */
+}
