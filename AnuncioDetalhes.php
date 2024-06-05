@@ -170,6 +170,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_GET['error']) && $_GET['error'] == 6) {
                     echo "<div class='alert alert-danger' role='alert'>Entre com a sua conta de locador, por favor.</div>";
                 }
+
+                if (isset($_GET['error']) && $_GET['error'] == 5) {
+                    echo "<div class='alert alert-danger' role='alert'>Entre com a sua conta de locador, por favor.</div>";
+                }
                 ?>
 
                 <div class="anuncio">
@@ -333,7 +337,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     var dataEntrada = $("#dataEntrada").datepicker('getDate');
     var dataSaida = $("#dataSaida").datepicker('getDate');
 
-    // Verifica se a data de saída está dentro do intervalo de alguma reserva
+    // Verifica se a data está dentro do intervalo de alguma reserva
     for (var i = 0; i < reservas.length; i++) {
         var reservaEntrada = new Date(reservas[i].AluDataEntrada);
         var reservaSaida = new Date(reservas[i].AluDataSaida);
@@ -344,7 +348,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Desabilita os dias após o último dia de reserva
-    if (dataSaida !== null && date.getTime() >= dataSaida.getTime()) {
+    if (dataSaida !== null && date.getTime() > dataSaida.getTime()) {
+        return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+    }
+
+    // Desabilita o dia anterior ao da data de entrada
+    if (dataEntrada !== null && date.getTime() < dataEntrada.getTime()) {
         return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
     }
 

@@ -19,17 +19,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query_verificar_disponibilidade = "SELECT * FROM alugar WHERE EspId = :id_anuncio AND ((AluDataEntrada <= :data_saida) AND (AluDataSaida >= :data_entrada))";
         $stmt_verificar_disponibilidade = $conexao->prepare($query_verificar_disponibilidade);
         $stmt_verificar_disponibilidade->bindParam(':id_anuncio', $id_anuncio, PDO::PARAM_INT);
-        $stmt_verificar_disponibilidade->bindValue(':data_entrada', $data_entrada->format('Y-d-m'));
-        $stmt_verificar_disponibilidade->bindValue(':data_saida', $data_saida->format('Y-d-m'));
+        $stmt_verificar_disponibilidade->bindValue(':data_entrada', $data_entrada->format('Y-m-d'));
+        $stmt_verificar_disponibilidade->bindValue(':data_saida', $data_saida->format('Y-m-d'));
         $stmt_verificar_disponibilidade->execute();
        
         header("Location: AnuncioDetalhes.php?id=$id_anuncio&error=6");
         exit();
     } else {
         if (!empty($_POST['dataEntrada']) && !empty($_POST['dataSaida'])) {
+            
             // Criando objetos DateTime diretamente
-            $data_entrada = new DateTime($_POST['dataEntrada']);
-            $data_saida = new DateTime($_POST['dataSaida']);
+            if (isset($_POST['dataEntrada']) && isset($_POST['dataSaida'])) {
+                // Tenta criar objetos DateTime a partir das strings fornecidas, assumindo que estão no formato 'd/m/Y'
+                $data_entrada = DateTime::createFromFormat('d/m/Y', $_POST['dataEntrada']);
+                $data_saida = DateTime::createFromFormat('d/m/Y', $_POST['dataSaida']);
+            
+                // Verifica se as datas foram criadas com sucesso
+                if ($data_entrada === false || $data_saida === false) {
+                    // Se não foi possível criar os objetos DateTime, redirecione com mensagem de erro
+                    header("Location: AnuncioDetalhes.php?id=$id_anuncio&error=7");
+                    exit();
+                }
+            } else {
+                // Se as datas não foram fornecidas, redirecione com mensagem de erro
+                header("Location: AnuncioDetalhes.php?id=$id_anuncio&error=8");
+                exit();
+            }
+            
+            // Agora, vamos verificar se as datas foram criadas corretamente
+            if ($data_entrada === false || $data_saida === false) {
+                // Se não foi possível criar os objetos DateTime, redirecione com mensagem de erro
+                header("Location: AnuncioDetalhes.php?id=$id_anuncio&error=7");
+                exit();
+            }
+            
+            // Debug: Verifique se as datas foram interpretadas corretamente
+            echo "Data de entrada: " . $data_entrada->format('d/m/Y') . "<br>";
+            echo "Data de saída: " . $data_saida->format('d/m/Y') . "<br>";
+
             $id_ocupante = isset($_SESSION['UsuarioId']) ? $_SESSION['UsuarioId'] : null;
             $id_anuncio = $_SESSION['id_anuncio'];
     
@@ -49,8 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $query_verificar_disponibilidade = "SELECT * FROM alugar WHERE EspId = :id_anuncio AND ((AluDataEntrada <= :data_saida) AND (AluDataSaida >= :data_entrada))";
             $stmt_verificar_disponibilidade = $conexao->prepare($query_verificar_disponibilidade);
             $stmt_verificar_disponibilidade->bindParam(':id_anuncio', $id_anuncio, PDO::PARAM_INT);
-            $stmt_verificar_disponibilidade->bindValue(':data_entrada', $data_entrada->format('Y-d-m'));
-            $stmt_verificar_disponibilidade->bindValue(':data_saida', $data_saida->format('Y-d-m'));
+            $stmt_verificar_disponibilidade->bindValue(':data_entrada', $data_entrada->format('Y-m-d'));
+            $stmt_verificar_disponibilidade->bindValue(':data_saida', $data_saida->format('Y-m-d'));
             $stmt_verificar_disponibilidade->execute();
     
             // Verifica se há algum resultado da consulta
@@ -67,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt_inserir_aluguel = $conexao->prepare($query_inserir_aluguel);
                     $stmt_inserir_aluguel->bindParam(':id_anuncio', $id_anuncio, PDO::PARAM_INT);
                     $stmt_inserir_aluguel->bindParam(':id_ocupante', $id_ocupante, PDO::PARAM_INT);
-                    $stmt_inserir_aluguel->bindValue(':data_entrada', $data_entrada->format('Y-d-m'));
-                    $stmt_inserir_aluguel->bindValue(':data_saida', $data_saida->format('Y-d-m'));
+                    $stmt_inserir_aluguel->bindValue(':data_entrada', $data_entrada->format('Y-m-d'));
+                    $stmt_inserir_aluguel->bindValue(':data_saida', $data_saida->format('Y-m-d'));
                     $stmt_inserir_aluguel->execute();
     
                     if ($stmt_inserir_aluguel->rowCount() > 0) {

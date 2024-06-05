@@ -72,7 +72,7 @@
             }
 
             if (isset($_SESSION['UsuarioId'])) {
-                $query = "SELECT EspId, EspNome, EspCapacidade, EspDisponibilidade, EspImg, EspPreco FROM EspacoDados WHERE ProId = :UsuarioId";
+                $query = "SELECT EspId, EspNome, EspCapacidade, EspDisponibilidade, EspImg, EspPreco, EspCongelado FROM EspacoDados WHERE ProId = :UsuarioId";
                 $stmt = $conexao->prepare($query);
                 $stmt->bindValue(':UsuarioId', $_SESSION['UsuarioId']);
                 $stmt->execute();
@@ -95,11 +95,18 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary me-5"><a href="EditarAnuncio.php" class="text-white">Atualizar Anúncio</a></button>
-                                <form action="ExcluirAnuncio.php" method="POST">
-                                    <input type="hidden" name="anuncio_id" value="<?php echo $anuncio['EspId']; ?>">
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza de que deseja excluir este anúncio?')">Excluir Anúncio</button>
-                                </form>
+                                <button type="submit" class="btn btn-primary me-3"><a href="EditarAnuncio.php" class="text-white">Atualizar Anúncio</a></button>
+                                <?php if ($anuncio['EspCongelado'] == 1): ?>
+                                    <form action="DescongelarAnuncio.php" method="POST">
+                                        <input type="hidden" name="anuncio_id" value="<?php echo $anuncio['EspId']; ?>">
+                                        <button type="submit" class="btn btn-success">Descongelar Anúncio</button>
+                                    </form>
+                                <?php else: ?>
+                                    <form action="CongelarAnuncio.php" method="POST">
+                                        <input type="hidden" name="anuncio_id" value="<?php echo $anuncio['EspId']; ?>">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza de que deseja congelar este anúncio?')">Congelar Anúncio</button>
+                                    </form>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

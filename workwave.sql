@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 31/05/2024 às 00:56
+-- Tempo de geração: 05/06/2024 às 18:52
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.0.28
 
@@ -32,17 +32,21 @@ CREATE TABLE `alugar` (
   `AluDataEntrada` date NOT NULL,
   `AluDataSaida` date NOT NULL,
   `OcuId` int(11) NOT NULL,
-  `EspId` int(11) NOT NULL
+  `EspId` int(11) NOT NULL,
+  `AluPago` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Despejando dados para a tabela `alugar`
 --
 
-INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId`) VALUES
-(18, '2024-05-27', '2024-05-28', 1, 11),
-(19, '2024-05-29', '2024-05-30', 1, 11),
-(20, '2024-05-31', '2024-06-07', 1, 11);
+INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId`, `AluPago`) VALUES
+(18, '2024-05-27', '2024-05-28', 1, 11, NULL),
+(19, '2024-05-29', '2024-05-30', 1, 11, NULL),
+(20, '2024-05-31', '2024-06-07', 1, 11, NULL),
+(24, '2024-06-29', '2024-06-30', 2, 35, NULL),
+(25, '2024-06-15', '2024-06-16', 2, 35, NULL),
+(29, '2024-06-05', '2024-06-06', 1, 35, NULL);
 
 -- --------------------------------------------------------
 
@@ -61,20 +65,22 @@ CREATE TABLE `espacodados` (
   `ProId` int(11) NOT NULL,
   `EspImg` varchar(255) DEFAULT NULL,
   `EspPreco` decimal(10,2) DEFAULT NULL,
-  `SerId` int(11) DEFAULT NULL
+  `SerId` int(11) DEFAULT NULL,
+  `EspCongelado` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Despejando dados para a tabela `espacodados`
 --
 
-INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`, `SerId`) VALUES
-(23, 'Teste Amenidades', 'Rua teste ', 'Teste de descriÃ§Ã£o', 10, 1, '2024-05-30', 1, 'Espaco4.webp', 150.00, 3),
-(24, 'Teste Amenidades2', 'Rua teste ', 'Teste', 5, 1, '2024-05-30', 1, 'Espaco6.jpg', 150.00, 4),
-(28, 'Teste Amenidades3', 'Teste', 'Descrição', 9, 0, '2024-05-31', 2, 'Espaco3.jpg', 153.00, 6),
-(32, 'Teste Amenidades4', 'Teste', 'Descrição', 9, 0, '2024-05-31', 2, 'Espaco1.webp', 9.00, 9),
-(33, 'Teste tamanho', 'Teste', 'Descrição', 10, 0, '2024-05-31', 2, 'Espaco4.webp', 10.00, 10),
-(34, 'Teste Descrição', 'Teste', 'Essa é a descrição do lugar', 8, 0, '2024-05-31', 2, 'Espaco1.webp', 190.00, 11);
+INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`, `SerId`, `EspCongelado`) VALUES
+(23, 'Teste Amenidades', 'Rua teste ', 'Teste de descriÃ§Ã£o', 10, 1, '2024-05-30', 1, 'Espaco4.webp', 150.00, 3, 0),
+(24, 'Teste Amenidades2', 'Rua teste ', 'Teste', 5, 1, '2024-05-30', 1, 'Espaco6.jpg', 150.00, 4, 0),
+(28, 'Teste Amenidades3', 'Teste', 'Descrição', 9, 0, '2024-05-31', 2, 'Espaco3.jpg', 153.00, 6, 0),
+(32, 'Teste Amenidades4', 'Teste', 'Descrição', 9, 0, '2024-05-31', 2, 'Espaco1.webp', 9.00, 9, 0),
+(33, 'Teste tamanho', 'Teste', 'Descrição', 10, 0, '2024-05-31', 2, 'Espaco4.webp', 10.00, 10, 0),
+(34, 'Teste Descrição', 'Teste', 'Essa é a descrição do lugar', 8, 0, '2024-05-31', 2, 'Espaco1.webp', 190.00, 11, 0),
+(35, 'Teste pagamento', 'Teste', 'Teste', 1, 1, '2024-06-04', 1, 'Espaco2.jpg', 0.01, 12, 0);
 
 -- --------------------------------------------------------
 
@@ -107,7 +113,8 @@ CREATE TABLE `ocupante` (
 --
 
 INSERT INTO `ocupante` (`OcuId`, `OcuNome`, `OcuSenha`, `OcuEmail`, `OcuTelefone`) VALUES
-(1, 'Arthur', '123', 'arthur@123.com', '11986599562');
+(1, 'Arthur', '123', 'arthur@123.com', '11986599562'),
+(2, 'arthur', '123', 'arthur2@123.com', '123');
 
 -- --------------------------------------------------------
 
@@ -142,7 +149,8 @@ CREATE TABLE `proprietario` (
 
 INSERT INTO `proprietario` (`ProId`, `ProNome`, `ProSenha`, `ProEmail`, `ProTelefone`) VALUES
 (1, 'Arthur', '123', 'arthur@123.com', '11986599562'),
-(2, 'Arthur2', '123', 'arthur2@123.com', '123456789');
+(2, 'Arthur2', '123', 'arthur2@123.com', '123456789'),
+(3, 'arthur', '123', 'arthurpag@123.com', '123');
 
 -- --------------------------------------------------------
 
@@ -165,14 +173,15 @@ CREATE TABLE `servamenidades` (
 --
 
 INSERT INTO `servamenidades` (`SerId`, `SerWifi`, `SerArcondicionado`, `SerBebedouro`, `SerComputadores`, `SerCozinha`, `EspId`) VALUES
-(3, 1, 1, 1, 1, 1, 23),
+(3, 0, 0, 0, 0, 0, 23),
 (4, 1, 1, 1, NULL, NULL, 24),
 (6, 1, NULL, 1, NULL, NULL, 28),
 (7, 0, 0, 0, 0, 0, NULL),
 (8, 0, 0, 0, 0, 0, NULL),
 (9, 0, 0, 0, 0, 0, 32),
 (10, 1, 1, 1, 1, 1, 33),
-(11, 0, 0, 0, 0, 0, 34);
+(11, 0, 0, 0, 0, 0, 34),
+(12, 0, 0, 0, 0, 0, 35);
 
 --
 -- Índices para tabelas despejadas
@@ -235,13 +244,13 @@ ALTER TABLE `servamenidades`
 -- AUTO_INCREMENT de tabela `alugar`
 --
 ALTER TABLE `alugar`
-  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de tabela `favoritar`
@@ -253,7 +262,7 @@ ALTER TABLE `favoritar`
 -- AUTO_INCREMENT de tabela `ocupante`
 --
 ALTER TABLE `ocupante`
-  MODIFY `OcuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `OcuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `planosprecos`
@@ -265,13 +274,13 @@ ALTER TABLE `planosprecos`
 -- AUTO_INCREMENT de tabela `proprietario`
 --
 ALTER TABLE `proprietario`
-  MODIFY `ProId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ProId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `servamenidades`
 --
 ALTER TABLE `servamenidades`
-  MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restrições para tabelas despejadas
