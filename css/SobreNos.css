@@ -7,64 +7,6 @@ header{
   
 }
 
-a {
-    text-decoration: none;
-    color: white;
-}
-
-.pesquisa {
-    display: flex;
-    width: 550px;
-    margin: 20px auto;
-    border: 1px solid black;
-    border-radius: 90px;
-    margin: 50px 30px 0 300px;
-
-}
-
-.pesquisa input[type="text"]{
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    border: none;
-}
-
-.pesquisa button[type="submit"]{
-    padding: 10px 15px;
-    border: none;
-    background-color: #002a62;
-    color: white;
-    cursor: pointer;
-    border-radius: 90px;
-    transition: background-color 0.3s ease;
-    
-}
-
-.pesquisa button[type="submit"]:hover {
-    background-color: #001c3f;
-}
-
-.pesquisa img.lupa-pesquisa {
-    padding: 10px;
-}
-
-.barra-de-pesquisa{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 0 50px 0;
-}
-
-.filtro{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin: 50px 300px 0 0;
-    text-align: center;
-}
-
 .conteudo{
     display: flex;
     justify-content: center;
@@ -75,47 +17,6 @@ a {
 
 .conteudo h1 {
     margin: 20px 0 30px 0;
-}
-
-.postagens{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 1232px;
-}
-
-.card{
-    margin: 10px;
-}
-
-.underline {
-    position: relative; 
-    text-decoration: none; 
-    color: #EAEAEA; 
-
-    transition: color 0.3s ease;
-}
-
-.underline::after {
-    content: ''; 
-    position: absolute;
-    bottom: -12px; 
-    left: -25%; 
-    width: 150%;
-    height: 2px; 
-    background-color: #EAEAEA; 
-    transform: scaleX(0); 
-    transition: transform 0.3s ease; 
-}
-
-.underline:focus,
-.underline:hover {
-    color: white;
-}
-
-.underline:focus::after,
-.underline:hover::after {
-    transform: scaleX(1); 
 }
 
 .sessao {
@@ -149,10 +50,27 @@ a {
 .imagem-redonda {
     border-radius: 50%; 
     overflow: hidden; 
-    margin: 0 50px 30px 0 ;
+}
+.imagem {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.Imagem {
-    border-radius: 10%; 
-    overflow: hidden; 
+.Gui, .Art {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 16rem;
+    margin-top: 40px;
+
+}
+
+.Art p, .Gui p {
+    text-align: center;
+    width: 200px;
+    margin-top: 40px;
 }
