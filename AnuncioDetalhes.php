@@ -40,24 +40,29 @@ try {
         } else {
             echo "Nenhum serviço ou amenidade encontrado para este espaço.";
         }
+
+        $query_reservas = "SELECT AluDataEntrada, AluDataSaida FROM alugar WHERE EspId = :id_anuncio";
+        $stmt_reservas = $conexao->prepare($query_reservas);
+        $stmt_reservas->bindParam(':id_anuncio', $_SESSION['id_anuncio'], PDO::PARAM_INT);
+        $stmt_reservas->execute();
+        $reservas = $stmt_reservas->fetchAll(PDO::FETCH_ASSOC);
     } else {
         echo "Espaço não encontrado.";
     }
 } catch (PDOException $erro) {
     echo "Erro na conexão:" . $erro->getMessage();
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['dataEntrada']) && !empty($_POST['dataSaida'])) {
-        $data_entrada = new DateTime($_POST['dataEntrada']);
-        $data_saida = new DateTime($_POST['dataSaida']);
+        $data_entrada = DateTime::createFromFormat('d/m/Y', $_POST['dataEntrada'])->format('d-m-Y');
+        $data_saida = DateTime::createFromFormat('d/m/Y', $_POST['dataSaida'])->format('d-m-Y');
 
         // Consulta para verificar se o espaço está disponível durante o período escolhido
         $query = "SELECT * FROM alugar WHERE EspId = :id_anuncio AND ((AluDataEntrada <= :data_saida) AND (AluDataSaida >= :data_entrada))";
         $stmt = $conexao->prepare($query);
         $stmt->bindParam(':id_anuncio', $_SESSION['id_anuncio'], PDO::PARAM_INT);
-        $stmt->bindParam(':data_entrada', $data_entrada->format('Y-m-d'), PDO::PARAM_STR);
-        $stmt->bindParam(':data_saida', $data_saida->format('Y-m-d'), PDO::PARAM_STR);
+        $stmt->bindParam(':data_entrada', $data_entrada, PDO::PARAM_STR);
+        $stmt->bindParam(':data_saida', $data_saida, PDO::PARAM_STR);
         $stmt->execute();
 
         // Verifica se há algum resultado da consulta
@@ -81,13 +86,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="css/Style.css">
-    <link rel="stylesheet" href="AnuncioDetalhes.css">
+    <link rel="stylesheet" href="css/AnuncioDetalhes.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <title>Detalhes do Anuncio</title>
 </head>
 
@@ -140,6 +148,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         };
         ?>
     </header>
+
+    
     <div class="container py-4">
         <div class="row">
             <div class="col-md-6">
@@ -203,12 +213,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php echo $disponibilidade == 0 ? 'Indisponível' : 'Disponível'; ?>
                         </p>
                         <div class="mb-3">
-                            <label for="dataEntrada" class="form-label">Data de entrada</label>
-                            <input type="date" class="form-control" id="dataEntrada" name="dataEntrada" min="<?php echo date('Y-m-d'); ?>">
+                            <label for="dataEntrada" class="form-label">Data de Entrada:</label>
+                            <input type="text" class="form-control" id="dataEntrada" name="dataEntrada">
                         </div>
                         <div class="mb-3">
-                            <label for="dataSaida" class="form-label">Data de saída</label>
-                            <input type="date" class="form-control" id="dataSaida" name="dataSaida" min="<?php echo date('Y-m-d'); ?>">
+                            <label for="dataSaida" class="form-label">Data de Saída:</label>
+                            <input type="text" class="form-control" id="dataSaida" name="dataSaida">
                         </div>
                         <h2>Valor total:</h2>
                         <p id="valorTotal">Escolha a data de entrada e saída</p>
@@ -285,58 +295,103 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Função para calcular o valor total com base nas datas selecionadas
-            function calcularValorTotal() {
-                var dataEntrada = new Date(document.getElementById('dataEntrada').value);
-                var dataSaida = new Date(document.getElementById('dataSaida').value);
+    document.addEventListener('DOMContentLoaded', function() {
+        $("#dataEntrada").datepicker({
+            dateFormat: 'dd/mm/yy', // Formato da data
+            dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"], // Dias da semana abreviados
+            monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], // Meses
+            monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"], // Meses abreviados
+            firstDay: 0, // Primeiro dia da semana (0 = Domingo, 1 = Segunda, etc.)
+            minDate: 0, // Data mínima (hoje)
+            beforeShowDay: marcaDiasIndisponiveis, // Função para marcar os dias indisponíveis
+            onSelect: function(selectedDate) {
+                // Quando uma data é selecionada, atualiza a data mínima da saída para o próximo dia
+                var date = $(this).datepicker('getDate');
+                date.setDate(date.getDate() + 1);
+                $("#dataSaida").datepicker("option", "minDate", date);
+                validarDatas();
+            }
+        });
 
-                // Verifica se ambas as datas foram selecionadas
-                if (!dataEntrada || !dataSaida || isNaN(dataEntrada) || isNaN(dataSaida)) {
-                    document.getElementById('valorTotal').textContent = 'Escolha a data de entrada e saída'; // Define a mensagem padrão se uma das datas estiver em falta
-                    return;
+        $("#dataSaida").datepicker({
+            dateFormat: 'dd/mm/yy', // Formato da data
+            dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"], // Dias da semana abreviados
+            monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], // Meses
+            monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"], // Meses abreviados
+            firstDay: 0, // Primeiro dia da semana (0 = Domingo, 1 = Segunda, etc.)
+            minDate: 1, // Data mínima é o próximo dia após a entrada
+            beforeShowDay: marcaDiasIndisponiveis, // Função para marcar os dias indisponíveis
+            onSelect: function(selectedDate) {
+                validarDatas();
+            }
+        });
+
+        var reservas = <?php echo json_encode($reservas); ?>;
+
+        function marcaDiasIndisponiveis(date) {
+    var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+    var dataEntrada = $("#dataEntrada").datepicker('getDate');
+    var dataSaida = $("#dataSaida").datepicker('getDate');
+
+    // Verifica se a data de saída está dentro do intervalo de alguma reserva
+    for (var i = 0; i < reservas.length; i++) {
+        var reservaEntrada = new Date(reservas[i].AluDataEntrada);
+        var reservaSaida = new Date(reservas[i].AluDataSaida);
+
+        if (date >= reservaEntrada && date <= reservaSaida) {
+            return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+        }
+    }
+
+    // Desabilita os dias após o último dia de reserva
+    if (dataSaida !== null && date.getTime() >= dataSaida.getTime()) {
+        return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+    }
+
+    // Desabilita o dia seguinte ao da data de saída
+    if (dataSaida !== null && date.getTime() === dataSaida.getTime() + 86400000) {
+        return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+    }
+
+    return [true, "", "Disponível"]; // Deixa o dia disponível
+}
+
+        function validarDatas() {
+            var dataEntrada = $("#dataEntrada").datepicker('getDate');
+            var dataSaida = $("#dataSaida").datepicker('getDate');
+            var botaoAlugar = $('.btn.btn-primary');
+
+            var disponivel = true;
+            for (var i = 0; i < reservas.length; i++) {
+                var reservaEntrada = new Date(reservas[i].AluDataEntrada);
+                var reservaSaida = new Date(reservas[i].AluDataSaida);
+
+                if (dataSaida >= reservaEntrada && dataSaida < reservaSaida) {
+                    disponivel = false;
+                    break;
                 }
-
-                // Calcula o número de dias entre a entrada e a saída
-                var umDia = 24 * 60 * 60 * 1000; // horas*minutos*segundos*milisegundos
-                var diferencaDias = Math.round(Math.abs((dataEntrada - dataSaida) / umDia));
-
-                var precoDiaria = <?php echo $preco; ?>;
-
-                // Calcula o valor total da estadia
-                var valorTotal = precoDiaria * diferencaDias;
-
-                // Exibe o valor total na página
-                document.getElementById('valorTotal').textContent = 'R$' + valorTotal.toFixed(2);
             }
 
-            // Adiciona um ouvinte de evento de mudança aos campos de data
-            document.getElementById('dataEntrada').addEventListener('change', function() {
-                calcularValorTotal();
-                validarDatas();
-            });
-            document.getElementById('dataSaida').addEventListener('change', function() {
-                calcularValorTotal();
-                validarDatas();
-            });
-
-            function validarDatas() {
-                var dataEntrada = document.getElementById('dataEntrada').value;
-                var dataSaida = document.getElementById('dataSaida').value;
-                var botaoAlugar = document.querySelector('.btn.btn-primary');
-
-                // Verifica se ambas as datas foram preenchidas
-                if (dataEntrada !== '' && dataSaida !== '' && <?php echo $disponibilidade;?> == 1) {
-                    botaoAlugar.removeAttribute('disabled'); // Habilita o botão "Alugar"
-                } else {
-                    botaoAlugar.setAttribute('disabled', 'disabled'); // Desabilita o botão "Alugar"
-                }
+            if (dataEntrada !== null && dataSaida !== null && disponivel && <?php echo $disponibilidade; ?> == 1) {
+                botaoAlugar.removeAttr('disabled');
+            } else {
+                botaoAlugar.attr('disabled', 'disabled');
             }
+        }
 
-            // Chama a função de validação inicialmente para desabilitar o botão "Alugar" se os campos de data estiverem vazios
+        $("#dataEntrada").on('change', function() {
             validarDatas();
         });
-    </script>
+
+        $("#dataSaida").on('change', function() {
+            validarDatas();
+        });
+
+        // Chamada inicial para validar as datas ao carregar a página
+        validarDatas();
+    });
+</script>
+
 </body>
 
 </html>
