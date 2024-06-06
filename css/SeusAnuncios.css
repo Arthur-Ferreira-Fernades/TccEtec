@@ -1,11 +1,13 @@
 .conteudo {
     display: flex;
-    align-items: center;
     justify-content: center;
-    height: 85vh;
+    align-items: center;
+    flex-direction: column;
 }
 
-.postagem {
-    width: 60%;
-    margin: 0 0 0 3%;
+.postagens {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
