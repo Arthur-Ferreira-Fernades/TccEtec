@@ -202,6 +202,11 @@ session_start();
 
             <div class="<?php echo $classePostagens; ?>">
                 <?php
+                if ($numeroDeAnuncios == 0) {
+                    echo '<div style="height: 34vh;"';
+                    echo '<h2>Nenhum espaço com essas especificações encontrado</h2>';
+                    echo '</div>';
+                }
                 $contador = 0; // Inicializa o contador
                 foreach ($anuncios as $anuncio) :
                     if ($contador % 4 == 0) { // Adiciona uma nova linha a cada 4 anúncios
