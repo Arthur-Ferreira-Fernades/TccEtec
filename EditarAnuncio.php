@@ -86,7 +86,7 @@ if(isset($_SESSION['UsuarioId'])) {
 </header>
 <div class="container mt-5 d-flex flex-column">
     <h2 class="mb-4 text-center">Atualizar Anúncio</h2>
-    <form action="ValidaAtualizacao.php" method="POST">
+    <form action="ValidaAtualizacao.php" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="anuncio" class="form-label">Selecione o Anúncio:</label>
             <select class="form-select" name="anuncio" id="anuncio">
@@ -107,6 +107,10 @@ if(isset($_SESSION['UsuarioId'])) {
             <div class="mb-3">
                 <label for="nova_capacidade" class="form-label">Nova Capacidade:</label>
                 <input type="number" class="form-control" id="nova_capacidade" name="nova_capacidade">
+            </div>
+            <div class="mb-3">
+                <label for="nova_imagem" class="form-label">Nova Imagem:</label>
+                <input type="file" class="form-control" id="nova_imagem" name="nova_imagem">
             </div>
             <label class="form-label">Disponibilidade:</label>
             <div class="form-check">

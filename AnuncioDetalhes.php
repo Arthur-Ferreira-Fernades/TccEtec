@@ -333,37 +333,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var reservas = <?php echo json_encode($reservas); ?>;
 
         function marcaDiasIndisponiveis(date) {
-    var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-    var dataEntrada = $("#dataEntrada").datepicker('getDate');
-    var dataSaida = $("#dataSaida").datepicker('getDate');
+            var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+            var dataEntrada = $("#dataEntrada").datepicker('getDate');
+            var dataSaida = $("#dataSaida").datepicker('getDate');
 
-    // Verifica se a data está dentro do intervalo de alguma reserva
-    for (var i = 0; i < reservas.length; i++) {
-        var reservaEntrada = new Date(reservas[i].AluDataEntrada);
-        var reservaSaida = new Date(reservas[i].AluDataSaida);
+            // Verifica se a data está dentro do intervalo de alguma reserva
+            for (var i = 0; i < reservas.length; i++) {
+                var reservaEntrada = new Date(reservas[i].AluDataEntrada);
+                var reservaSaida = new Date(reservas[i].AluDataSaida);
 
-        if (date >= reservaEntrada && date <= reservaSaida) {
-            return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+                if (date >= reservaEntrada && date <= reservaSaida) {
+                    return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+                }
+            }
+
+            // Desabilita os dias após o último dia de reserva
+            if (dataSaida !== null && date.getTime() > dataSaida.getTime()) {
+                return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+            }
+
+            // Desabilita o dia anterior ao da data de entrada
+            if (dataEntrada !== null && date.getTime() < dataEntrada.getTime()) {
+                return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+            }
+
+            // Desabilita o dia seguinte ao da data de saída
+            if (dataSaida !== null && date.getTime() === dataSaida.getTime() + 86400000) {
+                return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
+            }
+
+            return [true, "", "Disponível"]; // Deixa o dia disponível
         }
-    }
-
-    // Desabilita os dias após o último dia de reserva
-    if (dataSaida !== null && date.getTime() > dataSaida.getTime()) {
-        return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
-    }
-
-    // Desabilita o dia anterior ao da data de entrada
-    if (dataEntrada !== null && date.getTime() < dataEntrada.getTime()) {
-        return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
-    }
-
-    // Desabilita o dia seguinte ao da data de saída
-    if (dataSaida !== null && date.getTime() === dataSaida.getTime() + 86400000) {
-        return [false, "unavailable", "Indisponível"]; // Marca o dia como indisponível
-    }
-
-    return [true, "", "Disponível"]; // Deixa o dia disponível
-}
 
         function validarDatas() {
             var dataEntrada = $("#dataEntrada").datepicker('getDate');
@@ -382,6 +382,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             if (dataEntrada !== null && dataSaida !== null && disponivel && <?php echo $disponibilidade; ?> == 1) {
+                var intervaloDias = (dataSaida - dataEntrada) / (1000 * 3600 * 24); // Calcula o número de dias
+                var valorTotal = intervaloDias * <?php echo $preco; ?>; // Calcula o valor total
+                $('#valorTotal').text('Valor total: R$' + valorTotal.toFixed(2)); // Atualiza o texto mostrando o valor total
                 botaoAlugar.removeAttr('disabled');
             } else {
                 botaoAlugar.attr('disabled', 'disabled');
@@ -398,6 +401,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Chamada inicial para validar as datas ao carregar a página
         validarDatas();
+
+        
     });
 </script>
 

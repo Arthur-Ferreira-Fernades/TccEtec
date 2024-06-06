@@ -60,8 +60,8 @@
         };
     ?>
 </header>
-<div class="conteudo conteudo-principal">
-    <div class="postagem">
+<div class="conteudo">
+    <div class="postagens row">
         <?php
             try {
                 $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
@@ -80,9 +80,19 @@
             } else {
                 $anuncios = [];
             }
+
+            $numeroDeAnuncios = count($anuncios);
+            $classePostagens = $numeroDeAnuncios < 3 ? "postagens flex-wrap" : "postagens";
         ?>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <?php foreach ($anuncios as $anuncio): ?>
+        <div class="<?php echo $classePostagens; ?>">
+        <?php 
+                $contador = 0; // Inicializa o contador
+                foreach ($anuncios as $anuncio) :
+                    if ($contador % 3 == 0) { // Adiciona uma nova linha a cada 4 anúncios
+                        echo '<div class="row g-3 mt-2">';
+                    }
+                ?>
+            
                 <div class="col">
                     <div class="card" style="width: 18rem;">
                         <img src="img/<?php echo htmlspecialchars($anuncio['EspImg']); ?>" class="card-img-top" alt="Imagem de <?php echo htmlspecialchars($anuncio['EspNome']); ?>" height="200px">
@@ -111,7 +121,12 @@
                         </div>
                     </div>
                 </div>
-            <?php endforeach;?>
+            <?php 
+                $contador++; // Incrementa o contador
+                if ($contador % 3 == 0 || $contador == count($anuncios)) { // Fecha a linha a cada 4 anúncios ou no último anúncio
+                    echo '</div>';
+                }
+                endforeach;?>
         </div>
     </div>
 </div>

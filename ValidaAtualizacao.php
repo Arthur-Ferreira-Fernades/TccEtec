@@ -127,6 +127,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mensagem = "<div class='alert alert-success' role='alert'>Disponibilidade atualizada com sucesso.</div>";
             }
 
+            if (isset($_FILES['nova_imagem']) && $_FILES['nova_imagem']['error'] === UPLOAD_ERR_OK) {
+                $nome_arquivo = $_FILES['nova_imagem']['name']; // Nome do arquivo
+                $caminho_temporario = $_FILES['nova_imagem']['tmp_name']; // Caminho temporário do arquivo
+                $caminho_destino = 'img/' . $nome_arquivo; // Caminho de destino onde a imagem será movida
+                
+                // Move o arquivo para o destino final
+                move_uploaded_file($caminho_temporario, $caminho_destino);
+                
+                // Agora, você só precisa armazenar o nome do arquivo no banco de dados
+                // O caminho completo (incluindo "img/") não precisa ser armazenado no banco de dados
+                $nome_arquivo_no_banco = $nome_arquivo;
+                
+                // Atualize a coluna EspImg na tabela EspacoDados com o nome do arquivo da imagem
+                $query = "UPDATE EspacoDados SET EspImg = :nome_arquivo WHERE EspId = :anuncio_id";
+                $stmt = $conexao->prepare($query);
+                $stmt->bindParam(':nome_arquivo', $nome_arquivo_no_banco);
+                $stmt->bindParam(':anuncio_id', $anuncio_id);
+                $stmt->execute();
+                
+                $mensagem .= "<div class='alert alert-success' role='alert'>Imagem atualizada com sucesso.</div>";
+            }
+
             // Atualize as colunas correspondentes na tabela Servamenidades
             $queryUpdateFalse = "UPDATE Servamenidades SET `SerWifi` = false, `SerArcondicionado` = false, `SerBebedouro` = false, `SerComputadores` = false, `SerCozinha` = false WHERE EspId = :anuncio_id";
             $stmtUpdateFalse = $conexao->prepare($queryUpdateFalse);

@@ -205,7 +205,7 @@ session_start();
                 $contador = 0; // Inicializa o contador
                 foreach ($anuncios as $anuncio) :
                     if ($contador % 4 == 0) { // Adiciona uma nova linha a cada 4 anúncios
-                        echo '<div class="row g-3">';
+                        echo '<div class="row g-3 mt-2">';
                     }
                 ?>
                     <div class="col">
