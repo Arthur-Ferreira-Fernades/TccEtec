@@ -106,6 +106,9 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
         <h2 style="margin-bottom: 20px;">Seus aluguéis:</h2>
         <div class="row">
             <?php
+            if ($resultado == []) {
+                echo '<h2>Você ainda não realizou nenhum aluguel</h2>';
+            }
             // Iterar sobre os resultados e exibir cada aluguel na lista
             foreach ($resultado as $aluguel) {
                 $dataAtual = date('Y-m-d');

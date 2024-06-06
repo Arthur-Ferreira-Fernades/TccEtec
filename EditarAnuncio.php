@@ -109,6 +109,10 @@ if(isset($_SESSION['UsuarioId'])) {
                 <input type="number" class="form-control" id="nova_capacidade" name="nova_capacidade">
             </div>
             <div class="mb-3">
+                <label for="nova_descricao" class="form-label">Nova Descrição:</label><br>
+                <textarea name="nova_descricao" rows="5" cols="33" placeholder="Atualize sua descrição"></textarea>
+            </div>
+            <div class="mb-3">
                 <label for="nova_imagem" class="form-label">Nova Imagem:</label>
                 <input type="file" class="form-control" id="nova_imagem" name="nova_imagem">
             </div>

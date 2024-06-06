@@ -107,6 +107,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mensagem .= "<div class='alert alert-success' role='alert'>Capacidade atualizada com sucesso.</div>";
             }
 
+            if (isset($_POST['nova_descricao']) && !empty($_POST['nova_descricao'])){
+                $nova_descricao = $_POST['nova_descricao'];
+                $query = "UPDATE EspacoDados SET EspDescricao = :nova_descricao WHERE EspId = :anuncio_id";
+                $stmt = $conexao->prepare($query);
+                $stmt->bindParam(':nova_descricao', $nova_descricao);
+                $stmt->bindParam(':anuncio_id', $anuncio_id);
+                $stmt->execute();
+                $mensagem .= "<div class='alert alert-success' role='alert'>Descrição atualizada com sucesso.</div>";
+            }
+
             if (isset($_POST['disponibilidade']) && ($_POST['disponibilidade'] == '0' || $_POST['disponibilidade'] == '1')) {
                 $nova_disponibilidade = $_POST['disponibilidade'];
                 $query_check = "SELECT * FROM EspacoDados WHERE EspId = :anuncio_id";

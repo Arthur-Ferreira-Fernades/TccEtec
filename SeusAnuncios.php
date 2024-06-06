@@ -61,6 +61,7 @@
     ?>
 </header>
 <div class="conteudo">
+    <h1>Seus Anuncios</h1>
     <div class="postagens row">
         <?php
             try {
@@ -79,6 +80,10 @@
                 $anuncios = $stmt->fetchAll();
             } else {
                 $anuncios = [];
+            }
+
+            if ($anuncios == []) {
+                echo '<h2>Você ainda não tem anuncios</h2>';
             }
 
             $numeroDeAnuncios = count($anuncios);
