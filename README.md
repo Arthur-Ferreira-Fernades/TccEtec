@@ -1,3 +1,4 @@
+WorkWave
 Projeto de TCC - Plataforma de Espaço de Coworking
 
 Este é o repositório do projeto de Trabalho de Conclusão de Curso (TCC) desenvolvido pelos alunos da ETEC Aprígio de Gonzaga, Extensão Professor Frankel Sampaio. O objetivo deste projeto, orientado pela Professora Katia Duarte, é criar uma plataforma online para gerenciamento de espaço de coworking, permitindo aos usuários alugar e anunciar espaços, cadastrar-se e fazer login, congelar e descongelar um anúncio, além de alterar seus dados. O projeto tem como objetivo geral facilitar a interação entre empresas que oferecem espaços de coworking e potenciais locatários, proporcionando facilidades na busca por espaços ideais.
