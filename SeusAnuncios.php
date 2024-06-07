@@ -87,13 +87,13 @@
             }
 
             $numeroDeAnuncios = count($anuncios);
-            $classePostagens = $numeroDeAnuncios < 3 ? "postagens flex-wrap" : "postagens";
+            $classePostagens = $numeroDeAnuncios < 4 ? "postagens flex-wrap" : "postagens";
         ?>
         <div class="<?php echo $classePostagens; ?>">
         <?php 
                 $contador = 0; // Inicializa o contador
                 foreach ($anuncios as $anuncio) :
-                    if ($contador % 3 == 0) { // Adiciona uma nova linha a cada 4 anúncios
+                    if ($contador % 4 == 0) { // Adiciona uma nova linha a cada 4 anúncios
                         echo '<div class="row g-3 mt-2">';
                     }
                 ?>
@@ -128,7 +128,7 @@
                 </div>
             <?php 
                 $contador++; // Incrementa o contador
-                if ($contador % 3 == 0 || $contador == count($anuncios)) { // Fecha a linha a cada 4 anúncios ou no último anúncio
+                if ($contador % 4 == 0 || $contador == count($anuncios)) { // Fecha a linha a cada 4 anúncios ou no último anúncio
                     echo '</div>';
                 }
                 endforeach;?>

@@ -110,7 +110,7 @@ if(isset($_SESSION['UsuarioId'])) {
             </div>
             <div class="mb-3">
                 <label for="nova_descricao" class="form-label">Nova Descrição:</label><br>
-                <textarea name="nova_descricao" rows="5" cols="33" placeholder="Atualize sua descrição"></textarea>
+                <textarea name="nova_descricao" rows="5" cols="60" placeholder="Atualize sua descrição"></textarea>
             </div>
             <div class="mb-3">
                 <label for="nova_imagem" class="form-label">Nova Imagem:</label>

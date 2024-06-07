@@ -218,14 +218,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </p>
                         <div class="mb-3">
                             <label for="dataEntrada" class="form-label">Data de Entrada:</label>
-                            <input type="text" class="form-control" id="dataEntrada" name="dataEntrada">
+                            <input type="text" class="form-control" id="dataEntrada" name="dataEntrada" require>
                         </div>
                         <div class="mb-3">
                             <label for="dataSaida" class="form-label">Data de Saída:</label>
-                            <input type="text" class="form-control" id="dataSaida" name="dataSaida">
+                            <input type="text" class="form-control" id="dataSaida" name="dataSaida" require>
+                        </div>
+                        <div class="mb-3">
+                            <label for="QuantidadePessoas" class="form-label">Quantidade de pessoas:</label>
+                            <input type="number" class="form-control" id="QuantidadePessoas" name="QuantidadePessoas" require>
+                        </div>
+                        <div class="mb-3">
+                            <label for="CheckIn" class="form-label">Horario CheckIn:</label>
+                            <input type="time" class="form-control" id="CheckIn" name="CheckIn" require>
                         </div>
                         <h2>Valor total:</h2>
-                        <p id="valorTotal">Escolha a data de entrada e saída</p>
+                        <p id="valorTotal">Preencha Todos os campos</p>
                         <button type="submit" class="btn btn-primary">Alugar</button>
                     </form>
 
