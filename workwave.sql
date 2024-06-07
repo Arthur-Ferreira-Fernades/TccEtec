@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Jun-2024 às 01:31
+-- Tempo de geração: 08-Jun-2024 às 01:08
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -33,21 +33,24 @@ CREATE TABLE `alugar` (
   `AluDataSaida` date NOT NULL,
   `OcuId` int(11) NOT NULL,
   `EspId` int(11) NOT NULL,
-  `AluPago` tinyint(1) DEFAULT NULL
+  `AluPago` tinyint(1) DEFAULT NULL,
+  `AluQuantidadePessoas` int(11) DEFAULT NULL,
+  `AluHorarioCheckIn` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Extraindo dados da tabela `alugar`
 --
 
-INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId`, `AluPago`) VALUES
-(18, '2024-05-27', '2024-05-28', 1, 11, NULL),
-(19, '2024-05-29', '2024-05-30', 1, 11, NULL),
-(20, '2024-05-31', '2024-06-07', 1, 11, NULL),
-(24, '2024-06-29', '2024-06-30', 2, 35, NULL),
-(25, '2024-06-15', '2024-06-16', 2, 35, NULL),
-(29, '2024-06-05', '2024-06-06', 1, 35, NULL),
-(37, '2024-06-07', '2024-06-08', 3, 36, NULL);
+INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId`, `AluPago`, `AluQuantidadePessoas`, `AluHorarioCheckIn`) VALUES
+(18, '2024-05-27', '2024-05-28', 1, 11, NULL, NULL, NULL),
+(19, '2024-05-29', '2024-05-30', 1, 11, NULL, NULL, NULL),
+(20, '2024-05-31', '2024-06-07', 1, 11, NULL, NULL, NULL),
+(24, '2024-06-29', '2024-06-30', 2, 35, NULL, NULL, NULL),
+(25, '2024-06-15', '2024-06-16', 2, 35, NULL, NULL, NULL),
+(29, '2024-06-05', '2024-06-06', 1, 35, NULL, NULL, NULL),
+(37, '2024-06-07', '2024-06-08', 3, 36, NULL, NULL, NULL),
+(40, '2024-06-11', '2024-06-12', 1, 36, NULL, 9, '12:12:00');
 
 -- --------------------------------------------------------
 
@@ -268,7 +271,7 @@ ALTER TABLE `servamenidades`
 -- AUTO_INCREMENT de tabela `alugar`
 --
 ALTER TABLE `alugar`
-  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de tabela `espacodados`

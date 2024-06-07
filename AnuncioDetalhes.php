@@ -54,8 +54,16 @@ try {
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['dataEntrada']) && !empty($_POST['dataSaida'])) {
-        $data_entrada = DateTime::createFromFormat('d/m/Y', $_POST['dataEntrada'])->format('d-m-Y');
-        $data_saida = DateTime::createFromFormat('d/m/Y', $_POST['dataSaida'])->format('d-m-Y');
+        $data_entrada = DateTime::createFromFormat('d/m/Y', $_POST['dataEntrada']);
+        $data_saida = DateTime::createFromFormat('d/m/Y', $_POST['dataSaida']);
+
+        // Calcula o intervalo de dias entre a data de entrada e a data de saída
+        $intervalo = $data_entrada->diff($data_saida);
+        $numero_dias = $intervalo->days;
+
+        // Calcula o valor total da estadia multiplicando o número de dias pelo preço da diária
+        $valor_total = $preco * $numero_dias;
+    }
 
         // Consulta para verificar se o espaço está disponível durante o período escolhido
         $query = "SELECT * FROM alugar WHERE EspId = :id_anuncio AND ((AluDataEntrada <= :data_saida) AND (AluDataSaida >= :data_entrada))";
@@ -80,7 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $valor_total = $preco_diaria * $numero_dias;
         }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,13 +155,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         };
         ?>
     </header>
-
+    
     
     <div class="container py-4">
         <div class="row">
             <div class="col-md-6">
                 <?php
-
                 if (isset($_GET['aluguel'])) {
                     if ($_GET['aluguel'] === 'sucesso') {
                         echo "<div class='alert alert-success' role='alert'>Espaço alugado com sucesso!</div>";
@@ -167,13 +173,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $data_ocupada_fim = isset($_GET['data_ocupada_fim']) ? DateTime::createFromFormat('Y-m-d', $_GET['data_ocupada_fim'])->format('d/m/Y') : "N/A";
                     echo "<div class='alert alert-danger' role='alert'>O espaço já está alugado para as datas de $data_ocupada_inicio até $data_ocupada_fim. Por favor, escolha outras datas.</div>";
                 }
-                if (isset($_GET['error']) && $_GET['error'] == 6) {
-                    echo "<div class='alert alert-danger' role='alert'>Entre com a sua conta de locador, por favor.</div>";
-                }
 
                 if (isset($_GET['error']) && $_GET['error'] == 5) {
                     echo "<div class='alert alert-danger' role='alert'>Entre com a sua conta de locador, por favor.</div>";
                 }
+
+                if (isset($_GET['error']) && $_GET['error'] == 6) {
+                    echo "<div class='alert alert-danger' role='alert'>Entre com a sua conta de locador, por favor.</div>";
+                }
+
+                if (isset($_GET['error']) && $_GET['error'] == 9) {
+                    echo "<div class='alert alert-danger' role='alert'>Numero de pessoas maior que capacidade do local, por favor.</div>";
+                }
+
+                
                 ?>
 
                 <div class="anuncio">
@@ -234,7 +247,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <h2>Valor total:</h2>
                         <p id="valorTotal">Preencha Todos os campos</p>
-                        <button type="submit" class="btn btn-primary">Alugar</button>
+                        <button id="btnAlugar" type="submit" class="btn btn-primary" disabled>Alugar</button>
                     </form>
 
                 </div>
@@ -340,6 +353,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         var reservas = <?php echo json_encode($reservas); ?>;
 
+            function verificarCampos() {
+            var dataEntrada = $("#dataEntrada").val();
+            var dataSaida = $("#dataSaida").val();
+            var quantidadePessoas = $("#QuantidadePessoas").val();
+            var checkIn = $("#CheckIn").val();
+
+            // Verifica se todos os campos obrigatórios foram preenchidos
+            if (dataEntrada && dataSaida && quantidadePessoas && checkIn) {
+                $("#btnAlugar").removeAttr('disabled'); // Habilita o botão Alugar
+            } else {
+                $("#btnAlugar").attr('disabled', 'disabled'); // Desabilita o botão Alugar
+            }
+        }
+
+        // Chama a função verificarCampos sempre que houver uma alteração nos campos do formulário
+        $("#dataEntrada, #dataSaida, #QuantidadePessoas, #CheckIn").on('input', function() {
+            verificarCampos();
+        });
+
+        // Chamada inicial para verificar os campos ao carregar a página
+
         function marcaDiasIndisponiveis(date) {
             var dateString = $.datepicker.formatDate('yy-mm-dd', date);
             var dataEntrada = $("#dataEntrada").datepicker('getDate');
@@ -410,6 +444,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Chamada inicial para validar as datas ao carregar a página
         validarDatas();
 
+        verificarCampos();
         
     });
 </script>
