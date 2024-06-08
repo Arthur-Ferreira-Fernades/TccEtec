@@ -9,7 +9,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form action="ValidaLogin.php" method="post">
+            <form action="validadores/ValidaLogin.php" method="post">
                 <img src="img/WorkWaveLogoSemFundo.png" width = "200" class = "imagem">
                 <input type="email" name="login" placeholder = "Email">
                 <input type="password" name="senha" placeholder = "Senha">
@@ -30,7 +30,7 @@
             </form>
         </div>
         <div class="form-container sign-in">
-            <form action="ValidaLogin.php" method="post">
+            <form action="validadores/ValidaLogin.php" method="post">
                 <img src="img/WorkWaveLogoSemFundo.png" width = "180" class = "imagem">
                 <input type="email" name="login" placeholder = "Email">
                 <input type="password" name="senha" placeholder = "Senha">

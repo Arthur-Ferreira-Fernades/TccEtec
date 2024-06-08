@@ -44,15 +44,15 @@ session_start();
                 if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
                 ?>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
-                        <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+                        <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Area</a></li>
+                        <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                     </ul>
                 <?php
                 } else {
                 ?>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
-                        <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+                        <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                     </ul>
                 <?php
                 };
@@ -140,12 +140,7 @@ session_start();
 
         <div class="postagens row">
             <?php
-            try {
-                $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
-                $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $erro) {
-                echo "Erro na conexão:" . $erro->getMessage();
-            }
+            require('conectaBanco.php');
 
             $filtroName = isset($_GET['filtroName']) ? $_GET['filtroName'] : '';
             $filtroCapacidade = isset($_GET['filtroCapacidade']) ? $_GET['filtroCapacidade'] : '';

@@ -42,15 +42,15 @@
                             if($_SESSION['ProprietarioLocador'] == 'Proprietario') {
                         ?>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
-                            <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+                            <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Area</a></li>
+                            <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                         </ul>
                         <?php
                             } else {
                         ?>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
-                            <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+                            <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                         </ul>
                         <?php
                             };
@@ -63,7 +63,7 @@
     <div class="container" id="container">
         <div class="form-container sign-in">
             <img src="img/WorkWaveLogoSemFundo.png" alt="Logo da Empresa" width="200px" height="200px" class = "Logo">
-            <form action="ValidaAnuncio.php" method="post" enctype="multipart/form-data">
+            <form action="validadores/ValidaAnuncio.php" method="post" enctype="multipart/form-data">
                 <div class="campos">
                     <div class="campo">
                         <label for="EspacoNome" id = "TituloNome">Nome</label>

@@ -5,12 +5,7 @@ if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == fa
     exit();
 }
 
-try {
-    $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
-    $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $erro) {
-    echo "Erro na conexão:" . $erro->getMessage();
-}
+require('conectaBanco.php');
 
 // Determinar o nome da tabela e o nome do campo com base no tipo de usuário
 if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
@@ -110,15 +105,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
             ?>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
-                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+                <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
             </ul>
             <?php
             } else {
             ?>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
-                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+                <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
             </ul>
             <?php
             };
