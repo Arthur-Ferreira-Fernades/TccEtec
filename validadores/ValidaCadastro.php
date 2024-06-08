@@ -1,5 +1,8 @@
 <?php
 session_start();
+require('../validadores/EstaLogado.php');
+require('conectaBanco.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,15 +18,7 @@ session_start();
   <div class="container" id="container">
     <div class="form-container sign-in">
       <?php
-      try {
-        $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
 
-        $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      } catch (PDOException $erro) {
-        echo "Erro na conexão:" . $erro->getMessage();
-      }
-
-      //valores do html e colocados em variaveis do php//
       $Nome = $_POST['Nome'];
       $Senha = $_POST['Senha'];
       $Email = $_POST['Email'];
@@ -66,7 +61,7 @@ session_start();
     }
       ?>
       <button>
-        <a href="login.php">Voltar</a>
+        <a href="../login.php">Voltar</a>
       </button>
     </div>
   </div>

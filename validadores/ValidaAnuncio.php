@@ -1,5 +1,8 @@
 <?php
 session_start();
+require('../validadores/EstaLogado.php');
+require('conectaBanco.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,17 +19,10 @@ session_start();
     <div class="conteudo">
         <div class="container">
             <?php
-            try {
-                $conexao = new PDO("mysql:host=localhost; dbname=workwave;charset=utf8mb4", "root", "");
-
-                $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $erro) {
-                echo "Erro na conexão:" . $erro->getMessage();
-            }
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Diretório onde as imagens serão armazenadas
-                $targetDir = "img/";
+                $targetDir = "../img/";
 
                 // Caminho do arquivo
                 $targetFile = $targetDir . basename($_FILES["Imagem"]["name"]);
@@ -91,7 +87,7 @@ session_start();
             }
             ?>
             <br>
-            <a href="index.php" class="btn btn-success">Voltar</a>
+            <a href="../index.php" class="btn btn-success">Voltar</a>
         </div>
     </div>
 </body>

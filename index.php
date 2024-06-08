@@ -51,7 +51,7 @@ session_start();
                 } else {
                 ?>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
+                        <li><a class="dropdown-item" href="usuario/AreaUsuario.php">Sua Area</a></li>
                         <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                     </ul>
                 <?php
@@ -140,7 +140,7 @@ session_start();
 
         <div class="postagens row">
             <?php
-            require('conectaBanco.php');
+            require('validadores/conectaBanco.php');
 
             $filtroName = isset($_GET['filtroName']) ? $_GET['filtroName'] : '';
             $filtroCapacidade = isset($_GET['filtroCapacidade']) ? $_GET['filtroCapacidade'] : '';
@@ -148,9 +148,9 @@ session_start();
             $filtroPrecoMax = isset($_GET['filtroPrecoMax']) ? $_GET['filtroPrecoMax'] : '';
 
             $query = "SELECT e.EspId, e.EspNome, e.EspCapacidade, e.EspDisponibilidade, e.EspImg, e.EspPreco 
-          FROM EspacoDados e 
-          INNER JOIN servamenidades s ON e.EspId = s.EspId 
-          WHERE 1=1 AND e.EspCongelado = 0";
+            FROM EspacoDados e 
+            INNER JOIN servamenidades s ON e.EspId = s.EspId 
+            WHERE 1=1 AND e.EspCongelado = 0";
 
             if ($filtroName != '') {
                 $query .= " AND e.EspNome LIKE :filtroName";

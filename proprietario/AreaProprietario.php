@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require('../validadores/EstaLogado.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,45 +21,15 @@
     <a href="../index.php" class="underline">HOME</a>
     <a href="../SobreNos.php" class="underline">SOBRE NÓS</a>
     <a href="../AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
-    <?php
-    if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
-    ?>
-        <div class="dropdown">
-            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../img/user-logo.png" alt="">
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="../login.php">Fazer Login</a></li>
-            </ul>
-        </div>
-    <?php
-    } else {
-    ?>
-        <div class="dropdown">
-            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../img/user-logo.png" alt="">
-            </a>
-            <?php
-            if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
-            ?>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Area</a></li>
-                <li><a class="dropdown-item" href="../Validadores/LogOff.php">Sair</a></li>
-            </ul>
-            <?php
-            } else {
-            ?>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
-                <li><a class="dropdown-item" href="../Validadores/LogOff.php">Sair</a></li>
-            </ul>
-            <?php
-            };
-            ?>
-        </div>
-    <?php
-    };
-    ?>
+    <div class="dropdown">
+        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../img/user-logo.png" alt="">
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
+            <li><a class="dropdown-item" href="../Validadores/LogOff.php">Sair</a></li>
+        </ul>
+    </div>
 </header>
     <div class="conteudo">
         <div class="CardsLink">

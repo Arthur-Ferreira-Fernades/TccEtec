@@ -1,7 +1,8 @@
 <?php
 session_start();
+require('../validadores/EstaLogado.php');
+require('../validadores/conectaBanco.php');
 
-require('conectaBanco.php');
 
 // Verificar se o usuário está logado
 if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == true) {
@@ -9,7 +10,7 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
     $UsuarioId = $_SESSION['UsuarioId'];
 
     // Consulta SQL com prepared statement para recuperar os aluguéis feitos pelo usuário, juntamente com os dados do espaço
-    $sql = "SELECT a.AluId, e.EspNome, a.AluDataEntrada, a.AluDataSaida 
+    $sql = "SELECT a.AluId, e.EspNome, a.AluDataEntrada, a.AluDataSaida, a.AluQuantidadePessoas, a.AluHorarioCheckIn 
             FROM alugar AS a 
             INNER JOIN espacodados AS e ON a.EspId = e.EspId 
             WHERE a.OcuId = :UsuarioId";
@@ -25,6 +26,7 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
         // Se não houver resultados, atribuir um array vazio a $resultado
         $resultado = [];
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +35,7 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="../css/Style.css">
     <style>
         .conteudo {
             height: 100vh;
@@ -51,51 +53,21 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
 <body>
     <header>
         <div class="logo">
-            <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
-            <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+            <img src="../img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
+            <img src="../img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
         </div>
-        <a href="index.php" class="underline">HOME</a>
-        <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
-        <a href="AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
-        <?php
-        if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
-        ?>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/user-logo.png" alt="">
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
-                </ul>
-            </div>
-        <?php
-        } else {
-        ?>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="img/user-logo.png" alt="">
-                </a>
-                <?php
-                if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
-                ?>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Area</a></li>
-                        <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
-                    </ul>
-                <?php
-                } else {
-                ?>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
-                        <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
-                    </ul>
-                <?php
-                };
-                ?>
-            </div>
-        <?php
-        };
-        ?>
+        <a href="../index.php" class="underline">HOME</a>
+        <a href="../SobreNos.php" class="underline">SOBRE NÓS</a>
+        <a href="../AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../img/user-logo.png" alt="">
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="../Validadores/LogOff.php">Sair</a></li>
+            </ul>
+        </div>
     </header>
     <div class="conteudo">
         <h2 style="margin-bottom: 20px;">Seus aluguéis:</h2>
@@ -112,14 +84,16 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $aluguel['EspNome']; ?></h5>
-                                <p class="card-text">Data de entrada: <?php echo date('d/m/Y', strtotime($aluguel['AluDataEntrada'])); ?></p>
-                                <p class="card-text">Data de saída: <?php echo date('d/m/Y', strtotime($aluguel['AluDataSaida'])); ?></p>
+                                <p class="card-text mb-1">Data de entrada: <?php echo date('d/m/Y', strtotime($aluguel['AluDataEntrada'])); ?></p>
+                                <p class="card-text mb-1">Data de saída: <?php echo date('d/m/Y', strtotime($aluguel['AluDataSaida'])); ?></p>
+                                <p class="card-text mb-1">Horário de check-in: <?php echo date('H:i', strtotime($aluguel['AluHorarioCheckIn'])); ?></p>
+                                <p class="card-text mb-1">Quantidade de pessoas: <?php echo $aluguel['AluQuantidadePessoas']; ?></p>
 
                                 <?php
                                 // Verificar se a data de entrada é menor ou igual à data atual
                                 if ($aluguel['AluDataEntrada'] > $dataAtual) {
                                     ?>
-                                    <form action="validadores/CancelarAluguel.php" method="POST" onsubmit="return confirm('Tem certeza de que deseja cancelar este aluguel?');">
+                                    <form action="../validadores/CancelarAluguel.php" method="POST" onsubmit="return confirm('Tem certeza de que deseja cancelar este aluguel?');">
                                         <input type="hidden" name="alu_id" value="<?php echo $aluguel['AluId']; ?>">
                                         <button type="submit" class="btn btn-danger">Cancelar Aluguel</button>
                                     </form>
@@ -146,21 +120,21 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
         <div class="Borda">
             <div class="rodape-div">
                 <div class="logo-2">
-                    <img src="img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
-                    <img src="img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
+                    <img src="../img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
+                    <img src="../img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
                 </div>
                 <div class="Social">
                     <div class="Media">
                         <a class="btn" href="#">
-                            <img src="img/instagram.png" alt="" width="20" height="20">
+                            <img src="../img/instagram.png" alt="" width="20" height="20">
                             <p>instagram</p>
                         </a>
                         <a class="btn" href="#">
-                            <img src="img/linkedin.png" alt="" width="20" height="20">
+                            <img src="../img/linkedin.png" alt="" width="20" height="20">
                             <p>linkedin</p>
                         </a>
                         <a class="btn" href="#">
-                            <img src="img/github.png" alt="" width="20" height="20">
+                            <img src="../img/github.png" alt="" width="20" height="20">
                             <p>github</p>
                         </a>
                     </div>
@@ -168,15 +142,15 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
                 <div class="Social">
                     <div class="Media">
                         <a class="btn" href="#">
-                            <img src="img/instagram.png" alt="" width="20" height="20">
+                            <img src="../img/instagram.png" alt="" width="20" height="20">
                             <p>instagram</p>
                         </a>
                         <a class="btn" href="#">
-                            <img src="img/linkedin.png" alt="" width="20" height="20">
+                            <img src="../img/linkedin.png" alt="" width="20" height="20">
                             <p>linkedin</p>
                         </a>
                         <a class="btn" href="#">
-                            <img src="img/github.png" alt="" width="20" height="20">
+                            <img src="../img/github.png" alt="" width="20" height="20">
                             <p>github</p>
                         </a>
                     </div>
@@ -184,15 +158,15 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
                 <div class="Social">
                     <div class="Media">
                         <a class="btn" href="#">
-                            <img src="img/instagram.png" alt="" width="20" height="20">
+                            <img src="../img/instagram.png" alt="" width="20" height="20">
                             <p>instagram</p>
                         </a>
                         <a class="btn" href="#">
-                            <img src="img/linkedin.png" alt="" width="20" height="20">
+                            <img src="../img/linkedin.png" alt="" width="20" height="20">
                             <p>linkedin</p>
                         </a>
                         <a class="btn" href="#">
-                            <img src="img/github.png" alt="" width="20" height="20">
+                            <img src="../img/github.png" alt="" width="20" height="20">
                             <p>github</p>
                         </a>
                     </div>
@@ -208,12 +182,3 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
 </body>
 
 </html>
-
-<?php
-} else {
-    // Se o usuário não estiver logado, redirecione para a página de login
-    header("Location: login.php");
-    exit(); // Certifique-se de sair após redirecionar
-}
-?>
-

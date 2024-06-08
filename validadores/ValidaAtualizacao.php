@@ -1,5 +1,8 @@
 <?php
 session_start();
+require('../validadores/EstaLogado.php');
+require('conectaBanco.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,53 +14,23 @@ session_start();
     <title>Anuncio Atualizado</title>
 </head>
 <body>
-<header>
+    <header>
         <div class="logo">
             <img src="../img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
             <img src="../img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
         </div>
-            <a href="index.php" class="underline">HOME</a>
-            <a href="SobreNos.php" class="underline">SOBRE NÓS</a>
-            <a href="AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
-            <?php
-                if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == false) {
-            ?>
-                    <div class="dropdown">
-                        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="../img/user-logo.png" alt="">
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="login.php">Fazer Login</a></li>
-                        </ul>
-                    </div>
-            <?php
-                } else {
-            ?>
-                    <div class="dropdown">
-                        <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="../img/user-logo.png" alt="">
-                        </a>
-                        <?php
-                            if($_SESSION['ProprietarioLocador'] == 'Proprietario') {
-                        ?>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Area</a></li>
-                            <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
-                        </ul>
-                        <?php
-                            } else {
-                        ?>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
-                            <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
-                        </ul>
-                        <?php
-                            };
-                        ?>
-                    </div>
-            <?php
-                };
-            ?>
+        <a href="../index.php" class="underline">HOME</a>
+        <a href="../SobreNos.php" class="underline">SOBRE NÓS</a>
+        <a href="../AnuncieJa.php" class="underline">ANUNCIE JÁ</a>
+        <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../img/user-logo.png" alt="">
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../proprietario/AreaProprietario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="LogOff.php">Sair</a></li>
+            </ul>
+        </div>
     </header>
 
     <div class="container mt-5">
@@ -71,11 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Variável para armazenar as mensagens de atualização
         $mensagem = "";
 
-        // Conexão com o banco de dados
-        try {
-            $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
-            $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
             // Atualize os campos do anúncio apenas se eles estiverem presentes no formulário
             if (isset($_POST['novo_nome']) && !empty($_POST['novo_nome'])){
                 $novo_nome = $_POST['novo_nome'];
@@ -180,9 +148,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             
-        }  catch (PDOException $erro) {
-            $mensagem = "<div class='alert alert-danger' role='alert'>Erro na conexão: " . $erro->getMessage() . "</div>";
-        }
     } else {
         // Se o campo de ID do anúncio estiver ausente, exiba uma mensagem de erro ou redirecione para uma página de erro
         $mensagem = "<div class='alert alert-danger' role='alert'>Erro: ID do anúncio ausente.</div>";
@@ -195,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Exibir a mensagem de atualização
 echo $mensagem;
 ?>
-<a href="SeusAnuncios.php" class="btn btn-primary">Voltar para seus Anúncios</a>
+<a href="../proprietario/SeusAnuncios.php" class="btn btn-primary">Voltar para seus Anúncios</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 

@@ -5,7 +5,7 @@ if (!isset($_SESSION['usuario_validado']) || $_SESSION['usuario_validado'] == fa
     exit();
 }
 
-require('conectaBanco.php');
+require('validadores/conectaBanco.php');
 
 // Determinar o nome da tabela e o nome do campo com base no tipo de usuário
 if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
             ?>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="usuario/AreaUsuario.php">Sua Area</a></li>
                 <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
             </ul>
             <?php

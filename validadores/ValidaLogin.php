@@ -1,19 +1,9 @@
 <?php
 session_start();
+require('conectaBanco.php');
+
 
 $_SESSION['usuario_validado'] = false;
-//tratamento de erro para conexao com banco//
-
-try {
-    $conexao = new PDO("mysql:host=localhost; dbname=workwave", "root", "");
-    
-    $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  } catch (PDOException $erro) {
-  
-    echo "Erro na conexão:" . $erro->getMessage();
-  }
-
-  //pegar variaveis vindas do html//
   
     $Login = $_POST['login'];
     $senha = $_POST['senha'] ;

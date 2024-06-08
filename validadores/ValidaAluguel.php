@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-require('../conectaBanco.php');
+require('../validadores/EstaLogado.php');
+require('conectaBanco.php');
 
 $id_anuncio = $_SESSION['id_anuncio'];
 
@@ -76,6 +76,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Validar se a data de saída é posterior à data de entrada
             if ($data_saida <= $data_entrada) {
                 header("Location: ../AnuncioDetalhes.php?id=$id_anuncio&error=4"); // Redireciona com mensagem de erro
+                exit();
+            }
+
+            if (empty($horario_checkin)) {
+                header("Location: ../AnuncioDetalhes.php?id=$id_anuncio&error=11"); // Redireciona com mensagem de erro
+                exit();
+            }
+
+            if (empty($num_ocupantes)) {
+                header("Location: ../AnuncioDetalhes.php?id=$id_anuncio&error=12"); // Redireciona com mensagem de erro
                 exit();
             }
     

@@ -50,7 +50,7 @@
             } else {
             ?>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="usuario/AreaUsuario.php">Sua Area</a></li>
                 <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
             </ul>
             <?php
