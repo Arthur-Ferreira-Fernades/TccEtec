@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08-Jun-2024 às 01:08
--- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.2.0
+-- Tempo de geração: 09/06/2024 às 05:42
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `alugar`
+-- Estrutura para tabela `alugar`
 --
 
 CREATE TABLE `alugar` (
@@ -35,27 +35,29 @@ CREATE TABLE `alugar` (
   `EspId` int(11) NOT NULL,
   `AluPago` tinyint(1) DEFAULT NULL,
   `AluQuantidadePessoas` int(11) DEFAULT NULL,
-  `AluHorarioCheckIn` time DEFAULT NULL
+  `AluHorarioCheckIn` time DEFAULT NULL,
+  `AluValor` double(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `alugar`
+-- Despejando dados para a tabela `alugar`
 --
 
-INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId`, `AluPago`, `AluQuantidadePessoas`, `AluHorarioCheckIn`) VALUES
-(18, '2024-05-27', '2024-05-28', 1, 11, NULL, NULL, NULL),
-(19, '2024-05-29', '2024-05-30', 1, 11, NULL, NULL, NULL),
-(20, '2024-05-31', '2024-06-07', 1, 11, NULL, NULL, NULL),
-(24, '2024-06-29', '2024-06-30', 2, 35, NULL, NULL, NULL),
-(25, '2024-06-15', '2024-06-16', 2, 35, NULL, NULL, NULL),
-(29, '2024-06-05', '2024-06-06', 1, 35, NULL, NULL, NULL),
-(37, '2024-06-07', '2024-06-08', 3, 36, NULL, NULL, NULL),
-(40, '2024-06-11', '2024-06-12', 1, 36, NULL, 9, '12:12:00');
+INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId`, `AluPago`, `AluQuantidadePessoas`, `AluHorarioCheckIn`, `AluValor`) VALUES
+(18, '2024-05-27', '2024-05-28', 1, 11, NULL, NULL, NULL, NULL),
+(19, '2024-05-29', '2024-05-30', 1, 11, NULL, NULL, NULL, NULL),
+(20, '2024-05-31', '2024-06-07', 1, 11, NULL, NULL, NULL, NULL),
+(24, '2024-06-29', '2024-06-30', 2, 35, NULL, NULL, NULL, NULL),
+(25, '2024-06-15', '2024-06-16', 2, 35, NULL, NULL, NULL, NULL),
+(29, '2024-06-05', '2024-06-06', 1, 35, NULL, NULL, NULL, NULL),
+(37, '2024-06-07', '2024-06-08', 3, 36, NULL, NULL, NULL, NULL),
+(55, '2024-06-12', '2024-06-13', 1, 38, NULL, 12, '12:12:00', 70.00),
+(56, '2024-06-18', '2024-06-20', 1, 38, NULL, 12, '12:12:00', 140.00);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `espacodados`
+-- Estrutura para tabela `espacodados`
 --
 
 CREATE TABLE `espacodados` (
@@ -74,14 +76,14 @@ CREATE TABLE `espacodados` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `espacodados`
+-- Despejando dados para a tabela `espacodados`
 --
 
 INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `EspCapacidade`, `EspDisponibilidade`, `EspDataCadastro`, `ProId`, `EspImg`, `EspPreco`, `SerId`, `EspCongelado`) VALUES
 (36, 'Espaço Alpha', ' Rua das Flores, 123', 'Espaço pequeno e acolhedor, perfeito para freelancers e pequenas equipes que buscam um ambiente tranquilo e inspirador. Com decoração moderna e iluminação natural, o Espaço Alpha promove um ambiente produtivo e confortável. Ideal para reuniÃµes e trabalho individual.', 10, 1, '2024-06-07', 1, 'petr-magera-WHqEneu5jgY-unsplash.jpg', '50.00', 13, 0),
 (37, 'Espaço Beta', 'Avenida Central, 456', 'Localizado no coração da cidade, o Espaço Beta oferece um ambiente moderno e sofisticado. Com mesas compartilhadas e salas privadas, é ideal para startups e profissionais autônomos que precisam de flexibilidade e um local centralizado para suas atividades diárias.', 20, 1, '2024-06-07', 1, 'petr-magera-LYDP_iYgbW4-unsplash.jpg', '80.00', 14, 0),
 (38, 'Espaço Gamma', 'Rua da Liberdade, 789', 'Ambiente moderno e bem iluminado, perfeito para aqueles que apreciam um design minimalista e funcional. O Espaço Gamma é equipado com estações de trabalho ergonômicas e áreas de descanso, proporcionando um equilíbrio perfeito entre trabalho e relaxamento.', 15, 1, '2024-06-07', 1, 'austin-distel-mpN7xjKQ_Ns-unsplash.jpg', '70.00', 15, 0),
-(39, 'Espaço Delta', 'Pra?a da S?, 101', 'Local tranquilo e inspirador, situado em uma área histórica da cidade. O Espaço Delta combina o charme de um Edifício antigo com a modernidade das instalações, oferecendo um ambiente único para trabalho colaborativo e individual.', 12, 1, '2024-06-07', 1, 'myhq-workspaces-OhNSJMm9yJI-unsplash.jpg', '65.00', 16, 0),
+(39, 'Espaço Delta', 'Praça da Sé, 101', 'Local tranquilo e inspirador, situado em uma área histórica da cidade. O Espaço Delta combina o charme de um Edifício antigo com a modernidade das instalações, oferecendo um ambiente único para trabalho colaborativo e individual.', 12, 1, '2024-06-07', 1, 'myhq-workspaces-OhNSJMm9yJI-unsplash.jpg', '65.00', 16, 0),
 (40, 'Espaço Epsilon', 'Avenida Paulista, 202', 'Espaço versátil e bem localizado, ideal para profissionais em trânsito e equipes que precisam de um local de reunião central. Com uma vista incrível da cidade, o Espaço Epsilon proporciona um ambiente inspirador e altamente produtivo.', 25, 0, '2024-06-07', 1, 'mindspace-studio-FYt9yaqlvZc-unsplash.jpg', '90.00', 17, 0),
 (41, 'Espaço Zeta', 'Rua Augusta, 303', 'Ambiente descontraído e criativo, perfeito para artistas, designers e empreendedores que buscam um Espaço que estimule a criatividade. O Espaço Zeta é decorado com obras de arte e oferece áreas de relaxamento e brainstorming.', 18, 0, '2024-06-07', 1, 'mengyi-CBGuFZoC6Mw-unsplash.jpg', '60.00', 18, 0),
 (42, 'Espaço Eta', 'Rua das Palmeiras, 404', 'Espaço confortável e bem decorado, ideal para pequenos negócios e freelancers. Com um ambiente acolhedor e profissional, o Espaço Eta proporciona um local perfeito para produtividade e colaboração.', 20, 1, '2024-06-07', 4, 'cowomen-4C22PfVlhdw-unsplash.jpg', '75.00', 19, 0),
@@ -100,7 +102,7 @@ INSERT INTO `espacodados` (`EspId`, `EspNome`, `EspEndereco`, `EspDescricao`, `E
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `favoritar`
+-- Estrutura para tabela `favoritar`
 --
 
 CREATE TABLE `favoritar` (
@@ -112,7 +114,7 @@ CREATE TABLE `favoritar` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `ocupante`
+-- Estrutura para tabela `ocupante`
 --
 
 CREATE TABLE `ocupante` (
@@ -124,7 +126,7 @@ CREATE TABLE `ocupante` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `ocupante`
+-- Despejando dados para a tabela `ocupante`
 --
 
 INSERT INTO `ocupante` (`OcuId`, `OcuNome`, `OcuSenha`, `OcuEmail`, `OcuTelefone`) VALUES
@@ -134,7 +136,7 @@ INSERT INTO `ocupante` (`OcuId`, `OcuNome`, `OcuSenha`, `OcuEmail`, `OcuTelefone
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `planosprecos`
+-- Estrutura para tabela `planosprecos`
 --
 
 CREATE TABLE `planosprecos` (
@@ -147,7 +149,7 @@ CREATE TABLE `planosprecos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `proprietario`
+-- Estrutura para tabela `proprietario`
 --
 
 CREATE TABLE `proprietario` (
@@ -159,7 +161,7 @@ CREATE TABLE `proprietario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `proprietario`
+-- Despejando dados para a tabela `proprietario`
 --
 
 INSERT INTO `proprietario` (`ProId`, `ProNome`, `ProSenha`, `ProEmail`, `ProTelefone`) VALUES
@@ -171,7 +173,7 @@ INSERT INTO `proprietario` (`ProId`, `ProNome`, `ProSenha`, `ProEmail`, `ProTele
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `servamenidades`
+-- Estrutura para tabela `servamenidades`
 --
 
 CREATE TABLE `servamenidades` (
@@ -185,7 +187,7 @@ CREATE TABLE `servamenidades` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Extraindo dados da tabela `servamenidades`
+-- Despejando dados para a tabela `servamenidades`
 --
 
 INSERT INTO `servamenidades` (`SerId`, `SerWifi`, `SerArcondicionado`, `SerBebedouro`, `SerComputadores`, `SerCozinha`, `EspId`) VALUES
@@ -208,14 +210,15 @@ INSERT INTO `servamenidades` (`SerId`, `SerWifi`, `SerArcondicionado`, `SerBebed
 (27, 1, 0, 1, 0, 1, 50),
 (28, 1, 1, 0, 1, 0, 51),
 (29, 1, 0, 1, 0, 0, 52),
-(30, 1, 0, 0, 0, 1, 53);
+(30, 1, 0, 0, 0, 1, 53),
+(31, 0, 0, 0, 0, 0, 54);
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `alugar`
+-- Índices de tabela `alugar`
 --
 ALTER TABLE `alugar`
   ADD PRIMARY KEY (`AluId`),
@@ -223,7 +226,7 @@ ALTER TABLE `alugar`
   ADD KEY `EspId` (`EspId`);
 
 --
--- Índices para tabela `espacodados`
+-- Índices de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
   ADD PRIMARY KEY (`EspId`),
@@ -231,7 +234,7 @@ ALTER TABLE `espacodados`
   ADD KEY `SerId` (`SerId`);
 
 --
--- Índices para tabela `favoritar`
+-- Índices de tabela `favoritar`
 --
 ALTER TABLE `favoritar`
   ADD PRIMARY KEY (`favId`),
@@ -239,45 +242,45 @@ ALTER TABLE `favoritar`
   ADD KEY `OcuId` (`OcuId`);
 
 --
--- Índices para tabela `ocupante`
+-- Índices de tabela `ocupante`
 --
 ALTER TABLE `ocupante`
   ADD PRIMARY KEY (`OcuId`);
 
 --
--- Índices para tabela `planosprecos`
+-- Índices de tabela `planosprecos`
 --
 ALTER TABLE `planosprecos`
   ADD PRIMARY KEY (`PlaId`);
 
 --
--- Índices para tabela `proprietario`
+-- Índices de tabela `proprietario`
 --
 ALTER TABLE `proprietario`
   ADD PRIMARY KEY (`ProId`);
 
 --
--- Índices para tabela `servamenidades`
+-- Índices de tabela `servamenidades`
 --
 ALTER TABLE `servamenidades`
   ADD PRIMARY KEY (`SerId`),
   ADD KEY `EspId` (`EspId`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `alugar`
 --
 ALTER TABLE `alugar`
-  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT de tabela `favoritar`
@@ -307,27 +310,27 @@ ALTER TABLE `proprietario`
 -- AUTO_INCREMENT de tabela `servamenidades`
 --
 ALTER TABLE `servamenidades`
-  MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `espacodados`
+-- Restrições para tabelas `espacodados`
 --
 ALTER TABLE `espacodados`
   ADD CONSTRAINT `SerId` FOREIGN KEY (`SerId`) REFERENCES `servamenidades` (`SerId`) ON DELETE CASCADE;
 
 --
--- Limitadores para a tabela `favoritar`
+-- Restrições para tabelas `favoritar`
 --
 ALTER TABLE `favoritar`
   ADD CONSTRAINT `favoritar_ibfk_1` FOREIGN KEY (`EspId`) REFERENCES `espacodados` (`EspId`),
   ADD CONSTRAINT `favoritar_ibfk_2` FOREIGN KEY (`OcuId`) REFERENCES `ocupante` (`OcuId`);
 
 --
--- Limitadores para a tabela `servamenidades`
+-- Restrições para tabelas `servamenidades`
 --
 ALTER TABLE `servamenidades`
   ADD CONSTRAINT `EspId` FOREIGN KEY (`EspId`) REFERENCES `espacodados` (`EspId`) ON DELETE CASCADE;

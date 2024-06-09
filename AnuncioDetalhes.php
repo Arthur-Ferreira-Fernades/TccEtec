@@ -19,6 +19,7 @@ if ($stmt->rowCount() > 0) {
     $capacidade = $espaco['EspCapacidade'];
     $disponibilidade = $espaco['EspDisponibilidade'];
     $preco = $espaco['EspPreco'];
+    $_SESSION['preco'] = $preco; 
     $endereco = $espaco['EspEndereco'];
     $caminho_imagem = $espaco['EspImg'];
     $descricao = $espaco['EspDescricao'];
@@ -26,7 +27,7 @@ if ($stmt->rowCount() > 0) {
     $query = "SELECT EspacoDados.*, servAmenidades.* FROM EspacoDados 
         LEFT JOIN servAmenidades ON EspacoDados.SerId = servAmenidades.SerId
         WHERE EspacoDados.EspId = :id_anuncio";
-    $stmt_servicos = $conexao->prepare($query); // Use uma nova variável $stmt_servicos
+    $stmt_servicos = $conexao->prepare($query);
     $stmt_servicos->bindParam(':id_anuncio', $_SESSION['id_anuncio'], PDO::PARAM_INT);
     $stmt_servicos->execute();
 
@@ -36,7 +37,7 @@ if ($stmt->rowCount() > 0) {
             $servicosEAmenidades[] = $row;
         }
     } else {
-        echo "Nenhum serviço ou amenidade encontrado para este espaço.";
+        echo ("Nenhum serviço ou amenidade encontrado para este espaço.");
     }
 
     $query_reservas = "SELECT AluDataEntrada, AluDataSaida FROM alugar WHERE EspId = :id_anuncio";
@@ -52,16 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['dataEntrada']) && !empty($_POST['dataSaida'])) {
         $data_entrada = DateTime::createFromFormat('d/m/Y', $_POST['dataEntrada']);
         $data_saida = DateTime::createFromFormat('d/m/Y', $_POST['dataSaida']);
-
-        // Calcula o intervalo de dias entre a data de entrada e a data de saída
-        $intervalo = $data_entrada->diff($data_saida);
-        $numero_dias = $intervalo->days;
-
-        // Calcula o valor total da estadia multiplicando o número de dias pelo preço da diária
-        $valor_total = $preco * $numero_dias;
     }
 
-    // Consulta para verificar se o espaço está disponível durante o período escolhido
     $query = "SELECT * FROM alugar WHERE EspId = :id_anuncio AND ((AluDataEntrada <= :data_saida) AND (AluDataSaida >= :data_entrada))";
     $stmt = $conexao->prepare($query);
     $stmt->bindParam(':id_anuncio', $_SESSION['id_anuncio'], PDO::PARAM_INT);
@@ -69,18 +62,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':data_saida', $data_saida, PDO::PARAM_STR);
     $stmt->execute();
 
-    // Verifica se há algum resultado da consulta
     if ($stmt->rowCount() > 0) {
-        // Espaço não está disponível
         $reserva = $stmt->fetch(PDO::FETCH_ASSOC);
         $data_entrada_reserva = new DateTime($reserva['AluDataEntrada']);
         $data_saida_reserva = new DateTime($reserva['AluDataSaida']);
     } else {
-        // Espaço está disponível, continua com o processo de aluguel
         $intervalo = $data_entrada->diff($data_saida);
         $numero_dias = $intervalo->days;
-
-        // Calcula o valor total da estadia
         $valor_total = $preco_diaria * $numero_dias;
     }
 }
@@ -326,15 +314,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             $("#dataEntrada").datepicker({
-                dateFormat: 'dd/mm/yy', // Formato da data
-                dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"], // Dias da semana abreviados
-                monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], // Meses
-                monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"], // Meses abreviados
-                firstDay: 0, // Primeiro dia da semana (0 = Domingo, 1 = Segunda, etc.)
-                minDate: 0, // Data mínima (hoje)
-                beforeShowDay: marcaDiasIndisponiveis, // Função para marcar os dias indisponíveis
+                dateFormat: 'dd/mm/yy',
+                dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+                monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                firstDay: 0,
+                minDate: 0,
+                beforeShowDay: marcaDiasIndisponiveis,
                 onSelect: function(selectedDate) {
-                    // Quando uma data é selecionada, atualiza a data mínima da saída para o próximo dia
                     var date = $(this).datepicker('getDate');
                     date.setDate(date.getDate() + 1);
                     $("#dataSaida").datepicker("option", "minDate", date);
@@ -343,13 +330,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
 
             $("#dataSaida").datepicker({
-                dateFormat: 'dd/mm/yy', // Formato da data
-                dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"], // Dias da semana abreviados
-                monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"], // Meses
-                monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"], // Meses abreviados
-                firstDay: 0, // Primeiro dia da semana (0 = Domingo, 1 = Segunda, etc.)
-                minDate: 1, // Data mínima é o próximo dia após a entrada
-                beforeShowDay: marcaDiasIndisponiveis, // Função para marcar os dias indisponíveis
+                dateFormat: 'dd/mm/yy',
+                dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+                monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                firstDay: 0, 
+                minDate: 1,
+                beforeShowDay: marcaDiasIndisponiveis,
                 onSelect: function(selectedDate) {
                     validarDatas();
                 }

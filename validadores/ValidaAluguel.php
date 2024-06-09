@@ -28,6 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $data_saida = DateTime::createFromFormat('d/m/Y', $_POST['dataSaida']);
                 $horario_checkin = $_POST['CheckIn'];
                 $num_ocupantes = $_POST['QuantidadePessoas'];
+                $intervalo = $data_entrada->diff($data_saida);
+                $numero_dias = $intervalo->days;
+                $valorTotal = $_SESSION['preco'] * $numero_dias;
             
                 // Verifica se as datas foram criadas com sucesso
                 if ($data_entrada === false || $data_saida === false) {
@@ -107,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 // Espaço está disponível, continua com o processo de aluguel
                 try {
-                    $query_inserir_aluguel = "INSERT INTO alugar (EspId, OcuId, AluDataEntrada, AluDataSaida,  AluHorarioCheckIn, AluQuantidadePessoas) VALUES (:id_anuncio, :id_ocupante, :data_entrada, :data_saida, :horario_checkin, :num_ocupantes)";
+                    $query_inserir_aluguel = "INSERT INTO alugar (EspId, OcuId, AluDataEntrada, AluDataSaida,  AluHorarioCheckIn, AluQuantidadePessoas, AluValor) VALUES (:id_anuncio, :id_ocupante, :data_entrada, :data_saida, :horario_checkin, :num_ocupantes, :valorTotal)";
                     $stmt_inserir_aluguel = $conexao->prepare($query_inserir_aluguel);
                     $stmt_inserir_aluguel->bindParam(':id_anuncio', $id_anuncio, PDO::PARAM_INT);
                     $stmt_inserir_aluguel->bindParam(':id_ocupante', $id_ocupante, PDO::PARAM_INT);
@@ -115,6 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt_inserir_aluguel->bindValue(':data_saida', $data_saida->format('Y-m-d'));
                     $stmt_inserir_aluguel->bindValue(':horario_checkin', $horario_checkin);
                     $stmt_inserir_aluguel->bindValue(':num_ocupantes', $num_ocupantes,PDO::PARAM_INT);
+                    $stmt_inserir_aluguel->bindParam(':valorTotal', $valorTotal, PDO::PARAM_STR);
                     $stmt_inserir_aluguel->execute();
     
                     if ($stmt_inserir_aluguel->rowCount() > 0) {

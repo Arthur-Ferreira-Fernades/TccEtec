@@ -10,7 +10,7 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
     $UsuarioId = $_SESSION['UsuarioId'];
 
     // Consulta SQL com prepared statement para recuperar os aluguéis feitos pelo usuário, juntamente com os dados do espaço
-    $sql = "SELECT a.AluId, e.EspNome, a.AluDataEntrada, a.AluDataSaida, a.AluQuantidadePessoas, a.AluHorarioCheckIn 
+    $sql = "SELECT a.AluId, e.EspNome, a.AluDataEntrada, a.AluDataSaida, a.AluQuantidadePessoas, a.AluHorarioCheckIn, a.AluValor 
             FROM alugar AS a 
             INNER JOIN espacodados AS e ON a.EspId = e.EspId 
             WHERE a.OcuId = :UsuarioId";
@@ -88,6 +88,7 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
                                 <p class="card-text mb-1">Data de saída: <?php echo date('d/m/Y', strtotime($aluguel['AluDataSaida'])); ?></p>
                                 <p class="card-text mb-1">Horário de check-in: <?php echo date('H:i', strtotime($aluguel['AluHorarioCheckIn'])); ?></p>
                                 <p class="card-text mb-1">Quantidade de pessoas: <?php echo $aluguel['AluQuantidadePessoas']; ?></p>
+                                <p class="card-text mb-1">Valor R$: <?php echo $aluguel['AluValor']; ?></p>
 
                                 <?php
                                 // Verificar se a data de entrada é menor ou igual à data atual

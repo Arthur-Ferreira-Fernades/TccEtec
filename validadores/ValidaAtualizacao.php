@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_FILES['nova_imagem']) && $_FILES['nova_imagem']['error'] === UPLOAD_ERR_OK) {
                 $nome_arquivo = $_FILES['nova_imagem']['name']; // Nome do arquivo
                 $caminho_temporario = $_FILES['nova_imagem']['tmp_name']; // Caminho temporário do arquivo
-                $caminho_destino = 'img/' . $nome_arquivo; // Caminho de destino onde a imagem será movida
+                $caminho_destino = '../img/' . $nome_arquivo; // Caminho de destino onde a imagem será movida
                 
                 // Move o arquivo para o destino final
                 move_uploaded_file($caminho_temporario, $caminho_destino);
