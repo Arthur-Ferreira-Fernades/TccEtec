@@ -121,14 +121,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($_SESSION['ProprietarioLocador'] == 'Proprietario') {
                 ?>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Area</a></li>
+                        <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Área</a></li>
                         <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                     </ul>
                 <?php
                 } else {
                 ?>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="usuario/AreaUsuario.php">Sua Area</a></li>
+                        <li><a class="dropdown-item" href="usuario/AreaUsuario.php">Sua Área</a></li>
                         <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                     </ul>
                 <?php
@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 if (isset($_GET['error']) && $_GET['error'] == 9) {
-                    echo "<div class='alert alert-danger' role='alert'>Numero de pessoas maior que capacidade do local, por favor.</div>";
+                    echo "<div class='alert alert-danger' role='alert'>Número de pessoas maior que capacidade do local.</div>";
                 }
 
                 if (isset($_GET['error']) && $_GET['error'] == 11) {

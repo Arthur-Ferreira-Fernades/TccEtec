@@ -26,7 +26,7 @@
                 <img src="../img/user-logo.png" alt="">
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
+                <li><a class="dropdown-item" href="AreaProprietario.php">Sua Área</a></li>
                 <li><a class="dropdown-item" href="../Validadores/LogOff.php">Sair</a></li>
             </ul>
         </div>

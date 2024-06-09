@@ -42,14 +42,14 @@
                             if($_SESSION['ProprietarioLocador'] == 'Proprietario') {
                         ?>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Area</a></li>
+                            <li><a class="dropdown-item" href="proprietario/AreaProprietario.php">Sua Área</a></li>
                             <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                         </ul>
                         <?php
                             } else {
                         ?>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="AreaUsuario.php">Sua Area</a></li>
+                            <li><a class="dropdown-item" href="AreaUsuario.php">Sua Área</a></li>
                             <li><a class="dropdown-item" href="Validadores/LogOff.php">Sair</a></li>
                         </ul>
                         <?php

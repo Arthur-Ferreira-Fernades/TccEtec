@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
 }
 
 body {
@@ -15,26 +14,27 @@ body {
     height: 100vh;
 }
 
-.container{
+.container {
     background-color: #002a62;
     border-radius: 30px;
-    box-shadow: 0 5px 15px rgb(0,0,0,0.35);
+    box-shadow: 0 5px 15px rgb(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
-    width: 768px;
+    width: 500px;
     max-width: 100%;
-    min-height: 480px;
-    
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
 }
 
-.container p{
+.container p {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.3px;
     margin: 20px 0;
 }
 
-.container span{
+.container span {
     font-size: 12px;
 }
 
@@ -48,8 +48,8 @@ body {
 .container button {
     background-color: #512da8;
     color: #fff;
-    font-size: 12px;
-    padding: 10px 45px;
+    font-size: 13px;
+    padding: 10px 15px;
     border: 1px solid transparent;
     border-radius: 8px;
     font-weight: 600;
@@ -57,9 +57,23 @@ body {
     text-transform: uppercase;
     margin-top: 10px;
     cursor: pointer;
+    width: 40%;
 }
 
-.container button.hidden{
+#grupo {
+    width: 80%;
+    margin: 1rem 0 1rem;
+}
+
+#senha2, #senha1 {
+    height: 100%;
+}
+
+#verSenha {
+    height: 100%;
+}
+
+.container button.hidden {
     background-color: transparent;
     border-color: #fff;
 }
@@ -72,16 +86,16 @@ body {
     flex-direction: column;
     padding: 0 40px;
     height: 100%;
+    width: 100%;
 }
 
 .container input {
     background-color: #eee;
     border: none;
-    margin: 8px 0;
     padding: 10px 15px;
     font-size: 13px;
     border-radius: 8px;
-    width: 100%;
+    width: 80%;
     outline: none;
 }
 
@@ -116,19 +130,20 @@ body {
     text-decoration: none;
 }
 
-.container.active .sign-up{
+.container.active .sign-up {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
     animation: move 0.6s;
 }
 
-@keyframes move{
+@keyframes move {
     0%,
     49.99% {
         opacity: 0;
         z-index: 1;
     }
+
     50%,
     100% {
         opacity: 1;
@@ -168,7 +183,6 @@ body {
 
 .container.active .toggle {
     transform: translateX(50%);
-
 }
 
 .toggle-panel {
@@ -203,8 +217,9 @@ body {
     transform: translateX(200%);
 }
 
-.botao {
-    width: 175px;
+
+#tamanhoBotao {
+    width: 40%;
 }
 
 .btn1 {
@@ -215,11 +230,9 @@ body {
     display: none;
 }
 
-.error{
+.error {
     display: flex;
     align-items: center;
     justify-content: center;
     color: red;
-
 }
-

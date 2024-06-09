@@ -9,6 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_SESSION['usuario_validado'] == true && $_SESSION['ProprietarioLocador'] == 'Proprietario' ) {
         $id_ocupante = isset($_SESSION['UsuarioId']) ? $_SESSION['UsuarioId'] : null;
 
+        $data_entrada = DateTime::createFromFormat('d/m/Y', $_POST['dataEntrada']);
+        $data_saida = DateTime::createFromFormat('d/m/Y', $_POST['dataSaida']);
+
         $query_verificar_disponibilidade = "SELECT * FROM alugar WHERE EspId = :id_anuncio AND ((AluDataEntrada <= :data_saida) AND (AluDataSaida >= :data_entrada))";
         $stmt_verificar_disponibilidade = $conexao->prepare($query_verificar_disponibilidade);
         $stmt_verificar_disponibilidade->bindParam(':id_anuncio', $id_anuncio, PDO::PARAM_INT);

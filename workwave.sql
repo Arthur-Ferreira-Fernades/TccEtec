@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09/06/2024 às 05:42
+-- Tempo de geração: 09/06/2024 às 07:24
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.0.28
 
@@ -50,9 +50,7 @@ INSERT INTO `alugar` (`AluId`, `AluDataEntrada`, `AluDataSaida`, `OcuId`, `EspId
 (24, '2024-06-29', '2024-06-30', 2, 35, NULL, NULL, NULL, NULL),
 (25, '2024-06-15', '2024-06-16', 2, 35, NULL, NULL, NULL, NULL),
 (29, '2024-06-05', '2024-06-06', 1, 35, NULL, NULL, NULL, NULL),
-(37, '2024-06-07', '2024-06-08', 3, 36, NULL, NULL, NULL, NULL),
-(55, '2024-06-12', '2024-06-13', 1, 38, NULL, 12, '12:12:00', 70.00),
-(56, '2024-06-18', '2024-06-20', 1, 38, NULL, 12, '12:12:00', 140.00);
+(60, '2024-06-10', '2024-06-12', 1, 38, NULL, 12, '12:12:00', 140.00);
 
 -- --------------------------------------------------------
 
@@ -131,7 +129,8 @@ CREATE TABLE `ocupante` (
 
 INSERT INTO `ocupante` (`OcuId`, `OcuNome`, `OcuSenha`, `OcuEmail`, `OcuTelefone`) VALUES
 (1, 'Arthur', '123', 'arthur@123.com', '11986599562'),
-(3, 'Rita Ferreira', '123', 'rita@123.com', '11912345678');
+(3, 'Rita Ferreira', '123', 'rita@123.com', '11912345678'),
+(4, 'sarah ferreira', 'arthur', 'sarahalmoya@gmail.com', '11998844335');
 
 -- --------------------------------------------------------
 
@@ -168,7 +167,8 @@ INSERT INTO `proprietario` (`ProId`, `ProNome`, `ProSenha`, `ProEmail`, `ProTele
 (1, 'Arthur', '123', 'arthur@123.com', '11986599562'),
 (4, 'Guilherme Nunes', '123', 'guilherme@123.com', '11998877665'),
 (5, 'Sarah Moya', '123', 'sarah@123.com', '11922334455'),
-(6, 'Eduarda Ferreira', '123', 'eduarda@123.com', '11987654321');
+(6, 'Eduarda Ferreira', '123', 'eduarda@123.com', '11987654321'),
+(7, 'BIARADU', 'valen', 'gieju@gmail.com', '11986599562');
 
 -- --------------------------------------------------------
 
@@ -211,7 +211,9 @@ INSERT INTO `servamenidades` (`SerId`, `SerWifi`, `SerArcondicionado`, `SerBebed
 (28, 1, 1, 0, 1, 0, 51),
 (29, 1, 0, 1, 0, 0, 52),
 (30, 1, 0, 0, 0, 1, 53),
-(31, 0, 0, 0, 0, 0, 54);
+(31, 0, 0, 0, 0, 0, 54),
+(32, 0, 0, 0, 0, 0, 55),
+(33, 1, 0, 0, 0, 1, 56);
 
 --
 -- Índices para tabelas despejadas
@@ -274,13 +276,13 @@ ALTER TABLE `servamenidades`
 -- AUTO_INCREMENT de tabela `alugar`
 --
 ALTER TABLE `alugar`
-  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `AluId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT de tabela `espacodados`
 --
 ALTER TABLE `espacodados`
-  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `EspId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de tabela `favoritar`
@@ -292,7 +294,7 @@ ALTER TABLE `favoritar`
 -- AUTO_INCREMENT de tabela `ocupante`
 --
 ALTER TABLE `ocupante`
-  MODIFY `OcuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `OcuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `planosprecos`
@@ -304,13 +306,13 @@ ALTER TABLE `planosprecos`
 -- AUTO_INCREMENT de tabela `proprietario`
 --
 ALTER TABLE `proprietario`
-  MODIFY `ProId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ProId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `servamenidades`
 --
 ALTER TABLE `servamenidades`
-  MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `SerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Restrições para tabelas despejadas

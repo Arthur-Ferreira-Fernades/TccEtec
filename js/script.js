@@ -9,7 +9,3 @@ registerBtn.addEventListener('click', () => {
 voltarBtn.addEventListener('click', () => {
     container.classList.remove("active");
 });
-
-loginBtn.addEventListener('click', () => {
-    container.classList.remove("active");
-});

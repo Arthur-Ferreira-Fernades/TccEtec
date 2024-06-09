@@ -1,6 +1,5 @@
 <?php
 session_start();
-require('../validadores/EstaLogado.php');
 require('conectaBanco.php');
 
 ?>

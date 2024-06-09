@@ -1,6 +1,7 @@
 <?php
     session_start();
     require('../validadores/EstaLogado.php');
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,7 @@
             <img src="../img/user-logo.png" alt="">
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="AreaProprietario.php">Sua Area</a></li>
+            <li><a class="dropdown-item" href="AreaProprietario.php">Sua Área</a></li>
             <li><a class="dropdown-item" href="../Validadores/LogOff.php">Sair</a></li>
         </ul>
     </div>
@@ -43,6 +44,12 @@
                 <div class="cardLogin">
                     <img src="../img/login-de-usuario.png" alt="" width = "150px">
                     <p>Aqui você pode alterar e revisar suas informações pessoais.</p>
+                </div>
+            </a>
+            <a href="AlugueisProprietario.php" class = "link">
+                <div class="cardLogin">
+                    <img src="../img/money-management.png" alt="" width = "150px">
+                    <p>Aqui você pode ver todos os alugueis dos seus espaços.</p>
                 </div>
             </a>
         </div>
