@@ -321,22 +321,14 @@ ALTER TABLE `servamenidades`
 --
 -- Restrições para tabelas `espacodados`
 --
-ALTER TABLE `espacodados`
-  ADD CONSTRAINT `SerId` FOREIGN KEY (`SerId`) REFERENCES `servamenidades` (`SerId`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `favoritar`
 --
-ALTER TABLE `favoritar`
-  ADD CONSTRAINT `favoritar_ibfk_1` FOREIGN KEY (`EspId`) REFERENCES `espacodados` (`EspId`),
-  ADD CONSTRAINT `favoritar_ibfk_2` FOREIGN KEY (`OcuId`) REFERENCES `ocupante` (`OcuId`);
 
 --
 -- Restrições para tabelas `servamenidades`
 --
-ALTER TABLE `servamenidades`
-  ADD CONSTRAINT `EspId` FOREIGN KEY (`EspId`) REFERENCES `espacodados` (`EspId`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
