@@ -133,10 +133,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmtUpdateFalse->bindParam(':anuncio_id', $anuncio_id);
             $stmtUpdateFalse->execute();
 
+           
             if (isset($_POST['recursos']) && is_array($_POST['recursos']) && !empty($_POST['recursos'])) {
                 foreach ($_POST['recursos'] as $recurso) {
                     // Verifica se o checkbox correspondente está marcado
                     $valor_servico = true;
+
+                   
             
                     // Atualizar a coluna correspondente na tabela Servamenidades
                     $queryUpdate = "UPDATE Servamenidades SET `$recurso` = :valor_servico WHERE EspId = :anuncio_id";
@@ -144,7 +147,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmtUpdate->bindParam(':valor_servico', $valor_servico, PDO::PARAM_BOOL); // Atribuir um valor booleano
                     $stmtUpdate->bindParam(':anuncio_id', $anuncio_id);
                     $stmtUpdate->execute();
-                    $mensagem .= "<div class='alert alert-success' role='alert'>$recurso atualizado com sucesso.</div>";
+
+                    $recurso_dict = array(
+                        "SerWifi" => "Wifi",
+                        "SerArCondicionado" => "Ar Condicionado",
+                        "SerBebedouro" => "Bebedouro",
+                        "SerComputadores" => "Computadores",
+                        "SerCozinha" => "Cozinha"
+                    );
+        
+
+                    $recurso_traduzido = $recurso_dict[$recurso];
+
+
+                    $mensagem .= "<div class='alert alert-success' role='alert'>$recurso_traduzido atualizado com sucesso.</div>";
                 }
             }
             
