@@ -59,14 +59,28 @@ require('../validadores/EstaLogado.php');
         </div>
 
         <div class="Borda">
-
             <div class="rodape-div">
-
                 <div class="logo-2">
                     <img src="../img/WorkWave-removebg-preview (1).png" alt="" width="95px" height="95px">
                     <img src="../img/WorkWave__2_-removebg-preview.png" alt="" width="100px" height="100px">
                 </div>
-
+                <div class="Social">
+                    <div class="Media">
+                        <p>Arthur Ferreira</p>
+                        <a class="btn" href="https://instagram.com/kingarthur_55/">
+                            <img src="../img/instagram.png" alt="" width="20" height="20">
+                            <p>instagram</p>
+                        </a>
+                        <a class="btn" href="https://www.linkedin.com/in/arthur-ferreira-02921a249/">
+                            <img src="../img/linkedin.png" alt="" width="20" height="20">
+                            <p>linkedin</p>
+                        </a>
+                        <a class="btn" href="https://github.com/Arthur-Ferreira-Fernades">
+                            <img src="../img/github.png" alt="" width="20" height="20">
+                            <p>github</p>
+                        </a>
+                    </div>
+                </div>
                 <div class="Social">
                     <div class="Media">
                         <a class="btn" href="#">
@@ -83,7 +97,6 @@ require('../validadores/EstaLogado.php');
                         </a>
                     </div>
                 </div>
-
                 <div class="Social">
                     <div class="Media">
                         <a class="btn" href="#">
@@ -100,28 +113,8 @@ require('../validadores/EstaLogado.php');
                         </a>
                     </div>
                 </div>
-
-                <div class="Social">
-                    <div class="Media">
-                        <a class="btn" href="#">
-                            <img src="../img/instagram.png" alt="" width="20" height="20">
-                            <p>instagram</p>
-                        </a>
-                        <a class="btn" href="#">
-                            <img src="../img/linkedin.png" alt="" width="20" height="20">
-                            <p>linkedin</p>
-                        </a>
-                        <a class="btn" href="#">
-                            <img src="../img/github.png" alt="" width="20" height="20">
-                            <p>github</p>
-                        </a>
-                    </div>
-                </div>
-
             </div>
-
         </div>
-
         <div class="data">
             <p>Criado em 09/05/2024</p>
         </div>
