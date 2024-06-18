@@ -83,6 +83,7 @@ require('../validadores/EstaLogado.php');
                 </div>
                 <div class="Social">
                     <div class="Media">
+                        <p>Guilherme Nunes</p>
                         <a class="btn" href="#">
                             <img src="../img/instagram.png" alt="" width="20" height="20">
                             <p>instagram</p>
@@ -91,7 +92,7 @@ require('../validadores/EstaLogado.php');
                             <img src="../img/linkedin.png" alt="" width="20" height="20">
                             <p>linkedin</p>
                         </a>
-                        <a class="btn" href="#">
+                        <a class="btn" href="https://github.com/Guinds">
                             <img src="../img/github.png" alt="" width="20" height="20">
                             <p>github</p>
                         </a>

@@ -275,31 +275,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="Social">
                     <div class="Media">
-                        <a class="btn" href="#">
+                        <p>Guilherme Nunes</p>
+                        <a class="btn" href="https://instagram.com/guinds17/">
                             <img src="img/instagram.png" alt="" width="20" height="20">
                             <p>instagram</p>
                         </a>
-                        <a class="btn" href="#">
+                        <a class="btn" href="https://www.linkedin.com/in/guilherme-nunes-b425672bb/">
                             <img src="img/linkedin.png" alt="" width="20" height="20">
                             <p>linkedin</p>
                         </a>
-                        <a class="btn" href="#">
-                            <img src="img/github.png" alt="" width="20" height="20">
-                            <p>github</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="Social">
-                    <div class="Media">
-                        <a class="btn" href="#">
-                            <img src="img/instagram.png" alt="" width="20" height="20">
-                            <p>instagram</p>
-                        </a>
-                        <a class="btn" href="#">
-                            <img src="img/linkedin.png" alt="" width="20" height="20">
-                            <p>linkedin</p>
-                        </a>
-                        <a class="btn" href="#">
+                        <a class="btn" href="https://github.com/Guinds">
                             <img src="img/github.png" alt="" width="20" height="20">
                             <p>github</p>
                         </a>

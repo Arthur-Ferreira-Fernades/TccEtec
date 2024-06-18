@@ -103,11 +103,9 @@
     </div>
 
     <footer class="rodape" id="contato">
-        
         <div class="contato">
             <p>Contatos</p>
         </div>
-        
         <div class="Borda">
             <div class="rodape-div">
                 <div class="logo-2">
@@ -133,31 +131,16 @@
                 </div>
                 <div class="Social">
                     <div class="Media">
-                        <a class="btn" href="#">
+                        <p>Guilherme Nunes</p>
+                        <a class="btn" href="https://instagram.com/guinds17/">
                             <img src="img/instagram.png" alt="" width="20" height="20">
                             <p>instagram</p>
                         </a>
-                        <a class="btn" href="#">
+                        <a class="btn" href="https://www.linkedin.com/in/guilherme-nunes-b425672bb/">
                             <img src="img/linkedin.png" alt="" width="20" height="20">
                             <p>linkedin</p>
                         </a>
-                        <a class="btn" href="#">
-                            <img src="img/github.png" alt="" width="20" height="20">
-                            <p>github</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="Social">
-                    <div class="Media">
-                        <a class="btn" href="#">
-                            <img src="img/instagram.png" alt="" width="20" height="20">
-                            <p>instagram</p>
-                        </a>
-                        <a class="btn" href="#">
-                            <img src="img/linkedin.png" alt="" width="20" height="20">
-                            <p>linkedin</p>
-                        </a>
-                        <a class="btn" href="#">
+                        <a class="btn" href="https://github.com/Guinds">
                             <img src="img/github.png" alt="" width="20" height="20">
                             <p>github</p>
                         </a>
@@ -168,7 +151,6 @@
         <div class="data">
             <p>Criado em 09/05/2024</p>
         </div>
-
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
