@@ -3,15 +3,21 @@
     require('../validadores/conectaBanco.php');
     require('../validadores/EstaLogado.php');
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['anuncio_id'])) {
+            $anuncio_id = $_POST['anuncio_id'];
+        }
+    }
+
     if (isset($_SESSION['UsuarioId'])) {
         $query = "SELECT EspacoDados.EspId, EspacoDados.EspNome, 
                 ServAmenidades.SerId, ServAmenidades.SerWifi, ServAmenidades.SerArcondicionado, 
                 ServAmenidades.SerBebedouro, ServAmenidades.SerCozinha, ServAmenidades.SerComputadores
                 FROM EspacoDados
                 LEFT JOIN ServAmenidades ON EspacoDados.EspId = ServAmenidades.EspId
-                WHERE EspacoDados.ProId = :UsuarioId";
+                WHERE EspacoDados.EspId = :anuncio_id";
         $stmt = $conexao->prepare($query);
-        $stmt->bindValue(':UsuarioId', $_SESSION['UsuarioId']);
+        $stmt->bindValue(':anuncio_id', $anuncio_id);
         $stmt->execute();
         $anuncios = $stmt->fetchAll();
     } else {
@@ -19,6 +25,7 @@
         header("Location: login.php");
         exit();
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,10 +61,10 @@
         <h2 class="mb-4 text-center">Atualizar Anúncio</h2>
         <form action="../validadores/ValidaAtualizacao.php" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="anuncio" class="form-label">Selecione o Anúncio:</label>
+                <label for="anuncio" class="form-label">Anuncio selecionado:</label>
                 <select class="form-select" name="anuncio" id="anuncio">
                     <?php foreach ($anuncios as $anuncio) : ?>
-                        <option value="<?php echo $anuncio['EspId']; ?>"><?php echo $anuncio['EspNome']; ?></option>
+                        <option value="<?php echo $anuncio_id; ?>"><?php echo $anuncio['EspNome']; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

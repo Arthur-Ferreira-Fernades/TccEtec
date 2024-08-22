@@ -59,7 +59,7 @@
                     $contador = 0; // Inicializa o contador
                     foreach ($anuncios as $anuncio) :
                         if ($contador % 4 == 0) { // Adiciona uma nova linha a cada 4 anúncios
-                            echo '<div class="row g-3 mt-2">';
+                            echo '<div class="row g-3 mt-2 mb-4">';
                         }
                     ?>
                 
@@ -75,7 +75,10 @@
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-between">
-                                    <button type="submit" class="btn btn-primary me-3"><a href="EditarAnuncio.php" class="text-white">Atualizar Anúncio</a></button>
+                                        <form action="EditarAnuncio.php" method = "POST" class = "me-2">
+                                            <input type="hidden" name="anuncio_id" value="<?php echo $anuncio['EspId']; ?>">
+                                            <button type="submit" class = "btn btn-primary">Atualizar Anuncio</button>
+                                        </form>    
                                     <?php if ($anuncio['EspCongelado'] == 1): ?>
                                         <form action="../validadores/DescongelarAnuncio.php" method="POST">
                                             <input type="hidden" name="anuncio_id" value="<?php echo $anuncio['EspId']; ?>">

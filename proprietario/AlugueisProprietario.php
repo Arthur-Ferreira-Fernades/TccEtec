@@ -85,6 +85,7 @@ if (isset($_SESSION['usuario_validado']) && $_SESSION['usuario_validado'] == tru
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $aluguel['EspNome']; ?></h5>
+                                <p class = "card-text mb-1">Id do Aluguel: <?php echo $aluguel['AluId']; ?></p>
                                 <p class="card-text mb-1">Ocupante: <?php echo $aluguel['OcuNome']; ?></p>
                                 <p class="card-text mb-1">Data de entrada: <?php echo date('d/m/Y', strtotime($aluguel['AluDataEntrada'])); ?></p>
                                 <p class="card-text mb-1">Data de saída: <?php echo date('d/m/Y', strtotime($aluguel['AluDataSaida'])); ?></p>
